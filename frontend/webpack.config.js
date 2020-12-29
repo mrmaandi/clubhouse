@@ -9,6 +9,7 @@ module.exports = {
     devServer: {
         contentBase: path.join(__dirname, 'build'),
         compress: true,
+        port: 3333,
     },
     module: {
         rules: [
@@ -33,7 +34,7 @@ module.exports = {
         new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, 'src', 'index.html'),
-            favicon: './src/asset/favicon.ico',
+            favicon: './src/assets/favicon.ico',
         }),
     ],
 };

@@ -1,7 +1,8 @@
 import React from 'react';
+import Wrapper from "./component/Wrapper";
 
 function App() {
-    return <>Test</>;
+    return <Wrapper />
 }
 
 export default App;
