@@ -1,6 +1,7 @@
 import React from 'react';
-import {Breadcrumb, DatePicker, Layout, Menu} from "antd";
-import {Content, Footer, Header} from "antd/es/layout/layout";
+import { Layout } from 'antd';
+import { Footer, Header } from 'antd/es/layout/layout';
+import MainContent from './MainContent';
 
 class Wrapper extends React.Component {
     render(): JSX.Element {
@@ -8,15 +9,9 @@ class Wrapper extends React.Component {
             <Layout>
                 <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
                     <div className="logo" />
-                    <Menu theme="dark" mode="horizontal">
-                        <Menu.Item key="1">Clubhouse</Menu.Item>
-                    </Menu>
+                    Clubhouse
                 </Header>
-                <Content className="site-layout" style={{ marginTop: 64 }}>
-                    <div className="site-layout-background" style={{ padding: 24, minHeight: 380 }}>
-                        Content
-                    </div>
-                </Content>
+                <MainContent />
                 <Footer style={{ textAlign: 'center' }}>Clubhouse ©2020 Created by Villem</Footer>
             </Layout>
         );

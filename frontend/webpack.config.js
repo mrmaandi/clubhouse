@@ -1,9 +1,9 @@
 const path = require('path');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const {getThemeVariables} = require('antd/dist/theme');
+const { getThemeVariables } = require('antd/dist/theme');
 
 module.exports = {
     entry: './src/index.tsx',
@@ -26,30 +26,34 @@ module.exports = {
             },
             {
                 test: /\.s[ac]ss$/i,
-                use: [
-                    'style-loader',
-                    'css-loader',
-                    'sass-loader',
-                ],
+                use: ['style-loader', 'css-loader', 'sass-loader'],
             },
             {
                 test: /\.less$/,
-                use: [{
-                    loader: 'style-loader',
-                }, {
-                    loader: 'css-loader',
-                }, {
-                    loader: 'less-loader',
-                    options: {
-                        lessOptions: {
-                            modifyVars: getThemeVariables({
-                                dark: true,
-                                compact: false,
-                            }),
-                            javascriptEnabled: true,
+                use: [
+                    {
+                        loader: 'style-loader',
+                    },
+                    {
+                        loader: 'css-loader',
+                    },
+                    {
+                        loader: 'less-loader',
+                        options: {
+                            lessOptions: {
+                                modifyVars: getThemeVariables({
+                                    dark: true,
+                                    compact: false,
+                                }),
+                                javascriptEnabled: true,
+                            },
                         },
                     },
-                }],
+                ],
+            },
+            {
+                test: /\.mp4$/,
+                use: 'file-loader?name=videos/[name].[ext]',
             },
         ],
     },
@@ -64,7 +68,7 @@ module.exports = {
     },
     plugins: [
         new ForkTsCheckerWebpackPlugin(),
-        new CleanWebpackPlugin({cleanStaleWebpackAssets: false}),
+        new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, 'src', 'index.html'),
             favicon: './src/assets/favicon.ico',

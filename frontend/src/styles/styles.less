@@ -1,7 +1,59 @@
+
 .logo {
   width: 120px;
   height: 31px;
   background: rgba(255, 255, 255, 0.2);
   margin: 16px 24px 16px 0;
   float: left;
+}
+
+.Countdown{
+  margin: 10px auto;
+  padding-bottom: 20px;
+  font-family: sans-serif;
+  text-align: center;
+  color: white;
+}
+
+.Countdown-col{
+  display: inline-block;
+}
+
+.Countdown-col-element{
+  display: inline-block;
+  margin: 0 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.Countdown-col-element strong{
+  font-size: 50px;
+}
+
+.backdrop {
+  position:relative;
+}
+
+.backdrop video {
+  position:relative;
+  z-index:0;
+  object-fit: cover;
+  max-height: 30vh;
+  width: 100%;
+}
+
+.videoTag {
+  object-fit: cover;
+  width: inherit;
+  height: inherit;
+  -o-filter: blur(10px);
+  filter: blur(10px);
+  transform: scale(1.04);
+}
+
+.overlay {
+  position:absolute;
+  top:0;
+  left:0;
+  z-index:1;
 }
