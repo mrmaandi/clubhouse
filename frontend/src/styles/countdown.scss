@@ -1,0 +1,33 @@
+$xs: 0px;
+$sm: 600px;
+$md: 960px;
+$lg: 1280px;
+$xl: 1920px;
+
+.Countdown{
+  font-family: sans-serif;
+  text-align: center;
+  color: white;
+}
+
+.Countdown-col{
+  display: inline-block;
+}
+
+.Countdown-col-element{
+  margin: 0 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.Countdown-col-element strong{
+  font-size: 30px;
+
+  @media (min-width: $md) {
+    font-size: 50px;
+  }
+
+  @media (min-width: $sm) {
+    font-size: 40px;
+  }
+}

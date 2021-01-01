@@ -1,0 +1,15 @@
+@import "./countdown";
+@import "./backdrop";
+@import "./header";
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.events-section {
+  position: relative;
+  display: block;
+  z-index: 1;
+  background-color: black;
+}

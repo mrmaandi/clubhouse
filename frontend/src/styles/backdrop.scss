@@ -1,0 +1,32 @@
+.backdrop {
+  position:relative;
+}
+
+.backdrop video {
+  position:relative;
+  object-fit: cover;
+  height: 300px;
+  width: 100%;
+}
+
+.videoTag {
+  object-fit: cover;
+  width: inherit;
+  height: inherit;
+  filter: blur(10px);
+  transform: scale(1.1);
+  z-index: 0;
+}
+
+.overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  p {
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+  }
+}

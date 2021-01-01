@@ -3,7 +3,6 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { getThemeVariables } = require('antd/dist/theme');
 
 module.exports = {
     entry: './src/index.tsx',
@@ -29,31 +28,12 @@ module.exports = {
                 use: ['style-loader', 'css-loader', 'sass-loader'],
             },
             {
-                test: /\.less$/,
-                use: [
-                    {
-                        loader: 'style-loader',
-                    },
-                    {
-                        loader: 'css-loader',
-                    },
-                    {
-                        loader: 'less-loader',
-                        options: {
-                            lessOptions: {
-                                modifyVars: getThemeVariables({
-                                    dark: true,
-                                    compact: false,
-                                }),
-                                javascriptEnabled: true,
-                            },
-                        },
-                    },
-                ],
-            },
-            {
                 test: /\.mp4$/,
                 use: 'file-loader?name=videos/[name].[ext]',
+            },
+            {
+                test: /\.(woff|woff2|eot|ttf|svg)$/,
+                loader: 'file-loader',
             },
         ],
     },
