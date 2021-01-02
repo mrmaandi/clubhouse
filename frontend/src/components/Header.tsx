@@ -6,11 +6,11 @@ class Header extends React.Component {
     render(): JSX.Element {
         return (
             <div className="main-header">
-                <AppBar position="sticky" color="inherit">
+                <AppBar position="static" color="inherit">
                     <Container maxWidth="lg">
                         <Toolbar>
                             <img src={logo} alt="Clubhouse" />
-                            <Typography variant="h5">Clubhouse</Typography>
+                            <Typography variant="h4">Clubhouse</Typography>
                         </Toolbar>
                     </Container>
                 </AppBar>

@@ -1,6 +1,7 @@
 import React from 'react';
 import MainContent from './MainContent';
 import Header from './Header';
+import Footer from './Footer';
 
 class Wrapper extends React.Component {
     render(): JSX.Element {
@@ -8,6 +9,7 @@ class Wrapper extends React.Component {
             <>
                 <Header />
                 <MainContent />
+                <Footer />
             </>
         );
     }

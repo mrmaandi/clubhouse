@@ -1,4 +1,5 @@
 import React from 'react';
+import { Typography } from '@material-ui/core';
 
 interface ICountdownProps {
     date: Date;
@@ -92,28 +93,36 @@ class Countdown extends React.Component<ICountdownProps, ICountdownState> {
                 <span className="Countdown-col">
                     <span className="Countdown-col-element">
                         <strong>{this.addLeadingZeros(countDown.days)}</strong>
-                        <span>{countDown.days === 1 ? 'Day' : 'Days'}</span>
+                        <Typography align="center" color="textSecondary" variant="subtitle1">
+                            {countDown.days === 1 ? 'Day' : 'Days'}
+                        </Typography>
                     </span>
                 </span>
 
                 <span className="Countdown-col">
                     <span className="Countdown-col-element">
                         <strong>{this.addLeadingZeros(countDown.hours)}</strong>
-                        <span>Hours</span>
+                        <Typography align="center" color="textSecondary" variant="subtitle1">
+                            Hours
+                        </Typography>
                     </span>
                 </span>
 
                 <span className="Countdown-col">
                     <span className="Countdown-col-element">
                         <strong>{this.addLeadingZeros(countDown.min)}</strong>
-                        <span>Min</span>
+                        <Typography align="center" color="textSecondary" variant="subtitle1">
+                            Min
+                        </Typography>
                     </span>
                 </span>
 
                 <span className="Countdown-col">
                     <span className="Countdown-col-element">
                         <strong>{this.addLeadingZeros(countDown.sec)}</strong>
-                        <span>Sec</span>
+                        <Typography align="center" color="textSecondary" variant="subtitle1">
+                            Sec
+                        </Typography>
                     </span>
                 </span>
             </div>

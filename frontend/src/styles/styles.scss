@@ -15,8 +15,18 @@ html, body {
 }
 
 .twitch-embed {
-  height: 30vh;
+  height: 40vh;
 }
 
+.audio-player {
+  z-index: 9999;
+}
 
+.title-padding {
+  padding: 30px 0 15px 0;
+}
 
+.main-footer {
+  display: block;
+  height: 100px;
+}

@@ -13,7 +13,6 @@ class TwitchEmbed extends React.Component {
                 channel: CHANNEL_NAME,
                 width: '100%',
                 height: '100%',
-                layout: 'video',
             });
         });
         document.body.appendChild(script);

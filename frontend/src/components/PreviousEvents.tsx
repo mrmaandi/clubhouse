@@ -1,5 +1,5 @@
 import React from 'react';
-import { GridList, GridListTile, GridListTileBar, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import AudioPlayer from './AudioPlayer';
 import { ReactJkMusicPlayerAudioListProps } from 'react-jinke-music-player';
 
@@ -12,6 +12,7 @@ interface IEventSubmission {
 interface IPreviousEvent {
     id?: string;
     name?: string;
+    start: number;
     description?: IEventSubmission[];
 }
 
@@ -60,41 +61,36 @@ class PreviousEvents extends React.Component<unknown, IPreviousEventsState> {
 
         return (
             <>
-                <AudioPlayer audioLists={this.state.audioList} />
-                <Typography variant="h6" style={{ paddingTop: '15px' }}>
+                <div className="audio-player">
+                    <AudioPlayer audioLists={this.state.audioList} />
+                </div>
+
+                <Typography variant="h5" className="title-padding">
                     Previous Events
                 </Typography>
 
-                <div
-                    style={{
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        justifyContent: 'space-around',
-                        overflow: 'hidden',
-                    }}
-                >
-                    <GridList
-                        style={{
-                            flexWrap: 'nowrap',
-                            // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
-                            transform: 'translateZ(0)',
-                        }}
-                        cellHeight={180}
-                        cols={3.5}
-                    >
-                        {this.state.previousEvents.map((previousEvent: IPreviousEvent) => {
-                            const cover = previousEvent.description?.filter(
-                                (submission: IEventSubmission) => submission.type === 'art',
-                            )[0].fileUrl;
+                <div className="playlist-wrapper">
+                    {this.state.previousEvents.map((previousEvent: IPreviousEvent) => {
+                        const cover = previousEvent.description?.filter(
+                            (submission: IEventSubmission) => submission.type === 'art',
+                        )[0].fileUrl;
 
-                            return (
-                                <GridListTile key={previousEvent.id} onClick={this.onChangeAudioList(previousEvent)}>
-                                    <img src={cover} alt={previousEvent.name} />
-                                    <GridListTileBar title={previousEvent.name} />
-                                </GridListTile>
-                            );
-                        })}
-                    </GridList>
+                        return (
+                            <div>
+                                <img
+                                    src={cover}
+                                    alt={previousEvent.name}
+                                    onClick={this.onChangeAudioList(previousEvent)}
+                                />
+                                <Typography variant="subtitle1" align="center">
+                                    {previousEvent.name}
+                                </Typography>
+                                <Typography variant="subtitle2" align="center" color="textSecondary">
+                                    {previousEvent.start && new Date(previousEvent.start).toUTCString()}
+                                </Typography>
+                            </div>
+                        );
+                    })}
                 </div>
             </>
         );

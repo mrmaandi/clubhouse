@@ -1,7 +1,7 @@
 import React from 'react';
 import Countdown from './Countdown';
 import sample from '../assets/club.mp4';
-import { Container, Divider, Typography } from '@material-ui/core';
+import { Box, Container, Typography } from '@material-ui/core';
 import TwitchEmbed from './TwitchEmbed';
 import PreviousEvents from './PreviousEvents';
 
@@ -35,9 +35,7 @@ class MainContent extends React.Component<any, IMainContentState> {
         return (
             <>
                 <div className="backdrop">
-                    <Container maxWidth="lg" disableGutters={true}>
-                        {this.isEventActive() ? this.activeEventView() : this.eventCountdownView()}
-                    </Container>
+                    {this.isEventActive() ? this.activeEventView() : this.eventCountdownView()}
                 </div>
                 <div className="events-section">
                     <Container maxWidth="lg">
@@ -62,7 +60,11 @@ class MainContent extends React.Component<any, IMainContentState> {
     }
 
     private activeEventView(): JSX.Element {
-        return <TwitchEmbed />;
+        return (
+            <Container maxWidth="lg">
+                <TwitchEmbed />
+            </Container>
+        );
     }
 
     private eventCountdownView(): JSX.Element {
@@ -72,7 +74,11 @@ class MainContent extends React.Component<any, IMainContentState> {
                     <source src={sample} type="video/mp4" />
                 </video>
                 <div className="overlay">
-                    <p>Next event in</p>
+                    <Box fontWeight="500" fontSize={24}>
+                        <Typography align="center" color="textSecondary">
+                            New Production Challenge In:
+                        </Typography>
+                    </Box>
                     {!this.state.event ? <>Loading</> : <Countdown date={new Date(this.state.event.start)} />}
                 </div>
             </>

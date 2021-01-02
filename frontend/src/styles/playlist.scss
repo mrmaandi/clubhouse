@@ -1,7 +1,23 @@
 .playlist-wrapper {
+  display:flex;
+  overflow-x:auto;
+  flex-wrap: nowrap;
 
 }
 
-.album {
+.playlist-wrapper div {
+  flex: 0 0 auto;
+  box-sizing:border-box;
+  margin-left: 20px;
 
+  img {
+    border-radius: 5px;
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+  }
+}
+
+.playlist-wrapper div:first-child {
+  margin-left: 0;
 }
