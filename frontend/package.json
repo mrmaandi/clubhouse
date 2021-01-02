@@ -31,6 +31,8 @@
     "prettier": "^2.2.1",
     "sass": "^1.30.0",
     "sass-loader": "^10.1.0",
+    "less": "^3.13.1",
+    "less-loader": "^7.2.1",
     "style-loader": "^2.0.0",
     "ts-loader": "^8.0.12",
     "url-loader": "^4.1.1",
@@ -49,6 +51,7 @@
     "node-sass": "^5.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-jinke-music-player": "^4.19.1",
     "regenerator-runtime": "^0.13.7",
     "typescript": "^4.1.3"
   },

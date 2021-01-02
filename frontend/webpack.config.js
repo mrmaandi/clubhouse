@@ -28,11 +28,33 @@ module.exports = {
                 use: ['style-loader', 'css-loader', 'sass-loader'],
             },
             {
+                test: /\.less$/,
+                use: [
+                    {
+                        loader: 'style-loader',
+                    },
+                    {
+                        loader: 'css-loader',
+                    },
+                    {
+                        loader: 'less-loader',
+                        options: {
+                            lessOptions: {
+                                javascriptEnabled: true,
+                                modifyVars: {
+                                    hack: `true; @import "./src/styles/player.less";`,
+                                },
+                            },
+                        },
+                    },
+                ],
+            },
+            {
                 test: /\.mp4$/,
                 use: 'file-loader?name=videos/[name].[ext]',
             },
             {
-                test: /\.(woff|woff2|eot|ttf|svg)$/,
+                test: /\.(woff|woff2|eot|ttf|svg|png)$/,
                 loader: 'file-loader',
             },
         ],
@@ -51,7 +73,7 @@ module.exports = {
         new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, 'src', 'index.html'),
-            favicon: './src/assets/favicon.ico',
+            favicon: './src/assets/monke.png',
         }),
         new MiniCssExtractPlugin(),
     ],
