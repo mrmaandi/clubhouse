@@ -1,9 +1,17 @@
 import React from 'react';
 import Countdown from './Countdown';
 import sample from '../assets/club.mp4';
+import { Container, Divider, Typography } from '@material-ui/core';
+import TwitchEmbed from './TwitchEmbed';
+import PreviousEvents from './PreviousEvents';
+
+interface IEvent {
+    start: number;
+    end: number;
+}
 
 interface IMainContentState {
-    date?: number;
+    event?: IEvent;
 }
 
 class MainContent extends React.Component<any, IMainContentState> {
@@ -16,22 +24,57 @@ class MainContent extends React.Component<any, IMainContentState> {
     componentDidMount(): void {
         fetch('http://localhost:8080/calendar/next', { mode: 'cors' })
             .then((response) => response.json())
-            .then((json) => this.setState({ date: json }));
+            .then((json) => this.setState({ event: json }));
     }
 
     render(): JSX.Element {
+        if (!this.state.event) {
+            return <></>;
+        }
+
         return (
             <>
                 <div className="backdrop">
-                    <video className="videoTag" autoPlay loop muted>
-                        <source src={sample} type="video/mp4" />
-                    </video>
-                    <div className="overlay">
-                        <p>Next event in</p>
-                        {!this.state.date ? <>Loading</> : <Countdown date={new Date(this.state.date)} />}
-                    </div>
+                    <Container maxWidth="lg" disableGutters={true}>
+                        {this.isEventActive() ? this.activeEventView() : this.eventCountdownView()}
+                    </Container>
                 </div>
-                <div className="events-section">Previous events</div>
+                <div className="events-section">
+                    <Container maxWidth="lg">
+                        <PreviousEvents />
+                    </Container>
+                </div>
+            </>
+        );
+    }
+
+    private isEventActive(): boolean {
+        if (!this.state.event) {
+            return false;
+        }
+
+        //fix this
+        if (new Date().getTime() > this.state.event.end) {
+            return false;
+        }
+
+        return new Date().getTime() > this.state.event.start && new Date().getTime() < this.state.event.end;
+    }
+
+    private activeEventView(): JSX.Element {
+        return <TwitchEmbed />;
+    }
+
+    private eventCountdownView(): JSX.Element {
+        return (
+            <>
+                <video className="videoTag" autoPlay loop muted>
+                    <source src={sample} type="video/mp4" />
+                </video>
+                <div className="overlay">
+                    <p>Next event in</p>
+                    {!this.state.event ? <>Loading</> : <Countdown date={new Date(this.state.event.start)} />}
+                </div>
             </>
         );
     }

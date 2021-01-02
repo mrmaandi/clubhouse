@@ -2,15 +2,15 @@ import React from 'react';
 import { AppBar, Container, Toolbar, Typography } from '@material-ui/core';
 import logo from '../assets/logo.svg';
 
-class MainHead extends React.Component {
+class Header extends React.Component {
     render(): JSX.Element {
         return (
             <div className="main-header">
                 <AppBar position="sticky" color="inherit">
-                    <Container maxWidth="md">
+                    <Container maxWidth="lg">
                         <Toolbar>
                             <img src={logo} alt="Clubhouse" />
-                            <Typography variant="h6">Clubhouse</Typography>
+                            <Typography variant="h5">Clubhouse</Typography>
                         </Toolbar>
                     </Container>
                 </AppBar>
@@ -19,4 +19,4 @@ class MainHead extends React.Component {
     }
 }
 
-export default MainHead;
+export default Header;

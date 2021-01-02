@@ -1,12 +1,12 @@
 import React from 'react';
 import MainContent from './MainContent';
-import MainHead from './MainHead';
+import Header from './Header';
 
 class Wrapper extends React.Component {
     render(): JSX.Element {
         return (
             <>
-                <MainHead />
+                <Header />
                 <MainContent />
             </>
         );

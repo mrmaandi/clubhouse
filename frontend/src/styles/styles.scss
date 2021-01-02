@@ -10,6 +10,9 @@ html, body {
 .events-section {
   position: relative;
   display: block;
-  z-index: 1;
-  background-color: black;
+  background-color: #303030;
+}
+
+.twitch-embed {
+  height: 30vh;
 }
