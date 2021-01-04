@@ -4,6 +4,7 @@ import sample from '../assets/club.mp4';
 import { Box, Container, Typography } from '@material-ui/core';
 import TwitchEmbed from './TwitchEmbed';
 import PreviousEvents from './PreviousEvents';
+import { BACKEND_URL } from '../helpers/Constants';
 
 interface IEvent {
     start: number;
@@ -22,7 +23,7 @@ class MainContent extends React.Component<any, IMainContentState> {
     }
 
     componentDidMount(): void {
-        fetch('http://localhost:8080/calendar/next', { mode: 'cors' })
+        fetch(BACKEND_URL + '/calendar/next', { mode: 'cors' })
             .then((response) => response.json())
             .then((json) => this.setState({ event: json }));
     }
