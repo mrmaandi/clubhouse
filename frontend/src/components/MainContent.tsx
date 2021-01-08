@@ -4,7 +4,7 @@ import sample from '../assets/club.mp4';
 import { Box, Container, Typography } from '@material-ui/core';
 import TwitchEmbed from './TwitchEmbed';
 import PreviousEvents from './PreviousEvents';
-import { BACKEND_URL } from '../helpers/Constants';
+import { API_URL } from '../helpers/Constants';
 
 interface IEvent {
     start: number;
@@ -23,16 +23,12 @@ class MainContent extends React.Component<any, IMainContentState> {
     }
 
     componentDidMount(): void {
-        fetch(BACKEND_URL + '/calendar/next', { mode: 'cors' })
+        fetch(API_URL + '/calendar/next', { mode: 'cors' })
             .then((response) => response.json())
-            .then((json) => this.setState({ event: json }));
+            .then((json) => this.setState({ event: json[0] }));
     }
 
     render(): JSX.Element {
-        if (!this.state.event) {
-            return <></>;
-        }
-
         return (
             <>
                 <div className="backdrop">
@@ -75,12 +71,22 @@ class MainContent extends React.Component<any, IMainContentState> {
                     <source src={sample} type="video/mp4" />
                 </video>
                 <div className="overlay">
-                    <Box fontWeight="500" fontSize={24}>
-                        <Typography align="center" color="textSecondary">
-                            New Production Challenge In:
-                        </Typography>
-                    </Box>
-                    {!this.state.event ? <>Loading</> : <Countdown date={new Date(this.state.event.start)} />}
+                    {!this.state.event ? (
+                        <Box fontWeight="500" fontSize={24}>
+                            <Typography align="center" color="textSecondary">
+                                Currently no new events are planned
+                            </Typography>
+                        </Box>
+                    ) : (
+                        <>
+                            <Box fontWeight="500" fontSize={24}>
+                                <Typography align="center" color="textSecondary">
+                                    New Production Challenge In:
+                                </Typography>
+                            </Box>
+                            {!this.state.event ? <>Loading</> : <Countdown date={new Date(this.state.event.start)} />}
+                        </>
+                    )}
                 </div>
             </>
         );

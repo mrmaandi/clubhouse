@@ -19,12 +19,12 @@ class AudioPlayer extends React.Component<IAudioPlayerProps> {
             <div key={this.props.audioLists[0].cover}>
                 <ReactJkMusicPlayer
                     audioLists={this.props.audioLists}
-                    responsive={false}
                     mode="full"
                     showMediaSession
                     remove={false}
                     showThemeSwitch={false}
                     showLyric={false}
+                    defaultPlayMode="shufflePlay"
                 />
             </div>
         );

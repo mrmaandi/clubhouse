@@ -23,10 +23,31 @@ html, body {
 }
 
 .title-padding {
-  padding: 30px 0 15px 0;
+  padding: 30px 0 5px 0;
 }
 
 .main-footer {
   display: block;
   height: 100px;
+}
+
+/* Works on Firefox */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: #545454 #1c1c1c;
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #696969;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: white;
+  border-radius: 20px;
+  border: 3px solid orange;
 }
