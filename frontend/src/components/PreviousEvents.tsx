@@ -2,7 +2,6 @@ import React from 'react';
 import { Box, Divider, FormControl, InputLabel, MenuItem, Select, Typography } from '@material-ui/core';
 import AudioPlayer from './AudioPlayer';
 import { ReactJkMusicPlayerAudioListProps } from 'react-jinke-music-player';
-import { API_URL } from '../helpers/Constants';
 
 interface IEventSubmission {
     user: string;
@@ -33,7 +32,7 @@ class PreviousEvents extends React.Component<unknown, IPreviousEventsState> {
     }
 
     componentDidMount(): void {
-        fetch(API_URL + '/calendar/previous', { mode: 'cors' })
+        fetch('/calendar/previous', { mode: 'cors' })
             .then((response) => response.json())
             .then((json) => {
                 const audioList: ReactJkMusicPlayerAudioListProps[] = [];
