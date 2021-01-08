@@ -32,7 +32,7 @@ class PreviousEvents extends React.Component<unknown, IPreviousEventsState> {
     }
 
     componentDidMount(): void {
-        fetch('/calendar/previous', { mode: 'cors' })
+        fetch('/api/calendar/previous', { mode: 'cors' })
             .then((response) => response.json())
             .then((json) => {
                 const audioList: ReactJkMusicPlayerAudioListProps[] = [];

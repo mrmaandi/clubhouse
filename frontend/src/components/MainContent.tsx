@@ -22,7 +22,7 @@ class MainContent extends React.Component<any, IMainContentState> {
     }
 
     componentDidMount(): void {
-        fetch('/calendar/next', { mode: 'cors' })
+        fetch('/api/calendar/next', { mode: 'cors' })
             .then((response) => response.json())
             .then((json) => this.setState({ event: json[0] }));
     }
