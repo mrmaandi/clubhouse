@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Divider, FormControl, InputLabel, MenuItem, Select, Typography } from '@material-ui/core';
+import { Box, Divider, Typography } from '@material-ui/core';
 import AudioPlayer from './AudioPlayer';
 import { ReactJkMusicPlayerAudioListProps } from 'react-jinke-music-player';
 
@@ -69,14 +69,14 @@ class PreviousEvents extends React.Component<unknown, IPreviousEventsState> {
                     <Typography variant="h5" className="title-padding">
                         Previous Events
                     </Typography>
-                    <FormControl style={{ minWidth: '150px', marginLeft: '20px' }}>
+                    {/*<FormControl style={{ minWidth: '150px', marginLeft: '20px' }}>
                         <InputLabel id="demo-simple-select-label">Filter By</InputLabel>
                         <Select labelId="demo-simple-select-label" id="demo-simple-select">
                             <MenuItem value={10}>Ten</MenuItem>
                             <MenuItem value={20}>Twenty</MenuItem>
                             <MenuItem value={30}>Thirty</MenuItem>
                         </Select>
-                    </FormControl>
+                    </FormControl>*/}
                 </Box>
 
                 <Divider light style={{ marginBottom: '20px' }} />
