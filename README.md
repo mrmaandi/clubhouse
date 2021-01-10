@@ -4,5 +4,5 @@
 
 Design https://www.figma.com/proto/0YcpFeK0pJKn4BCi3TRKcT/Untitled?node-id=20%3A67&scaling=min-zoom
 
-Prototype
-![Clubhouse](https://i.imgur.com/jbt7r4U.png)
+Prototype / Demo
+![Clubhouse](https://i.imgur.com/sJSwDTl.png)
