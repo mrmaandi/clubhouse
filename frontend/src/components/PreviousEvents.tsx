@@ -88,7 +88,6 @@ class PreviousEvents extends React.Component<unknown, IPreviousEventsState> {
                         })
                         .filter((previousEvent: IPreviousEvent) => previousEvent.description.length !== 0)
                         .map((previousEvent: IPreviousEvent) => {
-                            console.log(previousEvent.description);
                             if (!previousEvent.description) {
                                 return;
                             }
