@@ -1,23 +1,45 @@
+.events-section {
+  position: relative;
+  display: block;
+  background-color: #373a42;
+}
+
 .playlist-wrapper {
+  padding-bottom: 30px;
+}
+
+.playlist-flex {
   display:flex;
   overflow-x:auto;
   flex-wrap: nowrap;
-
 }
 
-.playlist-wrapper div {
+.playlist-flex div {
   flex: 0 0 auto;
-  box-sizing:border-box;
-  margin-left: 20px;
+  box-sizing: border-box;
+  margin-left: 15px;
 
   img {
-    border-radius: 5px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border-radius: 10px;
+    transition: transform .2s;
     height: 200px;
     width: 200px;
     object-fit: cover;
   }
+
+  img:hover {
+    transform: scale(0.92);
+    cursor: pointer;
+  }
+
+  img:active {
+    border: 3px solid white;
+  }
 }
 
-.playlist-wrapper div:first-child {
+.playlist-flex div:first-child {
   margin-left: 0;
 }

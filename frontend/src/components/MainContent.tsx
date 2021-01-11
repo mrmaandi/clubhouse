@@ -78,7 +78,7 @@ class MainContent extends React.Component<any, IMainContentState> {
                         </Box>
                     ) : (
                         <>
-                            <Box fontWeight="500" fontSize={24}>
+                            <Box fontSize={22}>
                                 <Typography align="center" color="textSecondary">
                                     New Production Challenge In:
                                 </Typography>

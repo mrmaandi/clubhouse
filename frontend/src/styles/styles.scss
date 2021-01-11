@@ -8,12 +8,6 @@ html, body {
   overflow-x: hidden;
 }
 
-.events-section {
-  position: relative;
-  display: block;
-  background-color: #303030;
-}
-
 .twitch-embed {
   height: 40vh;
 }
@@ -44,7 +38,7 @@ html, body {
 
 *::-webkit-scrollbar-track {
   background: #696969;
-  border-radius: 3px;
+  border-radius: 35px;
 }
 
 *::-webkit-scrollbar-thumb {

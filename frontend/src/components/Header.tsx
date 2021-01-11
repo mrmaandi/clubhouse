@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppBar, Container, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Box, Container, Toolbar, Typography } from '@material-ui/core';
 import logo from '../assets/monke.png';
 
 class Header extends React.Component {
@@ -10,7 +10,9 @@ class Header extends React.Component {
                     <Container maxWidth="lg">
                         <Toolbar>
                             <img src={logo} alt="Clubhouse" />
-                            <Typography variant="h4">Clubhouse</Typography>
+                            <Typography variant="h4">
+                                <Box fontWeight={500}>Clubhouse</Box>
+                            </Typography>
                         </Toolbar>
                     </Container>
                 </AppBar>

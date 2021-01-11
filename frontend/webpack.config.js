@@ -43,6 +43,7 @@ module.exports = {
                                 javascriptEnabled: true,
                                 modifyVars: {
                                     hack: `true; @import "./src/styles/player.less";`,
+                                    'primary-color': '#444',
                                 },
                             },
                         },

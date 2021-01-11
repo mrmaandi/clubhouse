@@ -1,12 +1,13 @@
 .backdrop {
-  position:relative;
+  position: relative;
 }
 
 .backdrop video {
-  position:relative;
+  position: relative;
   object-fit: cover;
   height: 300px;
   width: 100%;
+  background: #252830;
 }
 
 .videoTag {

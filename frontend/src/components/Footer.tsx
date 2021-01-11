@@ -1,10 +1,17 @@
 import React from 'react';
-import { AppBar, Container, Toolbar, Typography } from '@material-ui/core';
-import logo from '../assets/monke.png';
+import { Box, Typography } from '@material-ui/core';
 
 class Footer extends React.Component {
     render(): JSX.Element {
-        return <div className="main-footer">{/*<Typography variant="subtitle2">Clubhouse © 2020</Typography>*/}</div>;
+        return (
+            <div className="main-footer">
+                <Box m={3} mx="auto">
+                    <Typography align="center" variant="body2" color="textSecondary">
+                        VILLEM / KUKUALLA © 2021
+                    </Typography>
+                </Box>
+            </div>
+        );
     }
 }
 

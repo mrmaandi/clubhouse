@@ -82,35 +82,37 @@ class PreviousEvents extends React.Component<unknown, IPreviousEventsState> {
                 <Divider light style={{ marginBottom: '20px' }} />
 
                 <div className="playlist-wrapper">
-                    {this.state.previousEvents
-                        .sort((a, b) => {
-                            return b.start - a.start;
-                        })
-                        .filter((previousEvent: IPreviousEvent) => previousEvent.description.length !== 0)
-                        .map((previousEvent: IPreviousEvent) => {
-                            if (!previousEvent.description) {
-                                return;
-                            }
-                            const cover = previousEvent.description.filter(
-                                (submission: IEventSubmission) => submission.type === 'art',
-                            )[0].fileUrl;
+                    <div className="playlist-flex">
+                        {this.state.previousEvents
+                            .sort((a, b) => {
+                                return b.start - a.start;
+                            })
+                            .filter((previousEvent: IPreviousEvent) => previousEvent.description.length !== 0)
+                            .map((previousEvent: IPreviousEvent) => {
+                                if (!previousEvent.description) {
+                                    return;
+                                }
+                                const cover = previousEvent.description.filter(
+                                    (submission: IEventSubmission) => submission.type === 'art',
+                                )[0].fileUrl;
 
-                            return (
-                                <div>
-                                    <img
-                                        src={cover}
-                                        alt={previousEvent.name}
-                                        onClick={this.onChangeAudioList(previousEvent)}
-                                    />
-                                    <Typography variant="subtitle1" align="center">
-                                        {previousEvent.name}
-                                    </Typography>
-                                    <Typography variant="subtitle2" align="center" color="textSecondary">
-                                        {previousEvent.start && new Date(previousEvent.start).toUTCString()}
-                                    </Typography>
-                                </div>
-                            );
-                        })}
+                                return (
+                                    <div>
+                                        <img
+                                            src={cover}
+                                            alt={previousEvent.name}
+                                            onClick={this.onChangeAudioList(previousEvent)}
+                                        />
+                                        <Typography variant="subtitle1" align="center">
+                                            {previousEvent.name}
+                                        </Typography>
+                                        <Typography variant="subtitle2" align="center" color="textSecondary">
+                                            {previousEvent.start && new Date(previousEvent.start).toUTCString()}
+                                        </Typography>
+                                    </div>
+                                );
+                            })}
+                    </div>
                 </div>
             </>
         );

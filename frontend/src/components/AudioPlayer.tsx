@@ -25,6 +25,7 @@ class AudioPlayer extends React.Component<IAudioPlayerProps> {
                     showThemeSwitch={false}
                     showLyric={false}
                     defaultPlayMode="shufflePlay"
+                    theme={'auto'}
                 />
             </div>
         );
