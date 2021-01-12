@@ -28,7 +28,7 @@ html, body {
 /* Works on Firefox */
 * {
   scrollbar-width: auto;
-  scrollbar-color: #545454 #1c1c1c;
+  scrollbar-color: #e5e5e5 #30343b;
 }
 
 /* Works on Chrome, Edge, and Safari */
@@ -37,12 +37,11 @@ html, body {
 }
 
 *::-webkit-scrollbar-track {
-  background: #696969;
+  background: #30343b;
   border-radius: 35px;
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: white;
+  background-color: #e5e5e5;
   border-radius: 20px;
-  border: 3px solid;
 }

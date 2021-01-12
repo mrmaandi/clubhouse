@@ -1,7 +1,9 @@
 import React from 'react';
-import { Box, Divider, Typography } from '@material-ui/core';
+import { Button, Divider, Grid, Typography } from '@material-ui/core';
 import AudioPlayer from './AudioPlayer';
 import { ReactJkMusicPlayerAudioListProps } from 'react-jinke-music-player';
+
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 
 interface IEventSubmission {
     user: string;
@@ -65,19 +67,22 @@ class PreviousEvents extends React.Component<unknown, IPreviousEventsState> {
                 <div className="audio-player">
                     <AudioPlayer audioLists={this.state.audioList} />
                 </div>
-                <Box display="flex" alignItems="center">
-                    <Typography variant="h5" className="title-padding">
-                        Previous Events
-                    </Typography>
-                    {/*<FormControl style={{ minWidth: '150px', marginLeft: '20px' }}>
-                        <InputLabel id="demo-simple-select-label">Filter By</InputLabel>
-                        <Select labelId="demo-simple-select-label" id="demo-simple-select">
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
-                        </Select>
-                    </FormControl>*/}
-                </Box>
+                <Grid justify="space-between" container alignItems="center">
+                    <Grid item>
+                        <Typography variant="h5" className="title-padding">
+                            Previous Events
+                        </Typography>
+                    </Grid>
+                    <Grid item>
+                        <Button
+                            startIcon={<PlayArrowIcon />}
+                            variant="outlined"
+                            onClick={() => this.onPlayAllButtonClick()}
+                        >
+                            Play all
+                        </Button>
+                    </Grid>
+                </Grid>
 
                 <Divider light style={{ marginBottom: '20px' }} />
 
@@ -132,6 +137,25 @@ class PreviousEvents extends React.Component<unknown, IPreviousEventsState> {
                 };
                 audioList.push(entry);
             });
+        this.setState({ audioList: audioList });
+    };
+
+    onPlayAllButtonClick = () => {
+        const audioList: ReactJkMusicPlayerAudioListProps[] = [];
+        this.state.previousEvents.map((previousEvent: IPreviousEvent) => {
+            previousEvent.description
+                ?.filter((submission: IEventSubmission) => submission.type === 'music')
+                .map((submission) => {
+                    const entry: ReactJkMusicPlayerAudioListProps = {
+                        name: submission.user,
+                        musicSrc: submission.fileUrl,
+                        cover: previousEvent.description?.filter(
+                            (submission: IEventSubmission) => submission.type === 'art',
+                        )[0].fileUrl,
+                    };
+                    audioList.push(entry);
+                });
+        });
         this.setState({ audioList: audioList });
     };
 }

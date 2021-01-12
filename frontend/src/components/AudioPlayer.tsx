@@ -25,11 +25,19 @@ class AudioPlayer extends React.Component<IAudioPlayerProps> {
                     showThemeSwitch={false}
                     showLyric={false}
                     defaultPlayMode="shufflePlay"
-                    theme={'auto'}
+                    showDownload={false}
+                    theme="light"
+                    showReload={false}
+                    showDestroy={false}
+                    defaultPlayIndex={this.getRndInteger(0, this.props.audioLists.length)}
                 />
             </div>
         );
     }
+
+    getRndInteger = (min: number, max: number) => {
+        return Math.floor(Math.random() * (max - min)) + min;
+    };
 }
 
 export default AudioPlayer;
