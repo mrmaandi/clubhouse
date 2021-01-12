@@ -26,7 +26,7 @@ class AudioPlayer extends React.Component<IAudioPlayerProps> {
                     showLyric={false}
                     defaultPlayMode="shufflePlay"
                     showDownload={false}
-                    theme="light"
+                    theme="auto"
                     showReload={false}
                     showDestroy={false}
                     defaultPlayIndex={this.getRndInteger(0, this.props.audioLists.length)}
