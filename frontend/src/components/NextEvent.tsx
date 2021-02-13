@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import { Box, Container, Typography } from '@material-ui/core';
+import { Box, CircularProgress, Container, Typography } from '@material-ui/core';
 import { observer } from 'mobx-react';
 import { useRootStore } from './Wrapper';
 import TwitchEmbed from './TwitchEmbed';
@@ -22,16 +22,49 @@ const render = (): JSX.Element => {
     const { nextEventsStore } = useRootStore();
     const { nextEvents } = nextEventsStore;
 
-    if (!nextEvents.payload) {
-        return <></>;
-    }
-
-    const nextEvent = nextEvents.payload[0];
+    const eventCountdownView = (): JSX.Element => {
+        return (
+            <>
+                <video className="videoTag" autoPlay loop muted>
+                    <source src={sample} type="video/mp4" />
+                </video>
+                <div className="overlay">
+                    {nextEvents.isInitialLoading || !nextEvents.payload ? (
+                        <Typography align="center" color="textSecondary">
+                            <p>Loading next event data...</p>
+                            <CircularProgress color="inherit" />
+                        </Typography>
+                    ) : !nextEvents.payload[0] ? (
+                        <Box fontWeight="500" fontSize={24}>
+                            <Typography align="center" color="textSecondary">
+                                Currently no new events are added in the calendar
+                            </Typography>
+                        </Box>
+                    ) : (
+                        <>
+                            <Box fontSize={22}>
+                                <Typography align="center" color="textSecondary">
+                                    New Production Challenge In:
+                                </Typography>
+                            </Box>
+                            <Countdown date={new Date(nextEvents.payload[0].start)} />
+                        </>
+                    )}
+                    {/*                    <Typography align="center" color="textSecondary">
+                        <TwitchLogo />
+                    </Typography>*/}
+                </div>
+            </>
+        );
+    };
 
     const isEventActive = (): boolean => {
-        if (!nextEvents) {
+        const nextEventPayload = nextEvents.payload;
+
+        if (!nextEventPayload) {
             return false;
         }
+        const nextEvent = nextEventPayload[0];
         //fix this
         if (new Date().getTime() > nextEvent.end) {
             return false;
@@ -44,37 +77,6 @@ const render = (): JSX.Element => {
             <Container maxWidth="lg">
                 <TwitchEmbed />
             </Container>
-        );
-    };
-
-    const eventCountdownView = (): JSX.Element => {
-        return (
-            <>
-                <video className="videoTag" autoPlay loop muted>
-                    <source src={sample} type="video/mp4" />
-                </video>
-                <div className="overlay">
-                    {!nextEvent ? (
-                        <Box fontWeight="500" fontSize={24}>
-                            <Typography align="center" color="textSecondary">
-                                Currently no new events are planned
-                            </Typography>
-                        </Box>
-                    ) : (
-                        <>
-                            <Box fontSize={22}>
-                                <Typography align="center" color="textSecondary">
-                                    New Production Challenge In:
-                                </Typography>
-                            </Box>
-                            {!nextEvent ? <>Loading</> : <Countdown date={new Date(nextEvent.start)} />}
-                        </>
-                    )}
-                    {/*                    <Typography align="center" color="textSecondary">
-                        <TwitchLogo />
-                    </Typography>*/}
-                </div>
-            </>
         );
     };
 

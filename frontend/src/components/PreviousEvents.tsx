@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import { Button, Container, Divider, Grid, Typography } from '@material-ui/core';
+import { Box, Button, CircularProgress, Container, Divider, Grid, Typography } from '@material-ui/core';
 import { observer } from 'mobx-react';
 import { useRootStore } from './Wrapper';
 
@@ -14,7 +14,11 @@ const PreviousEvents: FC = () => {
         previousEventsStore.fetchPreviousEvents();
     });
 
-    return render();
+    return (
+        <div className="events-section">
+            <Container maxWidth="lg">{render()}</Container>
+        </div>
+    );
 };
 
 const render = (): JSX.Element => {
@@ -58,15 +62,34 @@ const render = (): JSX.Element => {
         audioPlayerStore.setAudioList(audioList);
     };
 
-    if (!previousEvents.payload) {
-        return <></>;
+    if (previousEvents.isInitialLoading || !previousEvents.payload) {
+        return (
+            <Box p={1} pb={3} mx="auto">
+                <Typography variant="body1" align="center" color="textPrimary">
+                    <p>Loading previous events data...</p>
+                    <CircularProgress color="inherit" />
+                </Typography>
+            </Box>
+        );
+    }
+
+    if (previousEvents.hasError) {
+        return (
+            <Box p={1} mx="auto">
+                <Typography variant="body1" align="center" color="textPrimary">
+                    There was a problem loading previous events data.
+                </Typography>
+            </Box>
+        );
     }
 
     if (previousEvents.payload.length == 0) {
         return (
-            <Typography align="center" variant="body2" color="textSecondary">
-                No previous events or there was an issue loading events. :(
-            </Typography>
+            <Box p={1} mx="auto">
+                <Typography variant="body1" align="center" color="textPrimary">
+                    No previous events or there was an issue loading events. :(
+                </Typography>
+            </Box>
         );
     }
 

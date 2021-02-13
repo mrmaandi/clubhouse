@@ -42,6 +42,14 @@ export class Loadable<T> {
         return this.state === 'initial';
     }
 
+    public get isInitialLoading(): boolean {
+        return this.state === 'initial' || this.state === 'loading';
+    }
+
+    public get hasError(): boolean {
+        return this.state === 'error';
+    }
+
     static toLoadable<Incoming, Result>(
         promise: Promise<Incoming>,
         transform: (incoming: Incoming) => Result = (value: any) => value,
