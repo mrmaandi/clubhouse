@@ -1,24 +1,21 @@
-import React from 'react';
-import ReactJkMusicPlayer, { ReactJkMusicPlayerAudioListProps } from 'react-jinke-music-player';
+import React, { FC } from 'react';
+import ReactJkMusicPlayer from 'react-jinke-music-player';
+import { observer } from 'mobx-react';
+import { useRootStore } from './Wrapper';
 
-interface IAudioPlayerProps {
-    audioLists: ReactJkMusicPlayerAudioListProps[];
-}
+const AudioPlayer: FC = () => {
+    const { audioPlayerStore } = useRootStore();
+    const { audioList } = audioPlayerStore;
 
-class AudioPlayer extends React.Component<IAudioPlayerProps> {
-    constructor(props: IAudioPlayerProps) {
-        super(props);
+    if (!audioList[0]) {
+        return <></>;
     }
 
-    render(): JSX.Element {
-        if (!this.props.audioLists[0]) {
-            return <></>;
-        }
-
-        return (
-            <div key={this.props.audioLists[0].cover}>
+    return (
+        <div className="audio-player">
+            <div key={audioList[0].cover}>
                 <ReactJkMusicPlayer
-                    audioLists={this.props.audioLists}
+                    audioLists={audioList}
                     mode="full"
                     showMediaSession
                     remove={false}
@@ -29,15 +26,15 @@ class AudioPlayer extends React.Component<IAudioPlayerProps> {
                     theme="auto"
                     showReload={false}
                     showDestroy={false}
-                    defaultPlayIndex={this.getRndInteger(0, this.props.audioLists.length)}
+                    defaultPlayIndex={getRndInteger(0, audioList.length)}
                 />
             </div>
-        );
-    }
+        </div>
+    );
+};
 
-    getRndInteger = (min: number, max: number) => {
-        return Math.floor(Math.random() * (max - min)) + min;
-    };
-}
+const getRndInteger = (min: number, max: number) => {
+    return Math.floor(Math.random() * (max - min)) + min;
+};
 
-export default AudioPlayer;
+export default observer(AudioPlayer);

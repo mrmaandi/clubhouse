@@ -30,9 +30,6 @@ class MainContent extends React.Component<any, IMainContentState> {
     render(): JSX.Element {
         return (
             <>
-                <div className="backdrop">
-                    {this.isEventActive() ? this.activeEventView() : this.eventCountdownView()}
-                </div>
                 <div className="events-section">
                     <Container maxWidth="lg">
                         <PreviousEvents />

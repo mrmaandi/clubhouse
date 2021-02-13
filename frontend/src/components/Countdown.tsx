@@ -33,6 +33,7 @@ class Countdown extends React.Component<ICountdownProps, ICountdownState> {
     }
 
     componentDidMount(): void {
+        this.setState({ timeLeft: this.calculateCountdown() });
         this.interval = setInterval(() => {
             const timeLeft: ITimeLeft = this.calculateCountdown();
             timeLeft ? this.setState({ timeLeft: timeLeft }) : this.stop();

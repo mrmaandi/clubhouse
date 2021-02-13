@@ -11,6 +11,12 @@ module.exports = {
         contentBase: path.join(__dirname, 'build'),
         compress: true,
         port: 3333,
+        proxy: {
+            '/api/**': {
+                target: 'http://localhost:8080',
+                secure: false,
+            },
+        },
     },
     module: {
         rules: [
