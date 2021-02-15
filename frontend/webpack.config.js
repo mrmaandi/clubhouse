@@ -62,7 +62,14 @@ module.exports = {
             },
             {
                 test: /\.(woff|woff2|eot|ttf|svg|png)$/,
-                loader: 'file-loader',
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: 'image/[hash]-[name].[ext]',
+                        },
+                    },
+                ],
             },
         ],
     },
