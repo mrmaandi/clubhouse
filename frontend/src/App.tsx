@@ -14,8 +14,8 @@ function App(): JSX.Element {
         palette: {
             type: 'dark',
             background: {
-                default: '#30343b',
-                paper: '#373a42',
+                default: '#191919',
+                paper: '#141414',
             },
         },
         typography: {

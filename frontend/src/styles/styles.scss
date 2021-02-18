@@ -22,7 +22,11 @@ html, body {
 
 .main-footer {
   display: block;
-  height: 100px;
+  height: 150px;
+
+/*  background-image: url('../assets/flipbg.png');
+  background-repeat: no-repeat;
+  background-size: cover;*/
 }
 
 .twitch-icon img {
@@ -33,7 +37,7 @@ html, body {
 /* Works on Firefox */
 * {
   scrollbar-width: auto;
-  scrollbar-color: #e5e5e5 #30343b;
+  scrollbar-color: #e5e5e5 #191919;
 }
 
 /* Works on Chrome, Edge, and Safari */

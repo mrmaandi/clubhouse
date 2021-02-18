@@ -87,7 +87,7 @@ const render = (): JSX.Element => {
                             <rect x="0" y="0" width="24" height="24" fill="rgba(0, 0, 0, 0)" />
                         </svg>
                     </a>
-                    <Box pl={1}>Bustre's Clubhouse</Box>
+                    <Box pl={1}>Bustre&apos;s Clubhouse</Box>
                 </div>
             </Box>
         );

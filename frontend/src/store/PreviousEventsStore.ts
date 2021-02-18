@@ -1,5 +1,5 @@
 import { RootStore } from './RootStore';
-import { action, makeObservable, observable } from 'mobx';
+import { action, computed, makeObservable, observable } from 'mobx';
 import { getPreviousEvents } from '../helpers/ApiService';
 import { Loadable } from '../helpers/Loadable';
 
@@ -24,6 +24,7 @@ export class PreviousEventsStore {
             previousEvents: observable,
             setPreviousEvents: action,
             fetchPreviousEvents: action,
+            showSearchResults: computed,
         });
     }
 
@@ -39,5 +40,9 @@ export class PreviousEventsStore {
         const previousEventsPromise: Promise<IPreviousEvent> = getPreviousEvents();
         this.setPreviousEvents(Loadable.toLoadable(previousEventsPromise));
         await previousEventsPromise;
+    }
+
+    get showSearchResults(): boolean {
+        return this.rootStore.searchStore.searchValue !== '';
     }
 }

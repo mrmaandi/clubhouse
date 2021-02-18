@@ -4,8 +4,8 @@ import Footer from './Footer';
 import { RootStore } from '../store/RootStore';
 import AudioPlayer from './AudioPlayer';
 import NextEvent from './NextEvent';
-import { Container } from '@material-ui/core';
 import PreviousEvents from './PreviousEvents';
+import { observer } from 'mobx-react';
 
 let rootStore: RootStore;
 
@@ -38,4 +38,4 @@ class Wrapper extends React.Component {
     }
 }
 
-export default Wrapper;
+export default observer(Wrapper);

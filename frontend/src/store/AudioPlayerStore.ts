@@ -12,6 +12,11 @@ export class AudioPlayerStore {
         });
     }
 
+    clearAudioList = async (): Promise<any> => {
+        this.audioList = [];
+        return Promise.resolve();
+    };
+
     setAudioList(audioList: ReactJkMusicPlayerAudioListProps[]): void {
         this.audioList = audioList;
     }
