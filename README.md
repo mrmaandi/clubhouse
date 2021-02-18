@@ -8,4 +8,4 @@ Prototype / Demo
 ![Clubhouse](https://i.imgur.com/sJSwDTl.png)
 
 Iteration 1
-![Iteration1](https://i.imgur.com/e2EO8Ra.png)
+![Iteration1](https://i.imgur.com/cY6Lfcm.png)
