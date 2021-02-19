@@ -7,8 +7,7 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import { IEventSubmission, IPreviousEvent } from '../store/PreviousEventsStore';
 import { ReactJkMusicPlayerAudioListProps } from 'react-jinke-music-player';
 import SearchField from './Search';
-import IconButton from '@material-ui/core/IconButton';
-import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
+import SearchResults from './SearchResults';
 
 export interface ISearchEvent {
     user: string;
@@ -28,42 +27,14 @@ const PreviousEvents: FC = () => {
         <div className="events-section">
             <Container maxWidth="lg">
                 {renderTitleAndSearchBar()}
-                {previousEventsStore.showSearchResults ? renderSearchResults() : renderPreviousEvents()}
+                {previousEventsStore.showSearchResults ? <SearchResults /> : renderPreviousEvents()}
             </Container>
         </div>
     );
 };
 
-const renderSearchResults = (): JSX.Element => {
-    const { searchStore, audioPlayerStore } = useRootStore();
-
-    if (searchStore.searchValue.length < 3) {
-        return <Box pb={2}>Type at least 3 characters to find results.</Box>;
-    }
-
-    return (
-        <Box pb={2}>
-            {searchStore.searchResults.map((e, i) => (
-                <div key={i}>
-                    <IconButton
-                        aria-label="search"
-                        size="small"
-                        onClick={async () => {
-                            await audioPlayerStore.clearAudioList();
-                            audioPlayerStore.setAudioList([{ name: e.user, musicSrc: e.fileUrl }]);
-                        }}
-                    >
-                        <PlayCircleFilledIcon />
-                    </IconButton>
-                    {e.user} - {e.eventName}
-                </div>
-            ))}
-        </Box>
-    );
-};
-
 const renderTitleAndSearchBar = (): JSX.Element => {
-    const { previousEventsStore, audioPlayerStore } = useRootStore();
+    const { previousEventsStore, audioPlayerStore, searchStore } = useRootStore();
 
     const onPlayAllButtonClick = (): void => {
         const audioList: ReactJkMusicPlayerAudioListProps[] = [];
@@ -71,16 +42,33 @@ const renderTitleAndSearchBar = (): JSX.Element => {
             previousEvent.description
                 ?.filter((submission: IEventSubmission) => submission.type === 'music')
                 .map((submission) => {
-                    const entry: ReactJkMusicPlayerAudioListProps = {
-                        name: submission.user,
-                        musicSrc: submission.fileUrl,
-                        cover: previousEvent.description?.filter(
-                            (submission: IEventSubmission) => submission.type === 'art',
-                        )[0].fileUrl,
-                    };
-                    audioList.push(entry);
+                    audioList.push(
+                        audioPlayerStore.mapToAudioList({
+                            artistName: submission.user,
+                            eventName: previousEvent.name,
+                            musicSrc: submission.fileUrl,
+                            cover: previousEvent.description?.filter(
+                                (submission: IEventSubmission) => submission.type === 'art',
+                            )[0].fileUrl,
+                        }),
+                    );
                 });
         });
+        audioPlayerStore.setAudioList(audioList);
+    };
+
+    const onPlayAllFromSearchButton = (): void => {
+        const audioList: ReactJkMusicPlayerAudioListProps[] = [];
+        searchStore.searchResults.forEach((searchResult) =>
+            audioList.push(
+                audioPlayerStore.mapToAudioList({
+                    artistName: searchResult.user,
+                    eventName: searchResult.eventName,
+                    musicSrc: searchResult.fileUrl,
+                    cover: searchResult.coverArt,
+                }),
+            ),
+        );
         audioPlayerStore.setAudioList(audioList);
     };
 
@@ -96,16 +84,31 @@ const renderTitleAndSearchBar = (): JSX.Element => {
                     </Grid>
                     <Grid item xs>
                         <Hidden smDown>
-                            <Typography align="right">
-                                <Button
-                                    startIcon={<PlayArrowIcon />}
-                                    variant="text"
-                                    color="inherit"
-                                    onClick={() => onPlayAllButtonClick()}
-                                >
-                                    Play everything
-                                </Button>
-                            </Typography>
+                            {searchStore.searchValue === '' ? (
+                                <Typography align="right">
+                                    <Button
+                                        startIcon={<PlayArrowIcon />}
+                                        variant="text"
+                                        color="inherit"
+                                        onClick={() => onPlayAllButtonClick()}
+                                    >
+                                        Play all
+                                    </Button>
+                                </Typography>
+                            ) : (
+                                searchStore.searchResults.length > 0 && (
+                                    <Typography align="right">
+                                        <Button
+                                            startIcon={<PlayArrowIcon />}
+                                            variant="text"
+                                            color="inherit"
+                                            onClick={() => onPlayAllFromSearchButton()}
+                                        >
+                                            Play everything in results
+                                        </Button>
+                                    </Typography>
+                                )
+                            )}
                         </Hidden>
                     </Grid>
                 </Grid>
@@ -126,14 +129,16 @@ const renderPreviousEvents = (): JSX.Element => {
         previousEvent.description
             ?.filter((submission: IEventSubmission) => submission.type === 'music')
             .map((submission) => {
-                const entry: ReactJkMusicPlayerAudioListProps = {
-                    name: submission.user,
-                    musicSrc: submission.fileUrl,
-                    cover: previousEvent.description?.filter(
-                        (submission: IEventSubmission) => submission.type === 'art',
-                    )[0].fileUrl,
-                };
-                audioList.push(entry);
+                audioList.push(
+                    audioPlayerStore.mapToAudioList({
+                        artistName: submission.user,
+                        eventName: previousEvent.name,
+                        musicSrc: submission.fileUrl,
+                        cover: previousEvent.description?.filter(
+                            (submission: IEventSubmission) => submission.type === 'art',
+                        )[0].fileUrl,
+                    }),
+                );
             });
 
         audioPlayerStore.setAudioList(audioList);

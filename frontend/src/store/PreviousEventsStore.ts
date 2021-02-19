@@ -11,7 +11,7 @@ export interface IEventSubmission {
 
 export interface IPreviousEvent {
     id?: string;
-    name?: string;
+    name: string;
     start: number;
     description: IEventSubmission[];
 }

@@ -1,7 +1,6 @@
 import { RootStore } from './RootStore';
 import { action, computed, makeObservable, observable } from 'mobx';
-import { ReactJkMusicPlayerAudioListProps } from 'react-jinke-music-player';
-import { IPreviousEvent } from './PreviousEventsStore';
+import { IEventSubmission, IPreviousEvent } from './PreviousEventsStore';
 import { ISearchEvent } from '../components/PreviousEvents';
 
 export class SearchStore {
@@ -40,11 +39,13 @@ export class SearchStore {
                         user: description.user,
                         eventName: event.name!,
                         fileUrl: description.fileUrl,
-                        /*                    coverArt: event.description.filter((submission: IEventSubmission) => submission.type === 'art')[0]
-                            .fileUrl,*/
+                        coverArt: event.description.filter(
+                            (submission: IEventSubmission) => submission.type === 'art',
+                        )[0].fileUrl,
                     }),
             ),
         );
+
         return searchResults;
     }
 }

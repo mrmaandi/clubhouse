@@ -33,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
                 width: '30ch',
             },*/
         },
+        [theme.breakpoints.down('xs')]: {
+            width: '17ch',
+        },
     },
     search: {
         position: 'relative',
@@ -65,10 +68,11 @@ const SearchField: FC = () => {
                                 root: classes.inputRoot,
                                 input: classes.inputInput,
                             }}
-                            placeholder="Filter (work in progress)"
+                            placeholder="Filter"
                             inputProps={{ 'aria-label': 'search' }}
                             onChange={(e) => searchStore.setSearchValue(e.target.value)}
                             value={searchStore.searchValue}
+                            inputMode="search"
                         />
                     </Grid>
                     <Grid item>
