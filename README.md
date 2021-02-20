@@ -15,3 +15,5 @@ Iteration 2
 ![Iteration2](https://i.imgur.com/nVNIt82.png)
 Search
 ![Iteration2Search](https://i.imgur.com/jcowiFl.png)
+Event active
+![Iteration2EventActive](https://i.imgur.com/ZaUhrek.png)
