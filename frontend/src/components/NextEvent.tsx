@@ -36,11 +36,18 @@ const render = (): JSX.Element => {
                             <CircularProgress color="inherit" />
                         </Typography>
                     ) : !nextEvents.payload[0] ? (
-                        <Box fontWeight="500" fontSize={24}>
-                            <Typography align="center" color="textSecondary">
-                                Currently no new events are added in the calendar
-                            </Typography>
-                        </Box>
+                        <>
+                            <Box fontWeight="500" fontSize={24}>
+                                <Typography align="center">
+                                    Sorry, currently no new events are added in the calendar
+                                </Typography>
+                            </Box>
+                            <Box>
+                                <Typography variant="subtitle2" align="center" color="textSecondary">
+                                    (They need to be manually added)
+                                </Typography>
+                            </Box>
+                        </>
                     ) : (
                         <>
                             <Box fontSize={22}>
@@ -98,10 +105,10 @@ const render = (): JSX.Element => {
     const isEventActive = (): boolean => {
         const nextEventPayload = nextEvents.payload;
 
-        if (!nextEventPayload) {
+        if (!nextEventPayload || nextEventPayload?.length === 0) {
             return false;
         }
-        const nextEvent = nextEventPayload[0];
+        const nextEvent = nextEventPayload![0];
         //fix this
         if (new Date().getTime() > nextEvent.end) {
             return false;
