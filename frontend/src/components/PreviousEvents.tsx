@@ -8,6 +8,7 @@ import { ReactJkMusicPlayerAudioListProps } from 'react-jinke-music-player';
 import SearchField from './Search';
 import SearchResults from './SearchResults';
 import PlayArrowOutlinedIcon from '@material-ui/icons/PlayArrowOutlined';
+import AlbumIcon from '@material-ui/icons/Album';
 
 export interface ISearchEvent {
     user: string;
@@ -36,8 +37,25 @@ const PreviousEvents: FC = () => {
 const renderTitleAndSearchBar = (): JSX.Element => {
     const { previousEventsStore, audioPlayerStore, searchStore } = useRootStore();
 
+    const onPreviousChallengesTitleClick = (e: any): void => {
+        e.preventDefault();
+        searchStore.clearSearchValue();
+    };
+
     const sectionTitle = () => {
-        return <Typography variant="h6">Previous Challenges</Typography>;
+        return (
+            <Button
+                fullWidth
+                startIcon={<AlbumIcon />}
+                color="inherit"
+                size="medium"
+                onClick={onPreviousChallengesTitleClick}
+            >
+                <Box fontSize={20} fontWeight={800}>
+                    PREVIOUS CHALLENGES
+                </Box>
+            </Button>
+        );
     };
 
     const playAllButton = () => {
@@ -45,8 +63,7 @@ const renderTitleAndSearchBar = (): JSX.Element => {
             <Typography align="right" color="textSecondary">
                 <Button
                     startIcon={<PlayArrowOutlinedIcon />}
-                    variant="text"
-                    color="inherit"
+                    variant="outlined"
                     onClick={() => onPlayAllButtonClick()}
                     size="large"
                 >
@@ -142,12 +159,10 @@ const renderTitleAndSearchBar = (): JSX.Element => {
     };
 
     return (
-        <>
-            <Box pt={2}>
-                <Hidden xsDown>{renderDesktop()}</Hidden>
-                <Hidden smUp>{renderMobile()}</Hidden>
-            </Box>
-        </>
+        <Box pt={2}>
+            <Hidden smDown>{renderDesktop()}</Hidden>
+            <Hidden mdUp>{renderMobile()}</Hidden>
+        </Box>
     );
 };
 

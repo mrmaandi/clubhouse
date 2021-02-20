@@ -38,38 +38,9 @@ const SearchResults: FC = () => {
         audioPlayerStore.setAudioList(audioList);
     };
 
-    if (searchStore.searchValue.length < 2) {
-        return (
-            <Box pb={2}>
-                <Typography align="center">Type at least 2 characters to find results.</Typography>
-            </Box>
-        );
-    }
-
-    return (
-        <Box pb={3}>
-            <Box pb={2}>
-                <Grid container alignItems="center" spacing={3}>
-                    <Grid item>
-                        <Typography variant="subtitle1" color="textSecondary">
-                            Found {searchStore.searchResults.length} results
-                        </Typography>
-                    </Grid>
-                    <Grid item>
-                        {searchStore.searchResults.length > 0 && (
-                            <Button
-                                startIcon={<PlayArrowOutlinedIcon />}
-                                variant="outlined"
-                                onClick={() => onPlayAllFromSearchButton()}
-                                size="small"
-                            >
-                                Play all results
-                            </Button>
-                        )}
-                    </Grid>
-                </Grid>
-            </Box>
-            {searchStore.searchResults.length > 0 && (
+    const renderSearchResults = (): JSX.Element => {
+        if (searchStore.searchResults.length > 0) {
+            return (
                 <Table aria-label="simple table" padding="none">
                     <TableHead>
                         <TableRow>
@@ -106,10 +77,10 @@ const SearchResults: FC = () => {
                     <TableBody>
                         {searchStore.searchResults.reverse().map((e, i) => (
                             <Grow
-                                key={e.fileUrl}
+                                key={e.fileUrl + i}
                                 in={true}
                                 style={{ transformOrigin: '0 0 0' }}
-                                {...{ timeout: i * 100 }}
+                                {...{ timeout: 2 ^ (i * 100) }}
                             >
                                 <TableRow>
                                     <TableCell width={1}>
@@ -155,7 +126,43 @@ const SearchResults: FC = () => {
                         ))}
                     </TableBody>
                 </Table>
-            )}
+            );
+        }
+        return <></>;
+    };
+
+    if (searchStore.searchValue.length < 2) {
+        return (
+            <Box pb={2}>
+                <Typography align="center">Type at least 2 characters to find results.</Typography>
+            </Box>
+        );
+    }
+
+    return (
+        <Box pb={5}>
+            <Box pb={2} pt={1}>
+                <Grid container alignItems="center" spacing={3}>
+                    <Grid item>
+                        <Typography variant="subtitle1" color="textSecondary">
+                            Found {searchStore.searchResults.length} results
+                        </Typography>
+                    </Grid>
+                    <Grid item>
+                        {searchStore.searchResults.length > 0 && (
+                            <Button
+                                startIcon={<PlayArrowOutlinedIcon />}
+                                variant="outlined"
+                                onClick={() => onPlayAllFromSearchButton()}
+                                size="small"
+                            >
+                                Play all
+                            </Button>
+                        )}
+                    </Grid>
+                </Grid>
+            </Box>
+            {renderSearchResults()}
         </Box>
     );
 };

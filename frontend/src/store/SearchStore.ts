@@ -16,9 +16,9 @@ export class SearchStore {
         });
     }
 
-    setSearchValue(value: string): void {
+    setSearchValue = (value: string): void => {
         this.searchValue = value;
-    }
+    };
 
     clearSearchValue = (): void => {
         this.searchValue = '';

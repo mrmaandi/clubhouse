@@ -1,10 +1,9 @@
 import React, { FC } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import ClearIcon from '@material-ui/icons/Clear';
-import { Grid, Hidden } from '@material-ui/core';
+import { Grid, TextField } from '@material-ui/core';
 import { observer } from 'mobx-react';
 import { useRootStore } from './Wrapper';
 
@@ -12,6 +11,15 @@ const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
         padding: '2px 4px',
+
+        '& label.Mui-focused': {
+            color: theme.palette.common.white,
+        },
+        '& .MuiOutlinedInput-root': {
+            '&.Mui-focused fieldset': {
+                borderColor: theme.palette.common.white,
+            },
+        },
     },
     iconButton: {
         padding: 10,
@@ -52,7 +60,19 @@ const SearchField: FC = () => {
                         </IconButton>
                     </Grid>
                     <Grid item xs>
-                        <InputBase
+                        <TextField
+                            color="secondary"
+                            id="filled-search"
+                            label="Filter"
+                            type="search"
+                            variant="outlined"
+                            size="small"
+                            fullWidth
+                            onChange={(e) => searchStore.setSearchValue(e.target.value)}
+                            value={searchStore.searchValue}
+                            inputMode="search"
+                        />
+                        {/*<InputBase
                             classes={{
                                 root: classes.inputRoot,
                                 input: classes.inputInput,
@@ -63,7 +83,7 @@ const SearchField: FC = () => {
                             onChange={(e) => searchStore.setSearchValue(e.target.value)}
                             value={searchStore.searchValue}
                             inputMode="search"
-                        />
+                        />*/}
                     </Grid>
                     <Grid item>
                         {searchStore.showClearButton && (
