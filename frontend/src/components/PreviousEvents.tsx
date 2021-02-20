@@ -107,7 +107,7 @@ const renderTitleAndSearchBar = (): JSX.Element => {
                 {renderQuickSearchFilter('bustre', '🐵')}
                 {renderQuickSearchFilter('FoxStevenson', '🦊')}
                 <Hidden xsDown>
-                    {renderQuickSearchFilter('scott', '🎙')}
+                    {renderQuickSearchFilter('Oli Scott', '🎙')}
                     {renderQuickSearchFilter('ericspike', '🕺')}
                     {renderQuickSearchFilter('Blooom', '📯')}
                     {renderQuickSearchFilter('Kaasschaaf', '🧀')}
