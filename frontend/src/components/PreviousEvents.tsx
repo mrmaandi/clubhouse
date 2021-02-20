@@ -98,29 +98,29 @@ const renderTitleAndSearchBar = (): JSX.Element => {
 
     const renderQuickFilters = (): JSX.Element => {
         return (
-            <Grid container alignItems="center" spacing={2}>
+            <Grid container alignItems="center" spacing={1}>
                 <Grid item>
                     <Typography color="textSecondary" variant="subtitle1">
                         Quick filters
                     </Typography>
                 </Grid>
-                {renderQuickSearchFilter('bustre')}
-                {renderQuickSearchFilter('FoxStevenson')}
+                {renderQuickSearchFilter('bustre', '🐵')}
+                {renderQuickSearchFilter('FoxStevenson', '🦊')}
                 <Hidden xsDown>
-                    {renderQuickSearchFilter('scott')}
-                    {renderQuickSearchFilter('ericspike')}
-                    {renderQuickSearchFilter('Blooom')}
-                    {renderQuickSearchFilter('Kaasschaaf')}
-                    {renderQuickSearchFilter('Eldie')}
+                    {renderQuickSearchFilter('scott', '🎙')}
+                    {renderQuickSearchFilter('ericspike', '🕺')}
+                    {renderQuickSearchFilter('Blooom', '📯')}
+                    {renderQuickSearchFilter('Kaasschaaf', '🧀')}
                 </Hidden>
             </Grid>
         );
     };
 
-    const renderQuickSearchFilter = (filterValue: string): JSX.Element => {
+    const renderQuickSearchFilter = (filterValue: string, icon?: string): JSX.Element => {
         return (
             <Grid item>
                 <Button color="inherit" onClick={() => searchStore.onQuickFilterClick(filterValue)}>
+                    {icon && icon + ' '}
                     {filterValue}
                 </Button>
             </Grid>
@@ -270,11 +270,11 @@ const renderPreviousEventBoxes = (): JSX.Element => {
             </div>
             <Box display="div" pt={2}>
                 <Typography color="textSecondary" variant="subtitle2" align="center">
-                    There are{' '}
+                    There are currently{' '}
                     <Typography display="inline" color="textPrimary">
                         {previousEventsStore.totalMusicCount}
                     </Typography>{' '}
-                    sample flips in total.
+                    sample flips in total
                 </Typography>
             </Box>
         </div>
