@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import { Box, CircularProgress, Container, Divider, Typography } from '@material-ui/core';
+import { Box, CircularProgress, Container, Divider, Hidden, Typography } from '@material-ui/core';
 import { observer } from 'mobx-react';
 import { useRootStore } from './Wrapper';
 import TwitchEmbed from './TwitchEmbed';
@@ -23,9 +23,11 @@ const render = (): JSX.Element => {
     const eventCountdownView = (): JSX.Element => {
         return (
             <>
-                <video className="videoTag" autoPlay loop muted>
-                    <source src={sample} type="video/mp4" />
-                </video>
+                <Hidden xsDown>
+                    <video className="videoTag" autoPlay loop muted>
+                        <source src={sample} type="video/mp4" />
+                    </video>
+                </Hidden>
                 <div className="overlay">
                     {nextEvents.isInitialLoading || !nextEvents.payload ? (
                         <Typography align="center" color="textSecondary">

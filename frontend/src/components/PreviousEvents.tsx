@@ -36,6 +36,25 @@ const PreviousEvents: FC = () => {
 const renderTitleAndSearchBar = (): JSX.Element => {
     const { previousEventsStore, audioPlayerStore, searchStore } = useRootStore();
 
+    const sectionTitle = () => {
+        return <Typography variant="h6">Previous Challenges</Typography>;
+    };
+
+    const playAllButton = () => {
+        return (
+            <Typography align="right" color="textSecondary">
+                <Button
+                    startIcon={<PlayArrowIcon />}
+                    variant="text"
+                    color="inherit"
+                    onClick={() => onPlayAllButtonClick()}
+                >
+                    Play every sample flip
+                </Button>
+            </Typography>
+        );
+    };
+
     const onPlayAllButtonClick = (): void => {
         const audioList: ReactJkMusicPlayerAudioListProps[] = [];
         previousEventsStore.previousEvents.payload!.map((previousEvent: IPreviousEvent) => {
@@ -57,64 +76,75 @@ const renderTitleAndSearchBar = (): JSX.Element => {
         audioPlayerStore.setAudioList(audioList);
     };
 
-    const onPlayAllFromSearchButton = (): void => {
-        const audioList: ReactJkMusicPlayerAudioListProps[] = [];
-        searchStore.searchResults.forEach((searchResult) =>
-            audioList.push(
-                audioPlayerStore.mapToAudioList({
-                    artistName: searchResult.user,
-                    eventName: searchResult.eventName,
-                    musicSrc: searchResult.fileUrl,
-                    cover: searchResult.coverArt,
-                }),
-            ),
+    const renderQuickFilters = (): JSX.Element => {
+        return (
+            <Grid container alignItems="center" spacing={2}>
+                <Grid item>
+                    <Typography color="textSecondary" variant="subtitle1">
+                        Quick filters
+                    </Typography>
+                </Grid>
+                {renderQuickSearchFilter('bustre')}
+                {renderQuickSearchFilter('FoxStevenson')}
+            </Grid>
         );
-        audioPlayerStore.setAudioList(audioList);
+    };
+
+    const renderQuickSearchFilter = (filterValue: string): JSX.Element => {
+        return (
+            <Grid item>
+                <Button variant="text" color="inherit" onClick={() => searchStore.onQuickFilterClick(filterValue)}>
+                    {filterValue}
+                </Button>
+            </Grid>
+        );
+    };
+
+    const renderDesktop = (): JSX.Element => {
+        return (
+            <>
+                <Grid container alignItems="center" spacing={3}>
+                    <Grid item>{sectionTitle()}</Grid>
+                    <Grid item xs>
+                        <SearchField />
+                    </Grid>
+                    <Grid item>{playAllButton()}</Grid>
+                </Grid>
+                {renderQuickFilters()}
+                <Box pt={1} pb={2}>
+                    <Divider light />
+                </Box>
+            </>
+        );
+    };
+
+    const renderMobile = (): JSX.Element => {
+        return (
+            <>
+                <Grid container alignItems="center">
+                    <Grid item>{sectionTitle()}</Grid>
+                    <Grid item xs>
+                        {playAllButton()}
+                    </Grid>
+                </Grid>
+                <Grid container alignItems="center">
+                    <Grid item xs>
+                        <SearchField />
+                    </Grid>
+                </Grid>
+                {renderQuickFilters()}
+                <Box pb={2}>
+                    <Divider light />
+                </Box>
+            </>
+        );
     };
 
     return (
         <>
             <Box pt={2}>
-                <Grid container alignItems="center" spacing={3}>
-                    <Grid item>
-                        <Typography variant="h6">Previous Events</Typography>
-                    </Grid>
-                    <Grid item>
-                        <SearchField />
-                    </Grid>
-                    <Grid item xs>
-                        <Hidden smDown>
-                            {searchStore.searchValue === '' ? (
-                                <Typography align="right">
-                                    <Button
-                                        startIcon={<PlayArrowIcon />}
-                                        variant="text"
-                                        color="inherit"
-                                        onClick={() => onPlayAllButtonClick()}
-                                    >
-                                        Play all
-                                    </Button>
-                                </Typography>
-                            ) : (
-                                searchStore.searchResults.length > 0 && (
-                                    <Typography align="right">
-                                        <Button
-                                            startIcon={<PlayArrowIcon />}
-                                            variant="text"
-                                            color="inherit"
-                                            onClick={() => onPlayAllFromSearchButton()}
-                                        >
-                                            Play everything in results
-                                        </Button>
-                                    </Typography>
-                                )
-                            )}
-                        </Hidden>
-                    </Grid>
-                </Grid>
-            </Box>
-            <Box pt={2} pb={2}>
-                <Divider light />
+                <Hidden xsDown>{renderDesktop()}</Hidden>
+                <Hidden smUp>{renderMobile()}</Hidden>
             </Box>
         </>
     );

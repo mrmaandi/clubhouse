@@ -26,16 +26,6 @@ const useStyles = makeStyles((theme) => ({
     inputInput: {
         padding: theme.spacing(1, 1, 1, 0),
         transition: theme.transitions.create('width'),
-        width: '100%',
-        [theme.breakpoints.up('xs')]: {
-            width: '30ch',
-            /*            '&:focus': {
-                width: '30ch',
-            },*/
-        },
-        [theme.breakpoints.down('xs')]: {
-            width: '17ch',
-        },
     },
     search: {
         position: 'relative',
@@ -45,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
             backgroundColor: fade(theme.palette.common.white, 0),
         },
         marginLeft: 0,
-        width: '100%',
     },
 }));
 
@@ -62,12 +51,13 @@ const SearchField: FC = () => {
                             <SearchIcon />
                         </IconButton>
                     </Grid>
-                    <Grid item>
+                    <Grid item xs>
                         <InputBase
                             classes={{
                                 root: classes.inputRoot,
                                 input: classes.inputInput,
                             }}
+                            fullWidth={true}
                             placeholder="Filter"
                             inputProps={{ 'aria-label': 'search' }}
                             onChange={(e) => searchStore.setSearchValue(e.target.value)}

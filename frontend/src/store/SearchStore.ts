@@ -11,6 +11,7 @@ export class SearchStore {
             searchValue: observable,
             setSearchValue: action,
             clearSearchValue: action,
+            onQuickFilterClick: action,
             showClearButton: computed,
         });
     }
@@ -21,6 +22,10 @@ export class SearchStore {
 
     clearSearchValue = (): void => {
         this.searchValue = '';
+    };
+
+    onQuickFilterClick = (searchValue: string): void => {
+        this.setSearchValue(searchValue);
     };
 
     get showClearButton(): boolean {
