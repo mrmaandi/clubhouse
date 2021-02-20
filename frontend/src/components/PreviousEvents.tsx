@@ -5,7 +5,7 @@ import { useRootStore } from './Wrapper';
 
 import { IEventSubmission, IPreviousEvent } from '../store/PreviousEventsStore';
 import { ReactJkMusicPlayerAudioListProps } from 'react-jinke-music-player';
-import SearchField from './Search';
+import SearchField from './SearchField';
 import SearchResults from './SearchResults';
 import PlayArrowOutlinedIcon from '@material-ui/icons/PlayArrowOutlined';
 import AlbumIcon from '@material-ui/icons/Album';
@@ -26,10 +26,12 @@ const PreviousEvents: FC = () => {
 
     return (
         <div className="events-section">
-            <Container maxWidth="lg">
-                {renderTitleAndSearchBar()}
-                {previousEventsStore.showSearchResults ? <SearchResults /> : renderPreviousEventBoxes()}
-            </Container>
+            <Box pt={3}>
+                <Container maxWidth="lg">
+                    {renderTitleAndSearchBar()}
+                    {previousEventsStore.showSearchResults ? <SearchResults /> : renderPreviousEventBoxes()}
+                </Container>
+            </Box>
         </div>
     );
 };
@@ -51,7 +53,7 @@ const renderTitleAndSearchBar = (): JSX.Element => {
                 size="medium"
                 onClick={onPreviousChallengesTitleClick}
             >
-                <Box fontSize={20} fontWeight={800}>
+                <Box fontSize={20} fontWeight={800} letterSpacing={1}>
                     PREVIOUS CHALLENGES
                 </Box>
             </Button>
@@ -104,6 +106,13 @@ const renderTitleAndSearchBar = (): JSX.Element => {
                 </Grid>
                 {renderQuickSearchFilter('bustre')}
                 {renderQuickSearchFilter('FoxStevenson')}
+                <Hidden xsDown>
+                    {renderQuickSearchFilter('scott')}
+                    {renderQuickSearchFilter('ericspike')}
+                    {renderQuickSearchFilter('Blooom')}
+                    {renderQuickSearchFilter('Kaasschaaf')}
+                    {renderQuickSearchFilter('Eldie')}
+                </Hidden>
             </Grid>
         );
     };
@@ -121,7 +130,7 @@ const renderTitleAndSearchBar = (): JSX.Element => {
     const renderDesktop = (): JSX.Element => {
         return (
             <>
-                <Grid container alignItems="center" spacing={3}>
+                <Grid container alignItems="center" spacing={2}>
                     <Grid item>{sectionTitle()}</Grid>
                     <Grid item xs>
                         <SearchField />
@@ -147,7 +156,9 @@ const renderTitleAndSearchBar = (): JSX.Element => {
                 </Grid>
                 <Grid container alignItems="center">
                     <Grid item xs>
-                        <SearchField />
+                        <Box pt={1} pb={2}>
+                            <SearchField />
+                        </Box>
                     </Grid>
                 </Grid>
                 {renderQuickFilters()}
@@ -159,10 +170,10 @@ const renderTitleAndSearchBar = (): JSX.Element => {
     };
 
     return (
-        <Box pt={2}>
+        <>
             <Hidden smDown>{renderDesktop()}</Hidden>
             <Hidden mdUp>{renderMobile()}</Hidden>
-        </Box>
+        </>
     );
 };
 
@@ -257,6 +268,15 @@ const renderPreviousEventBoxes = (): JSX.Element => {
                         );
                     })}
             </div>
+            <Box display="div" pt={2}>
+                <Typography color="textSecondary" variant="subtitle2" align="center">
+                    There are{' '}
+                    <Typography display="inline" color="textPrimary">
+                        {previousEventsStore.totalMusicCount}
+                    </Typography>{' '}
+                    sample flips in total.
+                </Typography>
+            </Box>
         </div>
     );
 };

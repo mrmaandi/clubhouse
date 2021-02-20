@@ -5,15 +5,17 @@ class Footer extends React.Component {
     render(): JSX.Element {
         return (
             <div className="main-footer">
-                <Box m={3} mx="auto">
+                <Box my={3}>
                     <Typography align="center" variant="body2" color="textSecondary">
                         Big thanks to everyone for their art and music
                         <br />
                         ❤
                         <br />
-                        <Link color="inherit" href="https://www.linkedin.com/in/villem-maandi-0b0b48189/">
-                            VILLEM / KUKUALLA © 2021
-                        </Link>
+                        <Box fontWeight={800}>
+                            <Link color="inherit" href="https://www.linkedin.com/in/villem-maandi-0b0b48189/">
+                                VILLEM / KUKUALLA © 2021
+                            </Link>
+                        </Box>
                     </Typography>
                 </Box>
             </div>

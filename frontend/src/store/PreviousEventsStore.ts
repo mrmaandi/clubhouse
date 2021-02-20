@@ -25,6 +25,7 @@ export class PreviousEventsStore {
             setPreviousEvents: action,
             fetchPreviousEvents: action,
             showSearchResults: computed,
+            totalMusicCount: computed,
         });
     }
 
@@ -44,5 +45,13 @@ export class PreviousEventsStore {
 
     get showSearchResults(): boolean {
         return this.rootStore.searchStore.searchValue !== '';
+    }
+
+    get totalMusicCount(): number {
+        let count = 0;
+        this.previousEvents.payload?.forEach((event) =>
+            event.description.filter((sf) => sf.type === 'music').forEach(() => (count += 1)),
+        );
+        return count;
     }
 }

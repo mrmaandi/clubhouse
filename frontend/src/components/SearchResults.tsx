@@ -14,7 +14,7 @@ import {
     Typography,
 } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
-import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import { observer } from 'mobx-react';
 import { ReactJkMusicPlayerAudioListProps } from 'react-jinke-music-player';
 import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
@@ -99,7 +99,7 @@ const SearchResults: FC = () => {
                                                     ]);
                                                 }}
                                             >
-                                                <PlayCircleOutlineIcon fontSize="large" />
+                                                <PlayArrowIcon fontSize="default" />
                                             </IconButton>
                                         </Box>
                                     </TableCell>
@@ -145,7 +145,11 @@ const SearchResults: FC = () => {
                 <Grid container alignItems="center" spacing={3}>
                     <Grid item>
                         <Typography variant="subtitle1" color="textSecondary">
-                            Found {searchStore.searchResults.length} results
+                            Found{' '}
+                            <Typography display="inline" color="textPrimary">
+                                {searchStore.searchResults.length}
+                            </Typography>{' '}
+                            results
                         </Typography>
                     </Grid>
                     <Grid item>
@@ -154,7 +158,7 @@ const SearchResults: FC = () => {
                                 startIcon={<PlayArrowOutlinedIcon />}
                                 variant="outlined"
                                 onClick={() => onPlayAllFromSearchButton()}
-                                size="small"
+                                size="medium"
                             >
                                 Play all
                             </Button>

@@ -10,7 +10,6 @@ import { useRootStore } from './Wrapper';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
-        padding: '2px 4px',
 
         '& label.Mui-focused': {
             color: theme.palette.common.white,
@@ -63,7 +62,7 @@ const SearchField: FC = () => {
                         <TextField
                             color="secondary"
                             id="filled-search"
-                            label="Filter"
+                            label="Search"
                             type="search"
                             variant="outlined"
                             size="small"
@@ -72,18 +71,6 @@ const SearchField: FC = () => {
                             value={searchStore.searchValue}
                             inputMode="search"
                         />
-                        {/*<InputBase
-                            classes={{
-                                root: classes.inputRoot,
-                                input: classes.inputInput,
-                            }}
-                            fullWidth={true}
-                            placeholder="Filter"
-                            inputProps={{ 'aria-label': 'search' }}
-                            onChange={(e) => searchStore.setSearchValue(e.target.value)}
-                            value={searchStore.searchValue}
-                            inputMode="search"
-                        />*/}
                     </Grid>
                     <Grid item>
                         {searchStore.showClearButton && (

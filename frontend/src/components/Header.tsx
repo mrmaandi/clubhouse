@@ -19,8 +19,15 @@ class Header extends React.Component {
                                     window.location.reload();
                                 }}
                             >
-                                <Box fontSize={24} fontWeight={800}>
-                                    Clubhouse
+                                <Box>
+                                    <Typography display="inline">
+                                        <Box display="inline" fontSize={28} fontWeight={800}>
+                                            Club
+                                        </Box>
+                                        <Box display="inline" fontSize={28}>
+                                            house
+                                        </Box>
+                                    </Typography>
                                 </Box>
                             </Button>
                         </Toolbar>
