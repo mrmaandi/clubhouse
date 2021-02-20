@@ -9,6 +9,7 @@ class Footer extends React.Component {
                     <Typography align="center" variant="body2" color="textSecondary">
                         Big thanks to everyone for their art and music
                         <br />
+                        ❤
                         <br />
                         <Link color="inherit" href="https://www.linkedin.com/in/villem-maandi-0b0b48189/">
                             VILLEM / KUKUALLA © 2021

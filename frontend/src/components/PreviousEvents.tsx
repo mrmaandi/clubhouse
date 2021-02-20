@@ -1,13 +1,13 @@
 import React, { FC, useEffect } from 'react';
-import { Box, Button, CircularProgress, Container, Divider, Grid, Hidden, Typography } from '@material-ui/core';
+import { Box, Button, CircularProgress, Container, Divider, Grid, Grow, Hidden, Typography } from '@material-ui/core';
 import { observer } from 'mobx-react';
 import { useRootStore } from './Wrapper';
 
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import { IEventSubmission, IPreviousEvent } from '../store/PreviousEventsStore';
 import { ReactJkMusicPlayerAudioListProps } from 'react-jinke-music-player';
 import SearchField from './Search';
 import SearchResults from './SearchResults';
+import PlayArrowOutlinedIcon from '@material-ui/icons/PlayArrowOutlined';
 
 export interface ISearchEvent {
     user: string;
@@ -27,7 +27,7 @@ const PreviousEvents: FC = () => {
         <div className="events-section">
             <Container maxWidth="lg">
                 {renderTitleAndSearchBar()}
-                {previousEventsStore.showSearchResults ? <SearchResults /> : renderPreviousEvents()}
+                {previousEventsStore.showSearchResults ? <SearchResults /> : renderPreviousEventBoxes()}
             </Container>
         </div>
     );
@@ -44,10 +44,11 @@ const renderTitleAndSearchBar = (): JSX.Element => {
         return (
             <Typography align="right" color="textSecondary">
                 <Button
-                    startIcon={<PlayArrowIcon />}
+                    startIcon={<PlayArrowOutlinedIcon />}
                     variant="text"
                     color="inherit"
                     onClick={() => onPlayAllButtonClick()}
+                    size="large"
                 >
                     Play every sample flip
                 </Button>
@@ -93,7 +94,7 @@ const renderTitleAndSearchBar = (): JSX.Element => {
     const renderQuickSearchFilter = (filterValue: string): JSX.Element => {
         return (
             <Grid item>
-                <Button variant="text" color="inherit" onClick={() => searchStore.onQuickFilterClick(filterValue)}>
+                <Button color="inherit" onClick={() => searchStore.onQuickFilterClick(filterValue)}>
                     {filterValue}
                 </Button>
             </Grid>
@@ -150,7 +151,7 @@ const renderTitleAndSearchBar = (): JSX.Element => {
     );
 };
 
-const renderPreviousEvents = (): JSX.Element => {
+const renderPreviousEventBoxes = (): JSX.Element => {
     const { previousEventsStore, audioPlayerStore } = useRootStore();
     const { previousEvents } = previousEventsStore;
 
@@ -214,7 +215,7 @@ const renderPreviousEvents = (): JSX.Element => {
                         return b.start - a.start;
                     })
                     .filter((previousEvent: IPreviousEvent) => previousEvent.description.length !== 0)
-                    .map((previousEvent: IPreviousEvent) => {
+                    .map((previousEvent: IPreviousEvent, i) => {
                         if (!previousEvent.description) {
                             return;
                         }
@@ -223,15 +224,21 @@ const renderPreviousEvents = (): JSX.Element => {
                         )[0].fileUrl;
 
                         return (
-                            <div key={previousEvent.id}>
-                                <img src={cover} alt={previousEvent.name} onClick={onChangeAudioList(previousEvent)} />
-                                <Typography variant="subtitle1" align="center">
-                                    {previousEvent.name}
-                                </Typography>
-                                <Typography variant="subtitle2" align="center" color="textSecondary">
-                                    {previousEvent.start && new Date(previousEvent.start).toUTCString()}
-                                </Typography>
-                            </div>
+                            <Grow key={i} in={true} style={{ transformOrigin: '0 0 0' }} {...{ timeout: i * 200 }}>
+                                <div>
+                                    <img
+                                        src={cover}
+                                        alt={previousEvent.name}
+                                        onClick={onChangeAudioList(previousEvent)}
+                                    />
+                                    <Typography variant="subtitle1" align="center">
+                                        {previousEvent.name}
+                                    </Typography>
+                                    <Typography variant="subtitle2" align="center" color="textSecondary">
+                                        {previousEvent.start && new Date(previousEvent.start).toUTCString()}
+                                    </Typography>
+                                </div>
+                            </Grow>
                         );
                     })}
             </div>

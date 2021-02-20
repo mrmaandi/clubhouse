@@ -4,6 +4,7 @@ import {
     Box,
     Button,
     Grid,
+    Grow,
     Hidden,
     Table,
     TableBody,
@@ -15,9 +16,9 @@ import {
 import IconButton from '@material-ui/core/IconButton';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import { observer } from 'mobx-react';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import { ReactJkMusicPlayerAudioListProps } from 'react-jinke-music-player';
 import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
+import PlayArrowOutlinedIcon from '@material-ui/icons/PlayArrowOutlined';
 
 const SearchResults: FC = () => {
     const { searchStore, audioPlayerStore } = useRootStore();
@@ -48,26 +49,23 @@ const SearchResults: FC = () => {
     return (
         <Box pb={3}>
             <Box pb={2}>
-                <Grid container alignItems="center">
+                <Grid container alignItems="center" spacing={3}>
                     <Grid item>
                         <Typography variant="subtitle1" color="textSecondary">
                             Found {searchStore.searchResults.length} results
                         </Typography>
                     </Grid>
-                    <Grid item xs>
-                        <Typography align="right">
-                            {searchStore.searchResults.length > 0 && (
-                                <Typography align="right">
-                                    <Button
-                                        startIcon={<PlayArrowIcon />}
-                                        variant="outlined"
-                                        onClick={() => onPlayAllFromSearchButton()}
-                                    >
-                                        Play all results
-                                    </Button>
-                                </Typography>
-                            )}
-                        </Typography>
+                    <Grid item>
+                        {searchStore.searchResults.length > 0 && (
+                            <Button
+                                startIcon={<PlayArrowOutlinedIcon />}
+                                variant="outlined"
+                                onClick={() => onPlayAllFromSearchButton()}
+                                size="small"
+                            >
+                                Play all results
+                            </Button>
+                        )}
                     </Grid>
                 </Grid>
             </Box>
@@ -95,7 +93,7 @@ const SearchResults: FC = () => {
                             </Hidden>
                             <TableCell>
                                 <Typography variant="caption" color="textSecondary">
-                                    TITLE
+                                    CHALLENGE
                                 </Typography>
                             </TableCell>
                             <TableCell align="right">
@@ -107,46 +105,53 @@ const SearchResults: FC = () => {
                     </TableHead>
                     <TableBody>
                         {searchStore.searchResults.reverse().map((e, i) => (
-                            <TableRow key={i}>
-                                <TableCell width={1}>
-                                    <Box pr={1}>
-                                        <IconButton
-                                            aria-label="search"
-                                            size="small"
-                                            onClick={() => {
-                                                audioPlayerStore.setAudioList([
-                                                    audioPlayerStore.mapToAudioList({
-                                                        eventName: e.eventName,
-                                                        artistName: e.user,
-                                                        musicSrc: e.fileUrl,
-                                                        cover: e.coverArt,
-                                                    }),
-                                                ]);
-                                            }}
-                                        >
-                                            <PlayCircleOutlineIcon fontSize="large" />
-                                        </IconButton>
-                                    </Box>
-                                </TableCell>
-                                <TableCell width={1}>
-                                    <Box pr={2}>
-                                        <Typography color="textSecondary">{i + 1}</Typography>
-                                    </Box>
-                                </TableCell>
-                                <Hidden xsDown>
+                            <Grow
+                                key={e.fileUrl}
+                                in={true}
+                                style={{ transformOrigin: '0 0 0' }}
+                                {...{ timeout: i * 100 }}
+                            >
+                                <TableRow>
                                     <TableCell width={1}>
-                                        <Box pr={3}>
-                                            <Grid container alignItems="center">
-                                                <Grid item>
-                                                    <img src={e.coverArt} width="46px" height="46px" />
-                                                </Grid>
-                                            </Grid>
+                                        <Box pr={1}>
+                                            <IconButton
+                                                aria-label="search"
+                                                size="small"
+                                                onClick={() => {
+                                                    audioPlayerStore.setAudioList([
+                                                        audioPlayerStore.mapToAudioList({
+                                                            eventName: e.eventName,
+                                                            artistName: e.user,
+                                                            musicSrc: e.fileUrl,
+                                                            cover: e.coverArt,
+                                                        }),
+                                                    ]);
+                                                }}
+                                            >
+                                                <PlayCircleOutlineIcon fontSize="large" />
+                                            </IconButton>
                                         </Box>
                                     </TableCell>
-                                </Hidden>
-                                <TableCell>{e.eventName}</TableCell>
-                                <TableCell align="right">{e.user}</TableCell>
-                            </TableRow>
+                                    <TableCell width={1}>
+                                        <Box pr={2}>
+                                            <Typography color="textSecondary">{i + 1}</Typography>
+                                        </Box>
+                                    </TableCell>
+                                    <Hidden xsDown>
+                                        <TableCell width={1}>
+                                            <Box pr={3}>
+                                                <Grid container alignItems="center">
+                                                    <Grid item>
+                                                        <img src={e.coverArt} width="46px" height="46px" />
+                                                    </Grid>
+                                                </Grid>
+                                            </Box>
+                                        </TableCell>
+                                    </Hidden>
+                                    <TableCell>{e.eventName}</TableCell>
+                                    <TableCell align="right">{e.user}</TableCell>
+                                </TableRow>
+                            </Grow>
                         ))}
                     </TableBody>
                 </Table>
