@@ -20,19 +20,20 @@
 }
 
 .overlay {
-  @media(min-width:600px){
+  @media(min-width:960px){
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
   }
 
-  @media(max-width:599px){
+  @media(max-width:959px){
     padding-top: 25px;
     padding-bottom: 25px;
     background-image: url('../assets/flipbg.png');
     background-repeat: no-repeat;
     background-size: cover;
+    background-position-y: bottom;
   }
 
   p {

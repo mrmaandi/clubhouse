@@ -23,7 +23,7 @@ const render = (): JSX.Element => {
     const eventCountdownView = (): JSX.Element => {
         return (
             <>
-                <Hidden xsDown>
+                <Hidden smDown>
                     <video className="videoTag" autoPlay loop muted>
                         <source src={sample} type="video/mp4" />
                     </video>

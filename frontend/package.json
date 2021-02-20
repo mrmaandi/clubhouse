@@ -54,7 +54,7 @@
     "moment": "^2.29.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-jinke-music-player": "^4.19.1"
+    "react-jinke-music-player": "^4.22.1"
   },
   "eslintConfig": {
     "extends": [
