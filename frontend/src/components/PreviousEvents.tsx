@@ -62,16 +62,15 @@ const renderTitleAndSearchBar = (): JSX.Element => {
 
     const playAllButton = () => {
         return (
-            <Typography align="right" color="textSecondary">
-                <Button
-                    startIcon={<PlayArrowOutlinedIcon />}
-                    variant="outlined"
-                    onClick={() => onPlayAllButtonClick()}
-                    size="large"
-                >
-                    Play every sample flip
-                </Button>
-            </Typography>
+            <Button
+                startIcon={<PlayArrowOutlinedIcon />}
+                variant="outlined"
+                onClick={() => onPlayAllButtonClick()}
+                size="large"
+                fullWidth
+            >
+                <Typography color="inherit">Play all sample flips</Typography>
+            </Button>
         );
     };
 
@@ -105,11 +104,11 @@ const renderTitleAndSearchBar = (): JSX.Element => {
                     </Typography>
                 </Grid>
                 {renderQuickSearchFilter('bustre', '🐵')}
-                {renderQuickSearchFilter('FoxStevenson', '🦊')}
                 <Hidden xsDown>
+                    {renderQuickSearchFilter('FoxStevenson', '🦊')}
                     {renderQuickSearchFilter('Oli Scott', '🎙')}
                     {renderQuickSearchFilter('ericspike', '🕺')}
-                    {renderQuickSearchFilter('Blooom', '📯')}
+                    {renderQuickSearchFilter('Blooom', '😍')}
                     {renderQuickSearchFilter('Kaasschaaf', '🧀')}
                 </Hidden>
             </Grid>
@@ -149,7 +148,9 @@ const renderTitleAndSearchBar = (): JSX.Element => {
         return (
             <>
                 <Grid container alignItems="center">
-                    <Grid item>{sectionTitle()}</Grid>
+                    <Grid item xs>
+                        {sectionTitle()}
+                    </Grid>
                     <Grid item xs>
                         {playAllButton()}
                     </Grid>

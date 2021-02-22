@@ -1,25 +1,27 @@
 import React from 'react';
-import { AppBar, Box, Button, Container, Toolbar, Typography } from '@material-ui/core';
+import { Box, Button, Container, Grid, Tooltip, Typography } from '@material-ui/core';
 import logo from '../assets/monke.png';
-import AlbumIcon from '@material-ui/icons/Album';
+import LockOpenIcon from '@material-ui/icons/LockOpen';
 
 class Header extends React.Component {
     render(): JSX.Element {
         return (
             <div className="main-header">
-                <AppBar position="static" color="inherit">
-                    <Container maxWidth="lg">
-                        <Toolbar>
-                            <img src={logo} alt="Clubhouse" />
-                            <Button
-                                color="inherit"
-                                size="large"
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    window.location.reload();
-                                }}
-                            >
-                                <Box>
+                <Container maxWidth="lg">
+                    <Box>
+                        <Grid container alignItems="center">
+                            <Grid item>
+                                <img src={logo} alt="Clubhouse" />
+                            </Grid>
+                            <Grid item xs>
+                                <Button
+                                    color="inherit"
+                                    size="large"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        window.location.reload();
+                                    }}
+                                >
                                     <Typography display="inline">
                                         <Box display="inline" fontSize={28} fontWeight={800}>
                                             Club
@@ -28,11 +30,32 @@ class Header extends React.Component {
                                             house
                                         </Box>
                                     </Typography>
-                                </Box>
-                            </Button>
-                        </Toolbar>
-                    </Container>
-                </AppBar>
+                                </Button>
+                            </Grid>
+                            <Grid item>
+                                <Tooltip
+                                    title="You will be able to authenticate yourself with Discord to create playlists, view your personal sample flips, etc. This is a work in progress. It will come when it's ready."
+                                    placement="bottom"
+                                >
+                                    <Box>
+                                        <Button
+                                            disabled
+                                            size="medium"
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                window.location.reload();
+                                            }}
+                                            variant="outlined"
+                                            startIcon={<LockOpenIcon />}
+                                        >
+                                            <Box display="inline">Authenticate with Discord</Box>
+                                        </Button>
+                                    </Box>
+                                </Tooltip>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Container>
             </div>
         );
     }

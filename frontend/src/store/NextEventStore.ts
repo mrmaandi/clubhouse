@@ -1,5 +1,5 @@
 import { RootStore } from './RootStore';
-import { action, makeObservable, observable } from 'mobx';
+import { action, computed, makeObservable, observable } from 'mobx';
 import { getNextEvents } from '../helpers/ApiService';
 import { Loadable } from '../helpers/Loadable';
 
@@ -16,6 +16,7 @@ export class NextEventsStore {
             nextEvents: observable,
             setNextEvents: action,
             fetchNextEvents: action,
+            isEventActive: computed,
         });
     }
 
@@ -31,5 +32,19 @@ export class NextEventsStore {
         const nextEventsPromise: Promise<IEvent[]> = getNextEvents();
         this.setNextEvents(Loadable.toLoadable(nextEventsPromise));
         await nextEventsPromise;
+    }
+
+    get isEventActive(): boolean {
+        const nextEventPayload = this.nextEvents.payload;
+
+        if (!nextEventPayload || nextEventPayload?.length === 0) {
+            return false;
+        }
+        const nextEvent = nextEventPayload![0];
+        //fix this
+        if (new Date().getTime() > nextEvent.end) {
+            return false;
+        }
+        return new Date().getTime() > nextEvent.start && new Date().getTime() < nextEvent.end;
     }
 }

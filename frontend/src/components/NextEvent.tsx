@@ -102,20 +102,6 @@ const render = (): JSX.Element => {
         );
     };
 
-    const isEventActive = (): boolean => {
-        const nextEventPayload = nextEvents.payload;
-
-        if (!nextEventPayload || nextEventPayload?.length === 0) {
-            return false;
-        }
-        const nextEvent = nextEventPayload![0];
-        //fix this
-        if (new Date().getTime() > nextEvent.end) {
-            return false;
-        }
-        return new Date().getTime() > nextEvent.start && new Date().getTime() < nextEvent.end;
-    };
-
     const activeEventView = (): JSX.Element => {
         return (
             <Container maxWidth="lg">
@@ -124,7 +110,7 @@ const render = (): JSX.Element => {
         );
     };
 
-    return <div className="backdrop">{isEventActive() ? activeEventView() : eventCountdownView()}</div>;
+    return <div className="backdrop">{nextEventsStore.isEventActive ? activeEventView() : eventCountdownView()}</div>;
 };
 
 export default observer(NextEvent);

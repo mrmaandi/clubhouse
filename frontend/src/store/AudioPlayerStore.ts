@@ -31,9 +31,10 @@ export class AudioPlayerStore {
 
     mapToAudioList = (audioList: AudioList): ReactJkMusicPlayerAudioListProps => {
         return {
-            name: audioList.artistName + ' - ' + audioList.eventName,
+            name: audioList.eventName,
             musicSrc: audioList.musicSrc,
             cover: audioList.cover,
+            singer: audioList.artistName,
         };
     };
 }

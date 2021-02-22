@@ -59,9 +59,7 @@ const SearchResults: FC = () => {
                                     #
                                 </Typography>
                             </TableCell>
-                            <Hidden xsDown>
-                                <TableCell></TableCell>
-                            </Hidden>
+                            <TableCell></TableCell>
                             <TableCell>
                                 <Typography variant="caption" color="textSecondary">
                                     CHALLENGE
@@ -108,17 +106,16 @@ const SearchResults: FC = () => {
                                             <Typography color="textSecondary">{i + 1}</Typography>
                                         </Box>
                                     </TableCell>
-                                    <Hidden xsDown>
-                                        <TableCell width={1}>
-                                            <Box pr={3}>
-                                                <Grid container alignItems="center">
-                                                    <Grid item>
-                                                        <img src={e.coverArt} width="46px" height="46px" />
-                                                    </Grid>
+
+                                    <TableCell width={1}>
+                                        <Box pr={3}>
+                                            <Grid container alignItems="center">
+                                                <Grid item>
+                                                    <img src={e.coverArt} width="46px" height="46px" />
                                                 </Grid>
-                                            </Box>
-                                        </TableCell>
-                                    </Hidden>
+                                            </Grid>
+                                        </Box>
+                                    </TableCell>
                                     <TableCell>{e.eventName}</TableCell>
                                     <TableCell align="right">{e.user}</TableCell>
                                 </TableRow>
