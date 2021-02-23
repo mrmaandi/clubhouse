@@ -27,8 +27,6 @@ dependencies {
 	implementation("org.projectreactor:reactor-spring:1.0.1.RELEASE")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-	implementation("com.discord4j:discord4j-core:3.1.3")
-	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
 	implementation("com.google.code.gson:gson:2.8.2")
 	compileOnly("org.projectlombok:lombok")
 	implementation("com.google.api-client:google-api-client:1.31.1")

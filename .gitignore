@@ -1,0 +1,3 @@
+/backend/build/
+/backend/.gradle/
+/frontend/node_modules

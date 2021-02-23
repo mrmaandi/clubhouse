@@ -1,1 +1,1 @@
-rootProject.name = "discord-sample-flip-bot"
+rootProject.name = "clubhouse"

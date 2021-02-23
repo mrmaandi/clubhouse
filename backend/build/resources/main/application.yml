@@ -1,0 +1,7 @@
+discord-bot:
+  auth-token: Nzg5MTQ3NzgwOTI3OTc5NTMw.X9t1JA.p_fcy1RR85XtEqLtF0s3ifbSbz4
+  guild-name: Clubhouse
+
+server:
+  servlet:
+    context-path: /api
