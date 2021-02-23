@@ -134,7 +134,7 @@ class CalendarService {
     }
 
     private fun getAuthorizedAPICalendarService(): Calendar {
-        val key: InputStream = CalendarService::class.java.getResourceAsStream(SERVICE_ACCOUNT_PK)
+        val key: InputStream = javaClass.getResourceAsStream(SERVICE_ACCOUNT_PK)
 
         val credentials = GoogleCredential.Builder().setTransport(GoogleNetHttpTransport.newTrustedTransport())
             .setJsonFactory(JSON_FACTORY)
