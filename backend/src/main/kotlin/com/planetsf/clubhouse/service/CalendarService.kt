@@ -1,4 +1,4 @@
-package com.planetsf.clubhouse.calendar.service
+package com.planetsf.clubhouse.service
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport
@@ -9,10 +9,10 @@ import com.google.api.services.calendar.Calendar
 import com.google.api.services.calendar.model.Event
 import com.google.api.services.calendar.model.Events
 import com.google.gson.Gson
-import com.planetsf.clubhouse.calendar.helper.CALENDAR_ID
-import com.planetsf.clubhouse.calendar.helper.EVENT_LENGTH
-import com.planetsf.clubhouse.calendar.model.CalendarEvent
-import com.planetsf.clubhouse.calendar.model.CalendarEventJson
+import com.planetsf.clubhouse.helper.CALENDAR_ID
+import com.planetsf.clubhouse.helper.EVENT_LENGTH
+import com.planetsf.clubhouse.model.CalendarEvent
+import com.planetsf.clubhouse.model.CalendarEventJson
 import org.springframework.stereotype.Service
 import java.io.*
 import java.text.DateFormat

@@ -1,4 +1,4 @@
-package com.planetsf.clubhouse.calendar.model
+package com.planetsf.clubhouse.model
 
 
 class CalendarEventJson {

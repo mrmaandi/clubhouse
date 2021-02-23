@@ -1,7 +1,7 @@
-package com.planetsf.clubhouse.calendar.controller
+package com.planetsf.clubhouse.controller
 
-import com.planetsf.clubhouse.calendar.model.CalendarEvent
-import com.planetsf.clubhouse.calendar.service.CalendarService
+import com.planetsf.clubhouse.model.CalendarEvent
+import com.planetsf.clubhouse.service.CalendarService
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController

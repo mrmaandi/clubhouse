@@ -1,9 +1,9 @@
-package com.planetsf.clubhouse.calendar.scheduled
+package com.planetsf.clubhouse.scheduled
 
 import com.google.api.client.util.DateTime
-import com.planetsf.clubhouse.calendar.model.CalendarEvent
-import com.planetsf.clubhouse.calendar.model.CurrentEventHolder
-import com.planetsf.clubhouse.calendar.service.CalendarService
+import com.planetsf.clubhouse.model.CalendarEvent
+import com.planetsf.clubhouse.model.CurrentEventHolder
+import com.planetsf.clubhouse.service.CalendarService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.scheduling.annotation.Scheduled
