@@ -5,7 +5,6 @@ import {
     Button,
     Grid,
     Grow,
-    Hidden,
     Table,
     TableBody,
     TableCell,
@@ -65,6 +64,11 @@ const SearchResults: FC = () => {
                                     CHALLENGE
                                 </Typography>
                             </TableCell>
+                            <TableCell>
+                                <Typography variant="caption" color="textSecondary">
+                                    FILE
+                                </Typography>
+                            </TableCell>
                             <TableCell align="right">
                                 <Typography variant="caption" color="textSecondary">
                                     NAME
@@ -106,7 +110,6 @@ const SearchResults: FC = () => {
                                             <Typography color="textSecondary">{i + 1}</Typography>
                                         </Box>
                                     </TableCell>
-
                                     <TableCell width={1}>
                                         <Box pr={3}>
                                             <Grid container alignItems="center">
@@ -117,6 +120,7 @@ const SearchResults: FC = () => {
                                         </Box>
                                     </TableCell>
                                     <TableCell>{e.eventName}</TableCell>
+                                    <TableCell>{e.fileName}</TableCell>
                                     <TableCell align="right">{e.user}</TableCell>
                                 </TableRow>
                             </Grow>

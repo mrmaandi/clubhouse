@@ -7,5 +7,6 @@ class CalendarEventJson {
         val user: String,
         val type: String,
         val fileUrl: String,
+        val fileName: String,
     )
 }

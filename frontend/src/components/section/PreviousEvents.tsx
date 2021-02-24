@@ -14,6 +14,7 @@ export interface ISearchEvent {
     user: string;
     eventName: string;
     fileUrl: string;
+    fileName: string;
     coverArt?: string;
 }
 
@@ -103,11 +104,11 @@ const renderTitleAndSearchBar = (): JSX.Element => {
                         Quick filters
                     </Typography>
                 </Grid>
-                {renderQuickSearchFilter('bustre', '🐵')}
+                {renderQuickSearchFilter('Bustre', '🐵')}
                 <Hidden xsDown>
-                    {renderQuickSearchFilter('FoxStevenson', '🦊')}
+                    {renderQuickSearchFilter('Fox Stevenson', '🦊')}
                     {renderQuickSearchFilter('Oli Scott', '🎙')}
-                    {renderQuickSearchFilter('ericspike', '🕺')}
+                    {renderQuickSearchFilter('Eric Spike', '🕺')}
                     {renderQuickSearchFilter('Blooom', '😍')}
                     {renderQuickSearchFilter('Kaasschaaf', '🧀')}
                 </Hidden>
@@ -246,9 +247,10 @@ const renderPreviousEventBoxes = (): JSX.Element => {
                         if (!previousEvent.description) {
                             return;
                         }
-                        const cover = previousEvent.description.filter(
+                        const art = previousEvent.description.filter(
                             (submission: IEventSubmission) => submission.type === 'art',
-                        )[0].fileUrl;
+                        )[0];
+                        const cover = art ? art.fileUrl : '';
 
                         return (
                             <Grow key={i} in={true} style={{ transformOrigin: '0 0 0' }} {...{ timeout: i * 200 }}>

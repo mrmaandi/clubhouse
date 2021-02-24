@@ -47,6 +47,7 @@ export class SearchStore {
                         coverArt: event.description.filter(
                             (submission: IEventSubmission) => submission.type === 'art',
                         )[0].fileUrl,
+                        fileName: description.fileName,
                     }),
             ),
         );

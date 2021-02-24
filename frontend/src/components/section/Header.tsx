@@ -48,7 +48,7 @@ const Header: FC = () => {
                                     onClick={modalStore.handleOpen}
                                     startIcon={<TodayIcon />}
                                 >
-                                    New challenge
+                                    Add new challenge
                                 </Button>
                             </Box>
                             <Box pr={2} display="inline">
@@ -60,7 +60,7 @@ const Header: FC = () => {
                                     onClick={modalStore.handleOpen}
                                     startIcon={<CloudUploadIcon />}
                                 >
-                                    Add files to existing challenge
+                                    Add entries
                                 </Button>
                             </Box>
                             <Tooltip

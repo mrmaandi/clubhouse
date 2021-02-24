@@ -109,28 +109,22 @@ class CalendarService {
                 val df: DateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ssZ")
                 val startTime: String = df.format(event.start.dateTime.value)
 
-                calendarEvents.add(
-                    CalendarEvent(
-                        id = event.id,
-                        name = event.summary,
-                        start = event.start.dateTime.value,
-                        end = event.end.dateTime.value,
-                        description = getEventDescription(event)
+                if (event.description == null) {
+                    calendarEvents.add(
+                        CalendarEvent(
+                            id = event.id,
+                            name = event.summary,
+                            start = event.start.dateTime.value,
+                            end = event.end.dateTime.value,
+                            description = null
+                        )
                     )
-                )
+                }
 
                 System.out.printf("%s (%s)\n", event.summary, startTime)
             }
         }
         return calendarEvents;
-    }
-
-    private fun getEventDescription(event: Event): List<CalendarEventJson.EventSubmission> {
-        val gson = Gson()
-        if (event.description != null) {
-            return gson.fromJson(event.description, Array<CalendarEventJson.EventSubmission>::class.java).toList()
-        }
-        return emptyList();
     }
 
     private fun getAuthorizedAPICalendarService(): Calendar {

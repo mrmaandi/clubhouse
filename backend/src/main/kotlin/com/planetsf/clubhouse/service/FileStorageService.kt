@@ -35,6 +35,7 @@ class FileStorageService(private val s3Configuration: AwsS3Configuration) {
             val metadata = ObjectMetadata()
             metadata.addUserMetadata("userId", eventUpload.userId)
             metadata.contentLength = fileInputStream.available().toLong()
+            metadata.contentType = eventUpload.fileType
 
             val request = PutObjectRequest(
                 "clubhouse-sample-flips/$destinationFolder",

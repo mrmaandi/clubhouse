@@ -7,6 +7,7 @@ export interface IEventSubmission {
     user: string;
     type: string;
     fileUrl: string;
+    fileName: string;
 }
 
 export interface IPreviousEvent {

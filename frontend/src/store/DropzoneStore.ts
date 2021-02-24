@@ -8,6 +8,7 @@ export interface DropzoneFile {
     id: string;
     userId: string;
     fileName: string;
+    fileType: string;
     file: File;
 }
 
@@ -74,17 +75,16 @@ export class DropzoneStore {
         const fileList = this.files;
         for (let i = 0; i < files.length; i++) {
             if (!files[i].name) return;
-            /*if (this.files.find((file) => file.file))*/
             const currentTime = new Date().getMilliseconds();
             fileList.push({
                 id: files[i].name + ' - ' + currentTime,
                 file: files[i],
                 userId: '',
                 fileName: files[i].name,
+                fileType: files[i].type,
             });
         }
         this.files = fileList;
-        console.log(this.files);
     };
 
     handleFileUpload = (): void => {

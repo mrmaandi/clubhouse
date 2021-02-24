@@ -6,6 +6,7 @@ interface FileUploadRequest {
     userId?: string;
     fileContent: string;
     fileName: string;
+    fileType: string;
 }
 
 const getRequest = (url: string): Promise<any> => {
@@ -29,7 +30,7 @@ const handleRequest = (response: Response): Promise<any> => {
 };
 
 export const getPreviousEvents = (): Promise<IPreviousEvent> => {
-    return getRequest('/api/calendar/previous');
+    return getRequest('/api/files/list');
 };
 
 export const getNextEvents = (): Promise<IEvent[]> => {
@@ -43,6 +44,7 @@ export const uploadFiles = async (challengeId: string, files: DropzoneFile[], se
         const fileRequest: FileUploadRequest = {
             userId: file.userId,
             fileName: file.file.name,
+            fileType: file.file.type,
             fileContent: fileContent,
         };
         fileUploadRequests.push(fileRequest);
