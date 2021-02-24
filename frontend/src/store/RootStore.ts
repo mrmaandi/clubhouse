@@ -4,6 +4,7 @@ import { NextEventsStore } from './NextEventStore';
 import { SearchStore } from './SearchStore';
 import { ModalStore } from './ModalStore';
 import { DropzoneStore } from './DropzoneStore';
+import { SecurityStore } from './SecurityStore';
 
 export class RootStore {
     previousEventsStore: PreviousEventsStore;
@@ -12,6 +13,7 @@ export class RootStore {
     searchStore: SearchStore;
     modalStore: ModalStore;
     dropzoneStore: DropzoneStore;
+    securityStore: SecurityStore;
 
     constructor() {
         this.previousEventsStore = new PreviousEventsStore(this);
@@ -20,5 +22,6 @@ export class RootStore {
         this.searchStore = new SearchStore(this);
         this.modalStore = new ModalStore(this);
         this.dropzoneStore = new DropzoneStore(this);
+        this.securityStore = new SecurityStore(this);
     }
 }

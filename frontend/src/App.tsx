@@ -1,6 +1,6 @@
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import React from 'react';
-import Wrapper from './components/Wrapper';
+import Wrapper from './components/section/Wrapper';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 declare global {

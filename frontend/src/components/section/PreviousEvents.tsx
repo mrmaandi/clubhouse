@@ -3,10 +3,10 @@ import { Box, Button, CircularProgress, Container, Divider, Grid, Grow, Hidden, 
 import { observer } from 'mobx-react';
 import { useRootStore } from './Wrapper';
 
-import { IEventSubmission, IPreviousEvent } from '../store/PreviousEventsStore';
+import { IEventSubmission, IPreviousEvent } from '../../store/PreviousEventsStore';
 import { ReactJkMusicPlayerAudioListProps } from 'react-jinke-music-player';
-import SearchField from './SearchField';
-import SearchResults from './SearchResults';
+import SearchField from '../search/SearchField';
+import SearchResults from '../search/SearchResults';
 import PlayArrowOutlinedIcon from '@material-ui/icons/PlayArrowOutlined';
 import AlbumIcon from '@material-ui/icons/Album';
 

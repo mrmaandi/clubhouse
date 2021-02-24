@@ -1,6 +1,6 @@
 import React, { FC, RefObject, useEffect } from 'react';
 import { observer } from 'mobx-react';
-import { useRootStore } from './Wrapper';
+import { useRootStore } from '../section/Wrapper';
 
 interface IDropzoneProps {
     children?: JSX.Element;
@@ -51,7 +51,7 @@ const Dropzone: FC<IDropzoneProps> = (props: IDropzoneProps) => {
                             fontSize: 36,
                         }}
                     >
-                        <div>drop here :)</div>
+                        <div>drop here</div>
                     </div>
                 </div>
             )}

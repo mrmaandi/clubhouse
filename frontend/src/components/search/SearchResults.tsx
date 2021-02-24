@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { useRootStore } from './Wrapper';
+import { useRootStore } from '../section/Wrapper';
 import {
     Box,
     Button,

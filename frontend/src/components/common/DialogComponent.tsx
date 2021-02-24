@@ -1,7 +1,16 @@
 import React, { FC } from 'react';
 import { observer } from 'mobx-react';
-import { useRootStore } from './Wrapper';
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grow } from '@material-ui/core';
+import { useRootStore } from '../section/Wrapper';
+import {
+    Box,
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    Grow,
+} from '@material-ui/core';
 import { TransitionProps } from '@material-ui/core/transitions';
 
 const Transition = React.forwardRef(function Transition(
@@ -15,6 +24,7 @@ export interface IModalProps {
     title: string;
     children: JSX.Element;
     onClose?: () => void;
+    onSubmit?: () => void;
 }
 
 const DialogComponent: FC<IModalProps> = (props: IModalProps) => {
@@ -41,7 +51,25 @@ const DialogComponent: FC<IModalProps> = (props: IModalProps) => {
                 <DialogContentText>{dialogContent()}</DialogContentText>
             </DialogContent>
             <DialogActions>
-                <Button onClick={modalStore.handleClose} color="primary">
+                <Box display="inline" mr={1}>
+                    <Button
+                        onClick={() => {
+                            props.onSubmit && props.onSubmit();
+                        }}
+                        color="primary"
+                        variant="contained"
+                    >
+                        Finish
+                    </Button>
+                </Box>
+                <Button
+                    onClick={() => {
+                        props.onClose && props.onClose();
+                        modalStore.handleClose();
+                    }}
+                    color="secondary"
+                    variant="outlined"
+                >
                     Close
                 </Button>
             </DialogActions>

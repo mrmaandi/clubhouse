@@ -2,9 +2,9 @@ import React, { FC, useEffect } from 'react';
 import { Box, CircularProgress, Container, Divider, Hidden, Typography } from '@material-ui/core';
 import { observer } from 'mobx-react';
 import { useRootStore } from './Wrapper';
-import TwitchEmbed from './TwitchEmbed';
-import sample from '../assets/club.mp4';
-import Countdown from './Countdown';
+import TwitchEmbed from '../etc/TwitchEmbed';
+import sample from '../../assets/club.mp4';
+import Countdown from '../etc/Countdown';
 
 const NextEvent: FC = () => {
     const { nextEventsStore } = useRootStore();
