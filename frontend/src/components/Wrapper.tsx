@@ -6,6 +6,8 @@ import AudioPlayer from './AudioPlayer';
 import NextEvent from './NextEvent';
 import PreviousEvents from './PreviousEvents';
 import { observer } from 'mobx-react';
+import DropzoneDialogModal from './DialogComponent';
+import AddEventModal from './AddEventModal';
 
 let rootStore: RootStore;
 
@@ -33,6 +35,7 @@ class Wrapper extends React.Component {
                 <PreviousEvents />
                 <Footer />
                 <AudioPlayer />
+                <AddEventModal />
             </RootStoreProvider>
         );
     }

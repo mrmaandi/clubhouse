@@ -36,6 +36,7 @@ dependencies {
 
 	implementation(platform("com.amazonaws:aws-java-sdk-bom:1.11.960"))
 	implementation("com.amazonaws:aws-java-sdk-s3")
+	implementation("javax.xml.bind:jaxb-api:2.2.4")
 
 	compileOnly("org.projectlombok:lombok")
 

@@ -1,20 +1,25 @@
 package com.planetsf.clubhouse.controller
 
 import com.planetsf.clubhouse.config.AwsS3Configuration
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import com.planetsf.clubhouse.model.EventUploads
+import com.planetsf.clubhouse.service.FileStorageService
+import org.springframework.web.bind.annotation.*
 
 
 @RestController
-@RequestMapping("events")
-class FileStorageController(private val configuration: AwsS3Configuration) {
+@RequestMapping("files")
+class FileStorageController(private val configuration: AwsS3Configuration, private val fileStorageService: FileStorageService) {
 
-    @GetMapping("/files")
-    fun events() {
-        val ol = configuration.amazonS3Client().listObjects("clubhouse-sample-flips")
-        for (objectSummary in ol.objectSummaries) {
+    @GetMapping("/list")
+    fun getFiles() {
+        val s3Client = configuration.amazonS3Client().listObjects("clubhouse-sample-flips")
+        for (objectSummary in s3Client.objectSummaries) {
             println(objectSummary.key)
         }
+    }
+
+    @PostMapping("/upload/{folder}")
+    fun uploadFiles(@PathVariable("folder") destinationFolder: String, @RequestBody requestBody: EventUploads) {
+        fileStorageService.uploadFilesToS3(destinationFolder, requestBody)
     }
 }
