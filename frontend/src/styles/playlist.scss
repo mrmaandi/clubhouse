@@ -9,11 +9,11 @@
 }
 
 .playlist-flex {
-  display:flex;
   overflow-x:auto;
   flex-wrap: nowrap;
   padding-top: 10px;
   padding-left: 10px;
+  display:flex;
 }
 
 .playlist-flex div {

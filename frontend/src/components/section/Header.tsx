@@ -5,40 +5,41 @@ import LockOpenIcon from '@material-ui/icons/LockOpen';
 import { useRootStore } from './Wrapper';
 import { observer } from 'mobx-react';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import TodayIcon from '@material-ui/icons/Today';
 
 const Header: FC = () => {
     const { modalStore } = useRootStore();
 
     return (
         <div className="main-header">
-            <Container maxWidth="lg">
-                <Box>
-                    <Grid container alignItems="center">
-                        <Grid item>
-                            <img src={logo} alt="Clubhouse" />
-                        </Grid>
-                        <Grid item xs>
-                            <Button
-                                color="inherit"
-                                size="large"
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    window.location.reload();
-                                }}
-                            >
-                                <Typography display="inline">
-                                    <Box display="inline" fontSize={28} fontWeight={800}>
-                                        Club
-                                    </Box>
-                                    <Box display="inline" fontSize={28}>
-                                        house
-                                    </Box>
-                                </Typography>
-                            </Button>
-                        </Grid>
-                        <Grid item>
-                            <Box pr={1} display="inline">
+            <div className="header-content">
+                <Container maxWidth="lg">
+                    <div className="background-art" />
+                    <Box>
+                        <Grid container alignItems="center">
+                            <Grid item>
+                                <img src={logo} alt="Clubhouse" />
+                            </Grid>
+                            <Grid item xs>
+                                <Button
+                                    color="inherit"
+                                    size="large"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        window.location.reload();
+                                    }}
+                                >
+                                    <Typography display="inline">
+                                        <Box display="inline" fontSize={28} fontWeight={800}>
+                                            Club
+                                        </Box>
+                                        <Box display="inline" fontSize={28}>
+                                            house
+                                        </Box>
+                                    </Typography>
+                                </Button>
+                            </Grid>
+                            <Grid item>
+                                {/*                            <Box pr={1} display="inline">
                                 <Button
                                     size="small"
                                     color="secondary"
@@ -50,42 +51,43 @@ const Header: FC = () => {
                                 >
                                     Add new challenge
                                 </Button>
-                            </Box>
-                            <Box pr={2} display="inline">
-                                <Button
-                                    size="small"
-                                    color="primary"
-                                    type="button"
-                                    variant="contained"
-                                    onClick={modalStore.handleOpen}
-                                    startIcon={<CloudUploadIcon />}
-                                >
-                                    Add entries
-                                </Button>
-                            </Box>
-                            <Tooltip
-                                title="You will be able to authenticate yourself with Discord to create playlists, view your personal sample flips, etc. This is a work in progress. It will come when it's ready."
-                                placement="bottom"
-                            >
-                                <Box display="inline">
+                            </Box>*/}
+                                <Box pr={1} display="inline">
                                     <Button
-                                        disabled
-                                        variant="contained"
-                                        size="medium"
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            window.location.reload();
-                                        }}
-                                        startIcon={<LockOpenIcon />}
+                                        size="small"
+                                        color="default"
+                                        type="button"
+                                        variant="outlined"
+                                        onClick={modalStore.handleOpen}
+                                        startIcon={<CloudUploadIcon />}
                                     >
-                                        <Box display="inline">Authenticate with Discord</Box>
+                                        Add flips
                                     </Button>
                                 </Box>
-                            </Tooltip>
+                                <Tooltip
+                                    title="You will be able to authenticate yourself with Discord to create playlists, view your personal sample flips, etc. This is a work in progress. It will come when it's ready."
+                                    placement="bottom"
+                                >
+                                    <Box display="inline">
+                                        <Button
+                                            disabled
+                                            variant="contained"
+                                            size="small"
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                window.location.reload();
+                                            }}
+                                            startIcon={<LockOpenIcon />}
+                                        >
+                                            <Box display="inline">Authenticate with Discord</Box>
+                                        </Button>
+                                    </Box>
+                                </Tooltip>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Box>
-            </Container>
+                    </Box>
+                </Container>
+            </div>
         </div>
     );
 };

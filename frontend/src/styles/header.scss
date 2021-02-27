@@ -7,4 +7,14 @@
     height: 40px;
     padding-right: 10px;
   }
+
+  .header-content {
+    position: relative;
+    z-index: 2;
+
+    .background-art {
+      position: absolute;
+      z-index: -1;
+    }
+  }
 }

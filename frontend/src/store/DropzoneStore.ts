@@ -2,7 +2,7 @@ import { RootStore } from './RootStore';
 import { action, makeObservable, observable } from 'mobx';
 import { uploadFiles } from '../helpers/ApiService';
 
-type UploadStatus = 'initial' | 'success' | 'failed';
+type UploadStatus = 'initial' | 'success' | 'failed' | 'loading';
 
 export interface DropzoneFile {
     id: string;
@@ -88,8 +88,12 @@ export class DropzoneStore {
     };
 
     handleFileUpload = (): void => {
+        this.uploadStatus = 'loading';
         uploadFiles(this.rootStore.dropzoneStore.challengeId, this.files, this.rootStore.securityStore.securityToken)
-            .then(() => (this.uploadStatus = 'success'))
+            .then(() => {
+                this.uploadStatus = 'success';
+                this.files = [];
+            })
             .catch(() => (this.uploadStatus = 'failed'));
     };
 
@@ -99,5 +103,10 @@ export class DropzoneStore {
 
     setChallengeId = (id: string): void => {
         this.challengeId = id;
+    };
+
+    removeFromFiles = (fileId: string) => {
+        const fileIndex = this.files.findIndex((file) => file.fileName === fileId);
+        this.files.splice(fileIndex, 1);
     };
 }

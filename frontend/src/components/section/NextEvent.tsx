@@ -29,37 +29,40 @@ const render = (): JSX.Element => {
                     </video>
                 </Hidden>
                 <div className="overlay">
-                    {nextEvents.isInitialLoading || !nextEvents.payload ? (
-                        <Typography align="center" color="textSecondary">
-                            Loading next event data...
-                            <br />
-                            <CircularProgress color="inherit" />
-                        </Typography>
-                    ) : !nextEvents.payload[0] ? (
-                        <>
-                            <Box fontWeight="500" fontSize={24}>
-                                <Typography align="center">
-                                    Sorry, currently no new events are added in the calendar
-                                </Typography>
-                            </Box>
-                            <Box>
-                                <Typography variant="subtitle2" align="center" color="textSecondary">
-                                    (They need to be manually added)
-                                </Typography>
-                            </Box>
-                        </>
-                    ) : (
-                        <>
-                            <Box fontSize={22}>
-                                <Typography align="center" color="textSecondary">
-                                    New Production Challenge In:
-                                </Typography>
-                            </Box>
-                            <Countdown date={new Date(nextEvents.payload[0].start)} />
-                        </>
-                    )}
-                    <Divider light style={{ marginBottom: '10px', marginTop: '10px' }} />
-                    {getShortcuts()}
+                    <div className="background overlay-art-top" />
+                    <div className="overlay-content">
+                        {nextEvents.isInitialLoading || !nextEvents.payload ? (
+                            <Typography align="center" color="textSecondary">
+                                Loading next event data...
+                                <br />
+                                <CircularProgress color="inherit" />
+                            </Typography>
+                        ) : !nextEvents.payload[0] ? (
+                            <>
+                                <Box fontWeight="500" fontSize={24}>
+                                    <Typography align="center">
+                                        Sorry, currently no new events are added in the calendar
+                                    </Typography>
+                                </Box>
+                                <Box>
+                                    <Typography variant="subtitle2" align="center" color="textSecondary">
+                                        (They need to be manually added)
+                                    </Typography>
+                                </Box>
+                            </>
+                        ) : (
+                            <>
+                                <Box fontSize={22}>
+                                    <Typography align="center" color="textSecondary">
+                                        New Production Challenge In:
+                                    </Typography>
+                                </Box>
+                                <Countdown date={new Date(nextEvents.payload[0].start)} />
+                            </>
+                        )}
+                        <Divider light style={{ marginBottom: '10px', marginTop: '10px' }} />
+                        {getShortcuts()}
+                    </div>
                 </div>
             </>
         );
