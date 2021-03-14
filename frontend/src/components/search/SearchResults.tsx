@@ -1,5 +1,5 @@
-import React, {FC} from 'react';
-import {useRootStore} from '../section/Wrapper';
+import React, { FC } from 'react';
+import { useRootStore } from '../section/Wrapper';
 import {
     Box,
     Button,
@@ -14,12 +14,12 @@ import {
 } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import {observer} from 'mobx-react';
-import {ReactJkMusicPlayerAudioListProps} from 'react-jinke-music-player';
+import { observer } from 'mobx-react';
+import { ReactJkMusicPlayerAudioListProps } from 'react-jinke-music-player';
 import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
 import PlayArrowOutlinedIcon from '@material-ui/icons/PlayArrowOutlined';
 import missingCoverArt from '../../assets/missing-cover.png';
-import {ISearchEvent} from '../../store/SearchStore';
+import { ISearchEvent } from '../../store/SearchStore';
 
 const SearchResults: FC = () => {
     const { searchStore, audioPlayerStore } = useRootStore();
