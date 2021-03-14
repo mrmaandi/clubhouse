@@ -1,7 +1,15 @@
 import { RootStore } from './RootStore';
 import { action, computed, makeObservable, observable } from 'mobx';
-import { IEventSubmission, IPreviousEvent } from './PreviousEventsStore';
-import { ISearchEvent } from '../components/PreviousEvents';
+import { IEntry } from './EntriesStore';
+
+export interface ISearchEvent {
+    user: string;
+    eventName: string;
+    eventNumber: number;
+    fileUrl: string;
+    fileName: string;
+    coverArt?: string;
+}
 
 export class SearchStore {
     searchValue = '';
@@ -34,21 +42,29 @@ export class SearchStore {
 
     get searchResults(): ISearchEvent[] {
         const searchResults: ISearchEvent[] = [];
+        const entries = this.rootStore.entriesStore.entries;
 
-        this.rootStore.previousEventsStore.previousEvents.payload?.forEach((event: IPreviousEvent) =>
-            event.description.filter(
-                (description) =>
-                    description.type === 'music' &&
-                    description.user.toLowerCase().includes(this.searchValue.toLowerCase()) &&
-                    searchResults.push({
-                        user: description.user,
-                        eventName: event.name!,
-                        fileUrl: description.fileUrl,
-                        coverArt: event.description.filter(
-                            (submission: IEventSubmission) => submission.type === 'art',
-                        )[0].fileUrl,
-                    }),
-            ),
+        if (entries.isInitialLoading || !entries.payload) {
+            return [];
+        }
+
+        const artList = entries ? entries.payload.filter((entry) => entry.entryType === 'ART') : [];
+
+        entries.payload.filter(
+            (entry: IEntry) =>
+                entry.entryType === 'MUSIC' &&
+                this.rootStore.usersStore.users
+                    .payload!.find((user) => user.id === entry.userId)!
+                    .name.toLowerCase()
+                    .includes(this.searchValue.toLowerCase()) &&
+                searchResults.push({
+                    user: this.rootStore.usersStore.users.payload!.find((user) => user.id === entry.userId)!.name,
+                    eventName: this.rootStore.challengesStore.getChallengeFromEntry(entry).name,
+                    eventNumber: this.rootStore.challengesStore.getChallengeFromEntry(entry).challengeNumber,
+                    fileUrl: entry.fileUrl,
+                    coverArt: artList.find((art) => art.challengeNumber === entry.challengeNumber)?.fileUrl,
+                    fileName: entry.fileName,
+                }),
         );
 
         return searchResults;

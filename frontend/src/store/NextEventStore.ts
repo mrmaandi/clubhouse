@@ -1,6 +1,6 @@
 import { RootStore } from './RootStore';
 import { action, computed, makeObservable, observable } from 'mobx';
-import { getNextEvents } from '../helpers/ApiService';
+import { getNextEvents } from '../helpers/Requests';
 import { Loadable } from '../helpers/Loadable';
 
 export interface IEvent {

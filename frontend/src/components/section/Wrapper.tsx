@@ -1,11 +1,12 @@
 import React, { createContext, ReactNode, useContext } from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import { RootStore } from '../store/RootStore';
-import AudioPlayer from './AudioPlayer';
-import NextEvent from './NextEvent';
-import PreviousEvents from './PreviousEvents';
+import { RootStore } from '../../store/RootStore';
+import AudioPlayer from '../etc/AudioPlayer';
 import { observer } from 'mobx-react';
+import { MainContainer } from './MainContainer';
+import AddFilesToChallengeModal from '../admin/AddFilesToChallengeModal';
+import ErrorBoundary from './ErrorBoundary';
 
 let rootStore: RootStore;
 
@@ -27,13 +28,16 @@ export const useRootStore = (): RootStore => {
 class Wrapper extends React.Component {
     render(): JSX.Element {
         return (
-            <RootStoreProvider>
-                <Header />
-                <NextEvent />
-                <PreviousEvents />
-                <Footer />
-                <AudioPlayer />
-            </RootStoreProvider>
+            <ErrorBoundary>
+                <RootStoreProvider>
+                    <Header />
+                    <MainContainer />
+                    <Footer />
+                    <AudioPlayer />
+
+                    <AddFilesToChallengeModal />
+                </RootStoreProvider>
+            </ErrorBoundary>
         );
     }
 }

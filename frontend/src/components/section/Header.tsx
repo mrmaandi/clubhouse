@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Box, Button, Container, Grid, Tooltip, Typography } from '@material-ui/core';
-import logo from '../assets/monke.png';
+import logo from '../../assets/monke.png';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
+import { useRootStore } from './Wrapper';
+import { observer } from 'mobx-react';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
-class Header extends React.Component {
-    render(): JSX.Element {
-        return (
-            <div className="main-header">
+const Header: FC = () => {
+    const { modalStore } = useRootStore();
+
+    return (
+        <div className="main-header">
+            <div className="header-content">
                 <Container maxWidth="lg">
+                    <div className="background-art" />
                     <Box>
                         <Grid container alignItems="center">
                             <Grid item>
@@ -32,33 +38,58 @@ class Header extends React.Component {
                                     </Typography>
                                 </Button>
                             </Grid>
-                            <Grid item>
+                            {/*                            <Grid item>
+                                                            <Box pr={1} display="inline">
+                                <Button
+                                    size="small"
+                                    color="secondary"
+                                    type="button"
+                                    variant="contained"
+                                    disabled
+                                    onClick={modalStore.handleOpen}
+                                    startIcon={<TodayIcon />}
+                                >
+                                    Add new challenge
+                                </Button>
+                            </Box>
+                                <Box pr={1} display="inline">
+                                    <Button
+                                        size="small"
+                                        color="default"
+                                        type="button"
+                                        variant="outlined"
+                                        onClick={modalStore.handleOpen}
+                                        startIcon={<CloudUploadIcon />}
+                                    >
+                                        Add flips
+                                    </Button>
+                                </Box>
                                 <Tooltip
                                     title="You will be able to authenticate yourself with Discord to create playlists, view your personal sample flips, etc. This is a work in progress. It will come when it's ready."
                                     placement="bottom"
                                 >
-                                    <Box>
+                                    <Box display="inline">
                                         <Button
                                             disabled
-                                            size="medium"
+                                            variant="contained"
+                                            size="small"
                                             onClick={(e) => {
                                                 e.preventDefault();
                                                 window.location.reload();
                                             }}
-                                            variant="outlined"
                                             startIcon={<LockOpenIcon />}
                                         >
                                             <Box display="inline">Authenticate with Discord</Box>
                                         </Button>
                                     </Box>
                                 </Tooltip>
-                            </Grid>
+                            </Grid>*/}
                         </Grid>
                     </Box>
                 </Container>
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
-export default Header;
+export default observer(Header);

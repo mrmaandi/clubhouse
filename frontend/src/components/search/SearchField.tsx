@@ -5,7 +5,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import ClearIcon from '@material-ui/icons/Clear';
 import { Grid, TextField } from '@material-ui/core';
 import { observer } from 'mobx-react';
-import { useRootStore } from './Wrapper';
+import { useRootStore } from '../section/Wrapper';
 
 const useStyles = makeStyles((theme) => ({
     root: {

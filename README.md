@@ -5,10 +5,10 @@
 Design https://www.figma.com/proto/0YcpFeK0pJKn4BCi3TRKcT/Untitled?node-id=20%3A67&scaling=min-zoom
 
 Prototype / Demo
-![Clubhouse](https://i.imgur.com/sJSwDTl.png)
+https://i.imgur.com/sJSwDTl.png
 
 Iteration 1
-![Iteration1](https://i.imgur.com/cY6Lfcm.png)
+https://i.imgur.com/cY6Lfcm.png
 
 
 Iteration 2

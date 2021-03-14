@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import ReactJkMusicPlayer from 'react-jinke-music-player';
 import { observer } from 'mobx-react';
-import { useRootStore } from './Wrapper';
+import { useRootStore } from '../section/Wrapper';
 
 const AudioPlayer: FC = () => {
     const { audioPlayerStore } = useRootStore();
