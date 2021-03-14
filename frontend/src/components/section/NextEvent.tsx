@@ -29,7 +29,7 @@ const render = (): JSX.Element => {
                     </video>
                 </Hidden>
                 <div className="overlay">
-                    <div className="background overlay-art-top" />
+                    <div className="background" />
                     <div className="overlay-content">
                         {nextEvents.isInitialLoading ? (
                             <Typography align="center" color="textSecondary">

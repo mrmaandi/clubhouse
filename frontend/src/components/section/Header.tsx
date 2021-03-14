@@ -38,8 +38,8 @@ const Header: FC = () => {
                                     </Typography>
                                 </Button>
                             </Grid>
-                            <Grid item>
-                                {/*                            <Box pr={1} display="inline">
+                            {/*                            <Grid item>
+                                                            <Box pr={1} display="inline">
                                 <Button
                                     size="small"
                                     color="secondary"
@@ -51,7 +51,7 @@ const Header: FC = () => {
                                 >
                                     Add new challenge
                                 </Button>
-                            </Box>*/}
+                            </Box>
                                 <Box pr={1} display="inline">
                                     <Button
                                         size="small"
@@ -83,7 +83,7 @@ const Header: FC = () => {
                                         </Button>
                                     </Box>
                                 </Tooltip>
-                            </Grid>
+                            </Grid>*/}
                         </Grid>
                     </Box>
                 </Container>
