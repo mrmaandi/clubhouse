@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("files")
 class FileStorageController(
     private val configuration: AwsS3Configuration,
-    private val fileStorageService: FileStorageService,
     private val calendarService: CalendarService
 ) {
     @Value("\${request.security-token}")
@@ -82,6 +81,7 @@ class FileStorageController(
 /*        if (securityToken != token) {
             return ResponseEntity.badRequest().body("You are not authorized to do this request.");
         }*/
-        return ResponseEntity.ok(fileStorageService.uploadFilesToS3(destinationFolder, requestBody))
+        // return ResponseEntity.ok(fileStorageService.uploadFilesToS3(destinationFolder, requestBody))
+        return ResponseEntity.badRequest().body("You are not authorized to do this request.");
     }
 }

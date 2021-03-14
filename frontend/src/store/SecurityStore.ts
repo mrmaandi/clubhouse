@@ -1,7 +1,5 @@
 import { RootStore } from './RootStore';
-import { action, computed, makeObservable, observable } from 'mobx';
-import { IEventSubmission, IPreviousEvent } from './PreviousEventsStore';
-import { ISearchEvent } from '../components/section/PreviousEvents';
+import { action, makeObservable, observable } from 'mobx';
 
 export class SecurityStore {
     securityToken = '';

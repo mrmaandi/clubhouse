@@ -1,15 +1,16 @@
 import { RootStore } from './RootStore';
-import { action, makeObservable, observable } from 'mobx';
-import { uploadFiles } from '../helpers/ApiService';
+import { makeAutoObservable } from 'mobx';
+import { addEntries, EntryType, getEntryType } from '../helpers/Requests';
 
 type UploadStatus = 'initial' | 'success' | 'failed' | 'loading';
 
 export interface DropzoneFile {
     id: string;
-    userId: string;
+    userName: string;
     fileName: string;
-    fileType: string;
     file: File;
+    entryType: EntryType;
+    isOriginalSample: boolean;
 }
 
 export class DropzoneStore {
@@ -20,29 +21,15 @@ export class DropzoneStore {
     uploadStatus: UploadStatus = 'initial';
 
     constructor(private rootStore: RootStore) {
-        makeObservable(this, {
-            isDragging: observable,
-            dragCounter: observable,
-            files: observable,
-            challengeId: observable,
-            uploadStatus: observable,
-
-            handleDrag: action,
-            handleDragIn: action,
-            handleDragOut: action,
-            handleDrop: action,
-            handleFileUpload: action,
-            changeUserIdOfFile: action,
-            setChallengeId: action,
-        });
+        makeAutoObservable(this);
     }
 
-    handleDrag = (e: any) => {
+    handleDrag = (e: any): void => {
         e.preventDefault();
         e.stopPropagation();
     };
 
-    handleDragIn = (e: any) => {
+    handleDragIn = (e: any): void => {
         e.preventDefault();
         e.stopPropagation();
         this.dragCounter++;
@@ -51,7 +38,7 @@ export class DropzoneStore {
         }
     };
 
-    handleDragOut = (e: any) => {
+    handleDragOut = (e: any): void => {
         e.preventDefault();
         e.stopPropagation();
         this.dragCounter--;
@@ -60,7 +47,7 @@ export class DropzoneStore {
         }
     };
 
-    handleDrop = (e: any) => {
+    handleDrop = (e: any): void => {
         e.preventDefault();
         e.stopPropagation();
         this.isDragging = false;
@@ -71,17 +58,19 @@ export class DropzoneStore {
         }
     };
 
-    handleFiles = (files: File[]) => {
+    handleFiles = (files: File[]): void => {
         const fileList = this.files;
+
         for (let i = 0; i < files.length; i++) {
             if (!files[i].name) return;
             const currentTime = new Date().getMilliseconds();
             fileList.push({
                 id: files[i].name + ' - ' + currentTime,
                 file: files[i],
-                userId: '',
+                userName: '',
                 fileName: files[i].name,
-                fileType: files[i].type,
+                entryType: getEntryType(files[i].type),
+                isOriginalSample: false,
             });
         }
         this.files = fileList;
@@ -89,24 +78,32 @@ export class DropzoneStore {
 
     handleFileUpload = (): void => {
         this.uploadStatus = 'loading';
-        uploadFiles(this.rootStore.dropzoneStore.challengeId, this.files, this.rootStore.securityStore.securityToken)
+        addEntries(this.rootStore.dropzoneStore.challengeId, this.files, this.rootStore.securityStore.securityToken)
             .then(() => {
                 this.uploadStatus = 'success';
-                this.files = [];
+                this.clearFiles();
             })
             .catch(() => (this.uploadStatus = 'failed'));
     };
 
-    changeUserIdOfFile = (id: string, fileName: string, userId: string): void => {
-        this.files[this.files.findIndex((file) => file.fileName === fileName)].userId = userId;
+    changeUserOfFile = (id: string, fileName: string, userName: string): void => {
+        this.files[this.files.findIndex((file) => file.fileName === fileName)].userName = userName;
     };
 
     setChallengeId = (id: string): void => {
         this.challengeId = id;
     };
 
-    removeFromFiles = (fileId: string) => {
-        const fileIndex = this.files.findIndex((file) => file.fileName === fileId);
+    removeFromList = (dropzoneFile: DropzoneFile): void => {
+        const fileIndex = this.files.findIndex((file) => file.id === dropzoneFile.id);
         this.files.splice(fileIndex, 1);
     };
+
+    clearFiles = (): void => {
+        this.files = [];
+    };
+
+    changeOriginalSampleFile(dropzoneFile: DropzoneFile, checked: boolean) {
+        dropzoneFile.isOriginalSample = checked;
+    }
 }

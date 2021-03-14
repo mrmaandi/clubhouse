@@ -5,6 +5,10 @@ import { SearchStore } from './SearchStore';
 import { ModalStore } from './ModalStore';
 import { DropzoneStore } from './DropzoneStore';
 import { SecurityStore } from './SecurityStore';
+import { AddChallengesStore } from './AddChallengesStore';
+import { ChallengesStore } from './ChallengesStore';
+import { UsersStore } from './UsersStore';
+import { EntriesStore } from './EntriesStore';
 
 export class RootStore {
     previousEventsStore: PreviousEventsStore;
@@ -14,6 +18,10 @@ export class RootStore {
     modalStore: ModalStore;
     dropzoneStore: DropzoneStore;
     securityStore: SecurityStore;
+    addChallengesStore: AddChallengesStore;
+    challengesStore: ChallengesStore;
+    usersStore: UsersStore;
+    entriesStore: EntriesStore;
 
     constructor() {
         this.previousEventsStore = new PreviousEventsStore(this);
@@ -23,5 +31,9 @@ export class RootStore {
         this.modalStore = new ModalStore(this);
         this.dropzoneStore = new DropzoneStore(this);
         this.securityStore = new SecurityStore(this);
+        this.addChallengesStore = new AddChallengesStore(this);
+        this.challengesStore = new ChallengesStore(this);
+        this.usersStore = new UsersStore(this);
+        this.entriesStore = new EntriesStore(this);
     }
 }

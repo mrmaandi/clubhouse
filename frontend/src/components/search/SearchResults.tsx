@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
-import { useRootStore } from '../section/Wrapper';
+import React, {FC} from 'react';
+import {useRootStore} from '../section/Wrapper';
 import {
     Box,
     Button,
@@ -14,10 +14,12 @@ import {
 } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import { observer } from 'mobx-react';
-import { ReactJkMusicPlayerAudioListProps } from 'react-jinke-music-player';
+import {observer} from 'mobx-react';
+import {ReactJkMusicPlayerAudioListProps} from 'react-jinke-music-player';
 import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
 import PlayArrowOutlinedIcon from '@material-ui/icons/PlayArrowOutlined';
+import missingCoverArt from '../../assets/missing-cover.png';
+import {ISearchEvent} from '../../store/SearchStore';
 
 const SearchResults: FC = () => {
     const { searchStore, audioPlayerStore } = useRootStore();
@@ -77,54 +79,64 @@ const SearchResults: FC = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {searchStore.searchResults.reverse().map((e, i) => (
-                            <Grow
-                                key={e.fileUrl + i}
-                                in={true}
-                                style={{ transformOrigin: '0 0 0' }}
-                                {...{ timeout: 2 ^ (i * 100) }}
-                            >
-                                <TableRow>
-                                    <TableCell width={1}>
-                                        <Box pr={1}>
-                                            <IconButton
-                                                aria-label="search"
-                                                size="small"
-                                                onClick={() => {
-                                                    audioPlayerStore.setAudioList([
-                                                        audioPlayerStore.mapToAudioList({
-                                                            eventName: e.eventName,
-                                                            artistName: e.user,
-                                                            musicSrc: e.fileUrl,
-                                                            cover: e.coverArt,
-                                                        }),
-                                                    ]);
-                                                }}
-                                            >
-                                                <PlayArrowIcon fontSize="default" />
-                                            </IconButton>
-                                        </Box>
-                                    </TableCell>
-                                    <TableCell width={1}>
-                                        <Box pr={2}>
-                                            <Typography color="textSecondary">{i + 1}</Typography>
-                                        </Box>
-                                    </TableCell>
-                                    <TableCell width={1}>
-                                        <Box pr={3}>
-                                            <Grid container alignItems="center">
-                                                <Grid item>
-                                                    <img src={e.coverArt} width="46px" height="46px" />
+                        {searchStore.searchResults
+                            .sort((a: ISearchEvent, b: ISearchEvent) => {
+                                return b.eventNumber - a.eventNumber;
+                            })
+                            .map((searchEvent: ISearchEvent, i: number) => (
+                                <Grow
+                                    key={searchEvent.fileUrl + i}
+                                    in={true}
+                                    style={{ transformOrigin: '0 0 0' }}
+                                    {...{ timeout: 2 ^ (i * 100) }}
+                                >
+                                    <TableRow>
+                                        <TableCell width={1}>
+                                            <Box pr={1}>
+                                                <IconButton
+                                                    aria-label="search"
+                                                    size="small"
+                                                    onClick={() => {
+                                                        audioPlayerStore.setAudioList([
+                                                            audioPlayerStore.mapToAudioList({
+                                                                eventName: searchEvent.eventName,
+                                                                artistName: searchEvent.user,
+                                                                musicSrc: searchEvent.fileUrl,
+                                                                cover: searchEvent.coverArt,
+                                                            }),
+                                                        ]);
+                                                    }}
+                                                >
+                                                    <PlayArrowIcon fontSize="default" />
+                                                </IconButton>
+                                            </Box>
+                                        </TableCell>
+                                        <TableCell width={1}>
+                                            <Box pr={2}>
+                                                <Typography color="textSecondary">{i + 1}</Typography>
+                                            </Box>
+                                        </TableCell>
+                                        <TableCell width={1}>
+                                            <Box pr={3}>
+                                                <Grid container alignItems="center">
+                                                    <Grid item>
+                                                        <img
+                                                            src={searchEvent.coverArt || missingCoverArt}
+                                                            width="46px"
+                                                            height="46px"
+                                                        />
+                                                    </Grid>
                                                 </Grid>
-                                            </Grid>
-                                        </Box>
-                                    </TableCell>
-                                    <TableCell>{e.eventName}</TableCell>
-                                    <TableCell>{e.fileName}</TableCell>
-                                    <TableCell align="right">{e.user}</TableCell>
-                                </TableRow>
-                            </Grow>
-                        ))}
+                                            </Box>
+                                        </TableCell>
+                                        <TableCell>
+                                            (#{searchEvent.eventNumber}) {searchEvent.eventName}
+                                        </TableCell>
+                                        <TableCell>{searchEvent.fileName}</TableCell>
+                                        <TableCell align="right">{searchEvent.user}</TableCell>
+                                    </TableRow>
+                                </Grow>
+                            ))}
                     </TableBody>
                 </Table>
             );

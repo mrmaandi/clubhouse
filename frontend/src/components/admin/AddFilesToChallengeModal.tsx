@@ -1,49 +1,138 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { useRootStore } from '../section/Wrapper';
 import Dropzone from './Dropzone';
 import DialogComponent from '../common/DialogComponent';
-import { Box, Divider, Grid, IconButton, TextField, Typography } from '@material-ui/core';
 import { DropzoneFile } from '../../store/DropzoneStore';
-import { Alert } from '@material-ui/lab';
+import { Alert, Autocomplete } from '@material-ui/lab';
 import DeleteIcon from '@material-ui/icons/Delete';
+import {
+    Box,
+    Checkbox,
+    Divider,
+    FormControl,
+    Grid,
+    IconButton,
+    InputLabel,
+    MenuItem,
+    Select,
+    TextField,
+    Typography,
+} from '@material-ui/core';
+import { IUser } from '../../store/UsersStore';
 
 const AddFilesToChallengeModal: FC = () => {
-    const { dropzoneStore, securityStore } = useRootStore();
+    const { challengesStore, usersStore, addChallengesStore, dropzoneStore, securityStore } = useRootStore();
 
-    return (
-        <DialogComponent title="Add files to existing challenge" onSubmit={dropzoneStore.handleFileUpload}>
-            <Dropzone>
-                <div>
-                    <Box p={2}>
-                        <Grid container spacing={1}>
-                            <Grid item xs>
-                                <TextField
-                                    fullWidth
-                                    size="small"
-                                    id="challenge-id"
-                                    label="Challenge ID"
-                                    color="secondary"
-                                    variant="outlined"
-                                    onChange={(e) => dropzoneStore.setChallengeId(e.target.value)}
+    const renderAddChallengeSection = () => {
+        return (
+            <Box p={2}>
+                <Grid container spacing={1}>
+                    <Grid item xs>
+                        <TextField
+                            fullWidth
+                            size="small"
+                            id="challenge-id"
+                            label="Challenge Number"
+                            color="secondary"
+                            variant="outlined"
+                            onChange={(e: any) => addChallengesStore.setChallengeId(e.target.value)}
+                            value={addChallengesStore.challengeId}
+                        />
+                    </Grid>
+                    <Grid item xs>
+                        <TextField
+                            fullWidth
+                            size="small"
+                            id="challenge-name"
+                            label="Challenge Name"
+                            color="secondary"
+                            variant="outlined"
+                            onChange={(e: any) => addChallengesStore.setChallengeName(e.target.value)}
+                            value={addChallengesStore.challengeName}
+                        />
+                    </Grid>
+                    <Grid item xs>
+                        <TextField
+                            fullWidth
+                            size="small"
+                            id="start-date"
+                            label="Start datetime"
+                            color="secondary"
+                            variant="outlined"
+                            onChange={(e: any) => addChallengesStore.setStartDate(e.target.value)}
+                            value={addChallengesStore.startDate}
+                        />
+                    </Grid>
+                    <Grid item xs>
+                        <TextField
+                            fullWidth
+                            size="small"
+                            id="start-date"
+                            label="End datetime"
+                            color="secondary"
+                            variant="outlined"
+                            onChange={(e: any) => addChallengesStore.setEndDate(e.target.value)}
+                            value={addChallengesStore.endDate}
+                        />
+                    </Grid>
+                </Grid>
+            </Box>
+        );
+    };
+
+    const renderAddEntriesSection = () => {
+        if (!challengesStore.challenges.payload) {
+            return null;
+        }
+
+        return (
+            <Box p={2}>
+                <Box pb={2}>
+                    <Grid container spacing={1}>
+                        <Grid item xs>
+                            <FormControl variant="outlined" size="small" fullWidth={true}>
+                                <InputLabel>Challenge</InputLabel>
+                                <Select
+                                    labelId="challenge"
+                                    id="challenge"
                                     value={dropzoneStore.challengeId}
-                                />
-                            </Grid>
-                            <Grid item xs>
-                                <TextField
-                                    fullWidth
-                                    size="small"
-                                    id="security-token"
-                                    label="Security token"
-                                    color="secondary"
-                                    variant="outlined"
-                                    onChange={(e) => securityStore.setSecurityToken(e.target.value)}
-                                    value={securityStore.securityToken}
-                                />
-                            </Grid>
+                                    onChange={(e: any) => dropzoneStore.setChallengeId(e.target.value)}
+                                >
+                                    {challengesStore.challenges.payload
+                                        .slice()
+                                        ?.sort(
+                                            (challenge1, challenge2) =>
+                                                challenge1.challengeNumber - challenge2.challengeNumber,
+                                        )
+                                        .map((challenge, index) => {
+                                            return (
+                                                <MenuItem key={index} value={challenge.challengeNumber}>
+                                                    {challenge.challengeNumber + ' - ' + challenge.name}
+                                                </MenuItem>
+                                            );
+                                        })}
+                                </Select>
+                            </FormControl>
                         </Grid>
+                        <Grid item xs>
+                            <TextField
+                                fullWidth
+                                size="small"
+                                id="security-token"
+                                label="Security token"
+                                color="secondary"
+                                variant="outlined"
+                                onChange={(e: any) => securityStore.setSecurityToken(e.target.value)}
+                                value={securityStore.securityToken}
+                            />
+                        </Grid>
+                    </Grid>
+                </Box>
+                <Dropzone>
+                    <div>
                         {dropzoneStore.files.length == 0 && (
-                            <Box mt={1}>
+                            <Box pt={1} pb={1}>
                                 <Grid container spacing={1}>
                                     <Grid item xs>
                                         <Typography align="center">Drag and drop files in here</Typography>
@@ -63,37 +152,73 @@ const AddFilesToChallengeModal: FC = () => {
                                     <Box mb={1}>
                                         <Grid container spacing={1} alignItems="center">
                                             <Grid item xs>
-                                                <Typography variant="subtitle2">{dropzoneFile.file.type}</Typography>{' '}
-                                                {dropzoneFile.file.name}
+                                                <Box>
+                                                    <Typography variant="subtitle2">
+                                                        {dropzoneFile.file.type}
+                                                    </Typography>{' '}
+                                                    <Typography variant="subtitle1" color="textPrimary">
+                                                        <Box display="inline" fontWeight={800}>
+                                                            {dropzoneFile.file.name}
+                                                        </Box>
+                                                    </Typography>
+                                                </Box>
                                             </Grid>
-                                            <Grid item>
-                                                <TextField
-                                                    size="small"
-                                                    id={'user-textfield-' + i}
-                                                    label="User"
-                                                    variant="filled"
-                                                    onChange={(e) =>
-                                                        dropzoneStore.changeUserIdOfFile(
+                                            <Grid item xs>
+                                                <Autocomplete
+                                                    fullWidth
+                                                    id="user-select-auto-complete"
+                                                    options={usersStore.users.payload as IUser[]}
+                                                    getOptionLabel={(user: IUser) => user.name}
+                                                    onInputChange={(e: any, value) =>
+                                                        dropzoneStore.changeUserOfFile(
                                                             dropzoneFile.id,
                                                             dropzoneFile.fileName,
-                                                            e.target.value,
+                                                            value,
                                                         )
                                                     }
-                                                    value={
-                                                        dropzoneStore.files[
-                                                            dropzoneStore.files.findIndex(
-                                                                (file) => dropzoneFile.fileName === file.fileName,
-                                                            )
-                                                        ].userId
+                                                    renderInput={(params) => (
+                                                        <TextField
+                                                            {...params}
+                                                            fullWidth
+                                                            label="User select"
+                                                            variant="outlined"
+                                                            error={
+                                                                !dropzoneStore.files[
+                                                                    dropzoneStore.files.findIndex(
+                                                                        (file) =>
+                                                                            dropzoneFile.fileName === file.fileName,
+                                                                    )
+                                                                ].userName
+                                                            }
+                                                            size="small"
+                                                            value={
+                                                                dropzoneStore.files[
+                                                                    dropzoneStore.files.findIndex(
+                                                                        (file) => dropzoneFile.id === file.id,
+                                                                    )
+                                                                ].userName
+                                                            }
+                                                        />
+                                                    )}
+                                                    freeSolo
+                                                />
+                                            </Grid>
+                                            <Grid item>
+                                                <Checkbox
+                                                    checked={dropzoneFile.isOriginalSample}
+                                                    onChange={(e) =>
+                                                        dropzoneStore.changeOriginalSampleFile(
+                                                            dropzoneFile,
+                                                            e.target.checked,
+                                                        )
                                                     }
+                                                    inputProps={{ 'aria-label': 'primary checkbox' }}
                                                 />
                                             </Grid>
                                             <Grid item>
                                                 <IconButton
                                                     aria-label="delete"
-                                                    onClick={() =>
-                                                        dropzoneStore.removeFromFiles(dropzoneFile.file.name)
-                                                    }
+                                                    onClick={() => dropzoneStore.removeFromList(dropzoneFile)}
                                                 >
                                                     <DeleteIcon />
                                                 </IconButton>
@@ -102,18 +227,34 @@ const AddFilesToChallengeModal: FC = () => {
                                     </Box>
                                 </div>
                             ))}
-                        <Grid container spacing={1}>
-                            <Grid item>
-                                {dropzoneStore.uploadStatus === 'success' && <Alert severity="success">Success</Alert>}
-                                {dropzoneStore.uploadStatus === 'failed' && <Alert severity="error">Failed</Alert>}
-                                {dropzoneStore.uploadStatus === 'loading' && (
-                                    <Alert severity="info">Making request ...</Alert>
-                                )}
-                            </Grid>
-                        </Grid>
-                    </Box>
-                </div>
-            </Dropzone>
+                    </div>
+                </Dropzone>
+                <Grid container spacing={1}>
+                    <Grid item>
+                        <Box pt={1}>
+                            {dropzoneStore.uploadStatus === 'success' && <Alert severity="success">Success</Alert>}
+                            {dropzoneStore.uploadStatus === 'failed' && <Alert severity="error">Failed</Alert>}
+                            {dropzoneStore.uploadStatus === 'loading' && (
+                                <Alert severity="info">Making request ...</Alert>
+                            )}
+                        </Box>
+                    </Grid>
+                </Grid>
+            </Box>
+        );
+    };
+
+    useEffect(() => {
+        challengesStore.fetchChallenges();
+        usersStore.fetchUsers();
+    });
+
+    return (
+        <DialogComponent title="Create challenges and add files" onSubmit={dropzoneStore.handleFileUpload}>
+            <div>
+                {/*                {renderAddChallengeSection()}*/}
+                {renderAddEntriesSection()}
+            </div>
         </DialogComponent>
     );
 };
