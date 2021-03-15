@@ -2,10 +2,11 @@ import React, { FC } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
-import ClearIcon from '@material-ui/icons/Clear';
 import { Grid, TextField } from '@material-ui/core';
 import { observer } from 'mobx-react';
 import { useRootStore } from '../section/Wrapper';
+import { IUser } from '../../store/UsersStore';
+import { Autocomplete } from '@material-ui/lab';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -47,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 
 const SearchField: FC = () => {
     const classes = useStyles();
-    const { searchStore } = useRootStore();
+    const { searchStore, usersStore } = useRootStore();
 
     return (
         <div className={classes.root}>
@@ -59,30 +60,24 @@ const SearchField: FC = () => {
                         </IconButton>
                     </Grid>
                     <Grid item xs>
-                        <TextField
-                            color="secondary"
-                            id="filled-search"
-                            label="Search"
-                            type="search"
-                            variant="outlined"
-                            size="small"
+                        <Autocomplete
                             fullWidth
-                            onChange={(e) => searchStore.setSearchValue(e.target.value)}
-                            value={searchStore.searchValue}
-                            inputMode="search"
+                            id="search-auto-complete"
+                            options={usersStore.filteredUsersWithMusicEntries}
+                            getOptionLabel={(user: IUser) => user.name}
+                            onInputChange={(e: any, value) => searchStore.setSearchValue(value)}
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    fullWidth
+                                    label="Search"
+                                    variant="outlined"
+                                    size="small"
+                                    value={searchStore.searchValue}
+                                />
+                            )}
+                            freeSolo
                         />
-                    </Grid>
-                    <Grid item>
-                        {searchStore.showClearButton && (
-                            <IconButton
-                                className={classes.iconButton}
-                                aria-label="Clear"
-                                onClick={() => searchStore.clearSearchValue()}
-                                value={searchStore.searchValue}
-                            >
-                                <ClearIcon />
-                            </IconButton>
-                        )}
                     </Grid>
                 </Grid>
             </div>

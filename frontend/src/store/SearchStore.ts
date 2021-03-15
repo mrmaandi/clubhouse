@@ -1,5 +1,5 @@
 import { RootStore } from './RootStore';
-import { action, computed, makeObservable, observable } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 import { IEntry } from './EntriesStore';
 
 export interface ISearchEvent {
@@ -15,16 +15,10 @@ export class SearchStore {
     searchValue = '';
 
     constructor(private rootStore: RootStore) {
-        makeObservable(this, {
-            searchValue: observable,
-            setSearchValue: action,
-            clearSearchValue: action,
-            onQuickFilterClick: action,
-            showClearButton: computed,
-        });
+        makeAutoObservable(this);
     }
 
-    setSearchValue = (value: string): void => {
+    public setSearchValue = (value: string): void => {
         this.searchValue = value;
     };
 

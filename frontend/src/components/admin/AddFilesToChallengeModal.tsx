@@ -252,7 +252,7 @@ const AddFilesToChallengeModal: FC = () => {
     return (
         <DialogComponent title="Create challenges and add files" onSubmit={dropzoneStore.handleFileUpload}>
             <div>
-                {/*                {renderAddChallengeSection()}*/}
+                {/*{renderAddChallengeSection()}*/}
                 {renderAddEntriesSection()}
             </div>
         </DialogComponent>

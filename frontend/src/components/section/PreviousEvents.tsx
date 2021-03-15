@@ -1,5 +1,16 @@
 import React, { FC, useEffect } from 'react';
-import { Box, Button, CircularProgress, Container, Divider, Grid, Grow, Hidden, Typography } from '@material-ui/core';
+import {
+    Box,
+    Button,
+    Chip,
+    CircularProgress,
+    Container,
+    Divider,
+    Grid,
+    Grow,
+    Hidden,
+    Typography,
+} from '@material-ui/core';
 import { observer } from 'mobx-react';
 import { useRootStore } from './Wrapper';
 import { ReactJkMusicPlayerAudioListProps } from 'react-jinke-music-player';
@@ -32,7 +43,7 @@ const PreviousEvents: FC = () => {
 };
 
 const renderTitleAndSearchBar = (): JSX.Element => {
-    const { searchStore } = useRootStore();
+    const { searchStore, entriesStore, audioPlayerStore, usersStore, challengesStore } = useRootStore();
 
     const onPreviousChallengesTitleClick = (e: any): void => {
         e.preventDefault();
@@ -70,24 +81,22 @@ const renderTitleAndSearchBar = (): JSX.Element => {
     };
 
     const onPlayAllButtonClick = (): void => {
-        /*        const audioList: ReactJkMusicPlayerAudioListProps[] = [];
-        this.challengesStore.challenges.payload!.map((previousEvent: IPreviousEvent) => {
-            previousEvent.description
-                ?.filter((submission: IEventSubmission) => submission.type === 'music')
-                .map((submission) => {
-                    audioList.push(
-                        audioPlayerStore.mapToAudioList({
-                            artistName: submission.user,
-                            eventName: previousEvent.name,
-                            musicSrc: submission.fileUrl,
-                            cover: previousEvent.description?.filter(
-                                (submission: IEventSubmission) => submission.type === 'art',
-                            )[0].fileUrl,
-                        }),
-                    );
-                });
-        });
-        audioPlayerStore.setAudioList(audioList);*/
+        const artList = entriesStore.entries.payload
+            ? entriesStore.entries.payload.filter((entry) => entry.entryType === 'ART')
+            : [];
+        const audioList: ReactJkMusicPlayerAudioListProps[] = [];
+
+        entriesStore.musicEntries.forEach((entry: IEntry) =>
+            audioList.push(
+                audioPlayerStore.mapToAudioList({
+                    artistName: usersStore.users.payload!.find((user) => user.id === entry.userId)!.name,
+                    eventName: challengesStore.getChallengeFromEntry(entry).name,
+                    musicSrc: entry.fileUrl,
+                    cover: artList.find((art) => art.challengeNumber === entry.challengeNumber)?.fileUrl,
+                }),
+            ),
+        );
+        audioPlayerStore.setAudioList(audioList);
     };
 
     const renderQuickFilters = (): JSX.Element => {
@@ -234,7 +243,7 @@ const renderPreviousEventBoxes = (): JSX.Element => {
     }
 
     return (
-        <div className="playlist-wrapper">
+        <div>
             <div className="playlist-flex">
                 {challenges.payload
                     .slice()
@@ -251,11 +260,22 @@ const renderPreviousEventBoxes = (): JSX.Element => {
                         return (
                             <Grow key={i} in={true} style={{ transformOrigin: '0 0 0' }} {...{ timeout: i * 200 }}>
                                 <div>
-                                    <img
-                                        src={cover}
-                                        alt={challenge.name}
-                                        onClick={onChangeAudioList(challenge, artEntry)}
-                                    />
+                                    <div className="previous-event-box-container">
+                                        <img
+                                            src={cover}
+                                            alt={challenge.name}
+                                            onClick={onChangeAudioList(challenge, artEntry)}
+                                        />
+                                        {artEntry && (
+                                            <div className="bottom-center">
+                                                <Chip
+                                                    variant="outlined"
+                                                    size="small"
+                                                    label={entriesStore.getUserNameFromId(artEntry.userId)}
+                                                />
+                                            </div>
+                                        )}
+                                    </div>
                                     <Typography variant="subtitle1" align="center">
                                         {challenge.name} (#{challenge.challengeNumber})
                                     </Typography>
@@ -273,7 +293,11 @@ const renderPreviousEventBoxes = (): JSX.Element => {
                     <Typography display="inline" color="textPrimary">
                         {previousEventsStore.totalMusicCount}
                     </Typography>{' '}
-                    sample flips in total
+                    sample flips from{' '}
+                    <Typography display="inline" color="textPrimary">
+                        {usersStore.filteredUsersWithMusicEntries.length}
+                    </Typography>{' '}
+                    people
                 </Typography>
             </Box>
         </div>

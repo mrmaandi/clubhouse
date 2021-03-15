@@ -4,10 +4,6 @@
   background-color: #141414;
 }
 
-.playlist-wrapper {
-  padding-bottom: 30px;
-}
-
 .playlist-flex {
   overflow-x:auto;
   flex-wrap: nowrap;
@@ -45,4 +41,17 @@
 
 .playlist-flex div:first-child {
   margin-left: 0;
+}
+
+.previous-event-box-container {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.bottom-center {
+  position: absolute;
+  bottom: 14px;
+  left: -10px;
+  right: 0;
 }

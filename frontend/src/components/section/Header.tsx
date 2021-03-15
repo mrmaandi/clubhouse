@@ -5,9 +5,69 @@ import LockOpenIcon from '@material-ui/icons/LockOpen';
 import { useRootStore } from './Wrapper';
 import { observer } from 'mobx-react';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import TodayIcon from '@material-ui/icons/Today';
 
 const Header: FC = () => {
-    const { modalStore } = useRootStore();
+    const { modalStore, searchStore } = useRootStore();
+
+    const addNewChallengeButton = (): JSX.Element => {
+        return (
+            <Box pr={1} display="inline">
+                <Button
+                    size="small"
+                    color="secondary"
+                    type="button"
+                    variant="contained"
+                    disabled
+                    onClick={modalStore.handleOpen}
+                    startIcon={<TodayIcon />}
+                >
+                    Add new challenge
+                </Button>
+            </Box>
+        );
+    };
+
+    const addFlipsButton = (): JSX.Element => {
+        return (
+            <Box pr={1} display="inline">
+                <Button
+                    size="small"
+                    color="default"
+                    type="button"
+                    variant="outlined"
+                    onClick={modalStore.handleOpen}
+                    startIcon={<CloudUploadIcon />}
+                >
+                    Add flips
+                </Button>
+            </Box>
+        );
+    };
+
+    const authenticationButton = (): JSX.Element => {
+        return (
+            <Tooltip
+                title="You will be able to authenticate yourself with Discord to create playlists, view your personal sample flips, etc. This is a work in progress. It will come when it's ready."
+                placement="bottom"
+            >
+                <Box display="inline">
+                    <Button
+                        disabled
+                        variant="contained"
+                        size="small"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            window.location.reload();
+                        }}
+                        startIcon={<LockOpenIcon />}
+                    >
+                        <Box display="inline">Authenticate with Discord</Box>
+                    </Button>
+                </Box>
+            </Tooltip>
+        );
+    };
 
     return (
         <div className="main-header">
@@ -25,7 +85,7 @@ const Header: FC = () => {
                                     size="large"
                                     onClick={(e) => {
                                         e.preventDefault();
-                                        window.location.reload();
+                                        searchStore.clearSearchValue();
                                     }}
                                 >
                                     <Typography display="inline">
@@ -38,52 +98,11 @@ const Header: FC = () => {
                                     </Typography>
                                 </Button>
                             </Grid>
-                            {/*                            <Grid item>
-                                                            <Box pr={1} display="inline">
-                                <Button
-                                    size="small"
-                                    color="secondary"
-                                    type="button"
-                                    variant="contained"
-                                    disabled
-                                    onClick={modalStore.handleOpen}
-                                    startIcon={<TodayIcon />}
-                                >
-                                    Add new challenge
-                                </Button>
-                            </Box>
-                                <Box pr={1} display="inline">
-                                    <Button
-                                        size="small"
-                                        color="default"
-                                        type="button"
-                                        variant="outlined"
-                                        onClick={modalStore.handleOpen}
-                                        startIcon={<CloudUploadIcon />}
-                                    >
-                                        Add flips
-                                    </Button>
-                                </Box>
-                                <Tooltip
-                                    title="You will be able to authenticate yourself with Discord to create playlists, view your personal sample flips, etc. This is a work in progress. It will come when it's ready."
-                                    placement="bottom"
-                                >
-                                    <Box display="inline">
-                                        <Button
-                                            disabled
-                                            variant="contained"
-                                            size="small"
-                                            onClick={(e) => {
-                                                e.preventDefault();
-                                                window.location.reload();
-                                            }}
-                                            startIcon={<LockOpenIcon />}
-                                        >
-                                            <Box display="inline">Authenticate with Discord</Box>
-                                        </Button>
-                                    </Box>
-                                </Tooltip>
-                            </Grid>*/}
+                            <Grid item>
+                                {/*{addFlipsButton()}*/}
+                                {/*{addNewChallengeButton()}
+                                {authenticationButton()}*/}
+                            </Grid>
                         </Grid>
                     </Box>
                 </Container>

@@ -28,6 +28,23 @@ export class EntriesStore {
         await entries;
     }
 
+    public get musicEntries(): IEntry[] {
+        if (!this.entries.payload) {
+            return [];
+        }
+        return this.entries.payload.filter((entry) => entry.entryType === 'MUSIC');
+    }
+
+    public getUserNameFromId(userId: number): string {
+        const users = this.rootStore.usersStore.users.payload;
+
+        if (!users) {
+            return '';
+        }
+
+        return users.find((user) => user.id === userId)!.name;
+    }
+
     setEntries = (entries: Loadable<IEntry[]>): void => {
         this.entries = entries;
     };

@@ -25,6 +25,18 @@ export class UsersStore {
         await users;
     }
 
+    public get filteredUsersWithMusicEntries(): IUser[] {
+        if (!this.users.payload) {
+            return [];
+        }
+
+        return this.users.payload.filter((user) =>
+            this.rootStore.entriesStore.entries.payload?.find(
+                (entry) => entry.userId === user.id && entry.entryType === 'MUSIC',
+            ),
+        )!;
+    }
+
     setUsers = (users: Loadable<IUser[]>): void => {
         this.users = users;
     };
