@@ -33,9 +33,9 @@ class Wrapper extends React.Component {
                     <Header />
                     <MainContainer />
                     <Footer />
-                    <AudioPlayer />
-
                     <AddFilesToChallengeModal />
+
+                    <AudioPlayer />
                 </RootStoreProvider>
             </ErrorBoundary>
         );

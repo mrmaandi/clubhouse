@@ -2,6 +2,7 @@
 @import "../styles/backdrop";
 @import "../styles/header";
 @import "../styles/playlist";
+@import "../styles/spotlight";
 
 html, body {
   max-width: 100%;
@@ -23,6 +24,7 @@ html, body {
 .main-footer {
   display: block;
   height: 150px;
+  background: #141414;
 
 /*  background-image: url('../assets/flipbg.png');
   background-repeat: no-repeat;

@@ -5,7 +5,7 @@ class Footer extends React.Component {
     render(): JSX.Element {
         return (
             <div className="main-footer">
-                <Box my={3}>
+                <Box my={3} pt={2}>
                     <Typography align="center" variant="body2" color="textSecondary">
                         Big thanks to everyone for their art and music
                         <br />

@@ -1,43 +1,12 @@
 import React, { FC, useEffect } from 'react';
-import { Box, Container, Divider, Hidden } from '@material-ui/core';
+import { Box, CircularProgress, Divider, Grid, Hidden, Typography } from '@material-ui/core';
+import Countdown from './Countdown';
+import { useRootStore } from '../section/Wrapper';
 import { observer } from 'mobx-react';
-import { useRootStore } from './Wrapper';
-import TwitchEmbed from '../etc/TwitchEmbed';
-import sample from '../../assets/club.mp4';
-import NextEventCountdown from '../etc/NextEventCountdown';
 
-const NextEvent: FC = () => {
+const NextEventCountdown: FC = () => {
     const { nextEventsStore } = useRootStore();
-
-    useEffect(() => {
-        nextEventsStore.fetchNextEvents();
-    });
-
-    return render();
-};
-
-const render = (): JSX.Element => {
-    const { nextEventsStore } = useRootStore();
-
-    const eventCountdownView = (): JSX.Element => {
-        return (
-            <>
-                <Hidden smDown>
-                    <video className="videoTag" autoPlay loop muted>
-                        <source src={sample} type="video/mp4" />
-                    </video>
-                </Hidden>
-                <div className="overlay">
-                    <div className="background" />
-                    <div className="overlay-content">
-                        <NextEventCountdown />
-                        <Divider light style={{ marginBottom: '10px', marginTop: '10px' }} />
-                        {getShortcuts()}
-                    </div>
-                </div>
-            </>
-        );
-    };
+    const { nextEvents } = nextEventsStore;
 
     const getShortcuts = (): JSX.Element => {
         return (
@@ -76,15 +45,45 @@ const render = (): JSX.Element => {
         );
     };
 
-    const activeEventView = (): JSX.Element => {
-        return (
-            <Container maxWidth="lg">
-                <TwitchEmbed />
-            </Container>
+    const render = () => {
+        return nextEvents.isInitialLoading ? (
+            <Typography align="center" color="textSecondary">
+                Loading next event data...
+                <br />
+                <CircularProgress color="inherit" />
+            </Typography>
+        ) : nextEvents.payload ? (
+            <Hidden smDown>
+                <Box fontSize={22}>
+                    <Typography align="center" color="textSecondary">
+                        New Production Challenge In:
+                    </Typography>
+                </Box>
+                <Countdown date={new Date(nextEvents.payload[0].start)} />
+                <Divider light style={{ marginBottom: '10px', marginTop: '10px' }} />
+                {getShortcuts()}
+            </Hidden>
+        ) : nextEvents.hasError ? (
+            <Typography align="center">There was a problem loading next event info</Typography>
+        ) : (
+            <>
+                <Box fontWeight="500" fontSize={24}>
+                    <Typography align="center">Sorry, currently no new events are added in the calendar</Typography>
+                </Box>
+                <Box>
+                    <Typography variant="subtitle2" align="center" color="textSecondary">
+                        (They need to be manually added)
+                    </Typography>
+                </Box>
+            </>
         );
     };
 
-    return <div className="backdrop">{nextEventsStore.isEventActive ? activeEventView() : eventCountdownView()}</div>;
+    useEffect(() => {
+        nextEventsStore.fetchNextEvents();
+    });
+
+    return render();
 };
 
-export default observer(NextEvent);
+export default observer(NextEventCountdown);

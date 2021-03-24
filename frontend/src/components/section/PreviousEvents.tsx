@@ -183,7 +183,7 @@ const renderTitleAndSearchBar = (): JSX.Element => {
 };
 
 const renderPreviousEventBoxes = (): JSX.Element => {
-    const { previousEventsStore, audioPlayerStore, challengesStore, entriesStore, usersStore } = useRootStore();
+    const { audioPlayerStore, challengesStore, entriesStore, usersStore } = useRootStore();
     const { challenges } = challengesStore;
 
     const onChangeAudioList = (challenge: IChallenge, artEntry?: IEntry) => (e: any): void => {
@@ -287,19 +287,6 @@ const renderPreviousEventBoxes = (): JSX.Element => {
                         );
                     })}
             </div>
-            <Box display="div" pt={2}>
-                <Typography color="textSecondary" variant="subtitle2" align="center">
-                    There are currently{' '}
-                    <Typography display="inline" color="textPrimary">
-                        {previousEventsStore.totalMusicCount}
-                    </Typography>{' '}
-                    sample flips from{' '}
-                    <Typography display="inline" color="textPrimary">
-                        {usersStore.filteredUsersWithMusicEntries.length}
-                    </Typography>{' '}
-                    people
-                </Typography>
-            </Box>
         </div>
     );
 };

@@ -1,5 +1,5 @@
 import { RootStore } from './RootStore';
-import { action, makeObservable, observable } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 import { getChallenges } from '../helpers/Requests';
 import { Loadable } from '../helpers/Loadable';
 import { IEntry } from './EntriesStore';
@@ -15,13 +15,10 @@ export class ChallengesStore {
     challenges: Loadable<IChallenge[]> = new Loadable<IChallenge[]>();
 
     constructor(private rootStore: RootStore) {
-        makeObservable(this, {
-            challenges: observable,
-            setChallenges: action,
-        });
+        makeAutoObservable(this);
     }
 
-    async fetchChallenges(): Promise<void> {
+    public async fetchChallenges(): Promise<void> {
         if (!this.challenges.isInitial) {
             await this.challenges.promise;
             return;
@@ -31,11 +28,20 @@ export class ChallengesStore {
         await challenges;
     }
 
-    setChallenges = (challenges: Loadable<IChallenge[]>): void => {
-        this.challenges = challenges;
+    public get latestChallenge(): IChallenge | null {
+        if (!this.challenges.payload) {
+            return null;
+        }
+        return this.challenges.payload
+            .slice()
+            .sort((a: IChallenge, b: IChallenge) => Date.parse(b.startTime) - Date.parse(a.startTime))[0];
+    }
+
+    public getChallengeFromEntry = (entry: IEntry): IChallenge => {
+        return this.challenges.payload!.find((challenge) => challenge.challengeNumber === entry.challengeNumber)!;
     };
 
-    getChallengeFromEntry = (entry: IEntry): IChallenge => {
-        return this.challenges.payload!.find((challenge) => challenge.challengeNumber === entry.challengeNumber)!;
+    private setChallenges = (challenges: Loadable<IChallenge[]>): void => {
+        this.challenges = challenges;
     };
 }
