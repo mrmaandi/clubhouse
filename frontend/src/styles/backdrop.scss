@@ -34,7 +34,7 @@
     z-index: 2;
   }
 
-  .overlay-art-top {
+/*   .overlay-art-top {
     background-image: url('../assets/Killjoys.png');
     background-position: top;
   }
@@ -42,7 +42,7 @@
   .overlay-art-bottom {
     background-image: url('../assets/Killjoys.png');
     background-position: bottom;
-  }
+  } */
 
   .overlay-content {
     z-index: 3;
@@ -57,7 +57,7 @@
     @media(max-width:959px){
       padding-top: 25px;
       padding-bottom: 25px;
-      background-image: url('../assets/flipbg.png');
+/*       background-image: url('../assets/flipbg.png'); */
       background-repeat: no-repeat;
       background-size: cover;
       background-position-y: bottom;

@@ -1,5 +1,5 @@
 import { RootStore } from './RootStore';
-import { action, makeObservable, observable } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 
 export class AddChallengesStore {
     challengeId = '';
@@ -8,16 +8,7 @@ export class AddChallengesStore {
     endDate: Date | null = new Date();
 
     constructor(private rootStore: RootStore) {
-        makeObservable(this, {
-            challengeId: observable,
-            challengeName: observable,
-            startDate: observable,
-            endDate: observable,
-            setChallengeId: action,
-            setChallengeName: action,
-            setStartDate: action,
-            setEndDate: action,
-        });
+        makeAutoObservable(this);
     }
 
     setChallengeId = (id: string): void => {

@@ -23,25 +23,36 @@ export class ChallengesStore {
             await this.challenges.promise;
             return;
         }
+
         const challenges: Promise<IChallenge[]> = getChallenges();
-        this.setChallenges(Loadable.toLoadable(challenges));
+        this.setChallenges(challenges)
         await challenges;
     }
 
     public get latestChallenge(): IChallenge | null {
-        if (!this.challenges.payload) {
+        if (!this.pastEvents) {
             return null;
         }
-        return this.challenges.payload
+
+        return this.pastEvents[0];
+    }
+
+    get pastEvents(): IChallenge[] {
+        return this.challenges.payload!
             .slice()
-            .sort((a: IChallenge, b: IChallenge) => Date.parse(b.startTime) - Date.parse(a.startTime))[0];
+            .sort((a: IChallenge, b: IChallenge) => Date.parse(b.startTime) - Date.parse(a.startTime))
+            .filter(challenge => Date.parse(challenge.startTime) < Date.now());
+    }
+
+    get upcomingEvent(): IChallenge | undefined {
+        return this.challenges.payload?.find(challenge => Date.parse(challenge.startTime) >= Date.now())
     }
 
     public getChallengeFromEntry = (entry: IEntry): IChallenge => {
         return this.challenges.payload!.find((challenge) => challenge.challengeNumber === entry.challengeNumber)!;
     };
 
-    private setChallenges = (challenges: Loadable<IChallenge[]>): void => {
-        this.challenges = challenges;
+    private setChallenges = (challenges: Promise<IChallenge[]>): void => {
+        this.challenges = Loadable.toLoadable(challenges);
     };
 }

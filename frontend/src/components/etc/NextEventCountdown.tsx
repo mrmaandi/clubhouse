@@ -1,12 +1,12 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import { Box, CircularProgress, Divider, Grid, Hidden, Typography } from '@material-ui/core';
 import Countdown from './Countdown';
 import { useRootStore } from '../section/Wrapper';
 import { observer } from 'mobx-react';
 
 const NextEventCountdown: FC = () => {
-    const { nextEventsStore } = useRootStore();
-    const { nextEvents } = nextEventsStore;
+    const { challengesStore } = useRootStore();
+    const { challenges, upcomingEvent } = challengesStore;
 
     const getShortcuts = (): JSX.Element => {
         return (
@@ -46,42 +46,51 @@ const NextEventCountdown: FC = () => {
     };
 
     const render = () => {
-        return nextEvents.isInitialLoading ? (
-            <Typography align="center" color="textSecondary">
-                Loading next event data...
-                <br />
-                <CircularProgress color="inherit" />
-            </Typography>
-        ) : nextEvents.payload ? (
+        if (challenges.isInitialLoading) {
+            return (
+                <Typography align="center" color="textSecondary">
+                    Loading next event data...
+                    <br />
+                    <CircularProgress color="inherit" />
+                </Typography>
+            );
+        }
+
+        if (challenges.hasError) {
+            return (
+                <Typography align="center">There was a problem loading next event info</Typography>
+            );
+        }
+
+        
+        if (!upcomingEvent) {
+            return (
+                <>
+                    <Box fontWeight="500" fontSize={24}>
+                        <Typography align="center">Sorry, currently no new events are added yet</Typography>
+                    </Box>
+                    <Box>
+                        <Typography variant="subtitle2" align="center" color="textSecondary">
+                            (they need to be manually added)
+                        </Typography>
+                    </Box>
+                </>
+            );
+        }
+
+        return (
             <Hidden smDown>
                 <Box fontSize={22}>
                     <Typography align="center" color="textSecondary">
                         New Production Challenge In:
                     </Typography>
                 </Box>
-                <Countdown date={new Date(nextEvents.payload[0].start)} />
+                <Countdown date={new Date(upcomingEvent.startTime)} />
                 <Divider light style={{ marginBottom: '10px', marginTop: '10px' }} />
                 {getShortcuts()}
             </Hidden>
-        ) : nextEvents.hasError ? (
-            <Typography align="center">There was a problem loading next event info</Typography>
-        ) : (
-            <>
-                <Box fontWeight="500" fontSize={24}>
-                    <Typography align="center">Sorry, currently no new events are added in the calendar</Typography>
-                </Box>
-                <Box>
-                    <Typography variant="subtitle2" align="center" color="textSecondary">
-                        (They need to be manually added)
-                    </Typography>
-                </Box>
-            </>
         );
     };
-
-    useEffect(() => {
-        nextEventsStore.fetchNextEvents();
-    });
 
     return render();
 };

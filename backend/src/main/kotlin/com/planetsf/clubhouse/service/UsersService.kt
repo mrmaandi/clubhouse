@@ -13,7 +13,7 @@ class UsersService(
         return usersRepository.getUsers()
     }
 
-    fun addUser(userName: String): Long {
-        return usersRepository.addUser(userName)
+    fun addUser(userName: String) {
+        usersRepository.addUser(userName)
     }
 }

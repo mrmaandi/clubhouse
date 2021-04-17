@@ -1,4 +1,3 @@
-import { IEvent } from '../store/NextEventStore';
 import { DropzoneFile } from '../store/DropzoneStore';
 import { IChallenge } from '../store/ChallengesStore';
 import { readFile } from './FileUtil';
@@ -14,10 +13,6 @@ interface FileUploadRequest {
     fileName: string;
     fileContent: string;
 }
-
-export const getNextEvents = (): Promise<IEvent[]> => {
-    return getRequest('/api/calendar/next');
-};
 
 export const getChallenges = (): Promise<IChallenge[]> => {
     return getRequest('/api/challenges');
