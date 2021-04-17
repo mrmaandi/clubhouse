@@ -13,7 +13,7 @@ class Footer extends React.Component {
                         <br />
                         <Box fontWeight={800}>
                             <Link color="inherit" href="https://www.linkedin.com/in/villem-maandi-0b0b48189/">
-                                VILLEM / KUKUALLA © 2021
+                                VilleM © 2021
                             </Link>
                         </Box>
                     </Typography>

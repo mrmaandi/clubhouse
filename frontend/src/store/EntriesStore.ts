@@ -61,7 +61,7 @@ export class EntriesStore {
             return [];
         }
         const groupedEntries: IEntriesByChallenge[] = [];
-        this.rootStore.challengesStore.challenges.payload.forEach((challenge) =>
+        this.rootStore.challengesStore.pastEvents.forEach((challenge) =>
             groupedEntries.push({
                 challenge,
                 entries: this.musicEntriesByChallengeNumber(challenge.challengeNumber),
@@ -72,7 +72,7 @@ export class EntriesStore {
         });
     }
 
-    public get latestChallenge(): IEntriesByChallenge {
+    public get previousChallenge(): IEntriesByChallenge {
         return this.groupedEntriesByChallengeId
             .slice()
             .sort(
@@ -82,12 +82,13 @@ export class EntriesStore {
     }
 
     public get latestChallengeArtEntry(): IEntry | null {
-        const latestChallenge = this.rootStore.challengesStore.latestChallenge;
+        const { latestChallenge } = this.rootStore.challengesStore;
+
         if (!latestChallenge) {
             return null;
         }
-        const latestChallengeNumber = latestChallenge.challengeNumber;
-        return this.artEntriesByChallengeNumber(latestChallengeNumber)[0];
+
+        return this.artEntriesByChallengeNumber(latestChallenge.challengeNumber)[0];
     }
 
     public getUserNameFromId(userId: number): string {

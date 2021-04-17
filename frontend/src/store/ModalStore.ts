@@ -1,16 +1,11 @@
 import { RootStore } from './RootStore';
-import { action, makeObservable, observable } from 'mobx';
-import { ReactJkMusicPlayerAudioListProps } from 'react-jinke-music-player';
+import { makeAutoObservable } from 'mobx';
 
 export class ModalStore {
     isModalOpen = false;
 
     constructor(private rootStore: RootStore) {
-        makeObservable(this, {
-            isModalOpen: observable,
-            handleClose: action,
-            handleOpen: action,
-        });
+        makeAutoObservable(this);
     }
 
     handleClose = (): void => {

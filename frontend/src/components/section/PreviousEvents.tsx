@@ -22,7 +22,7 @@ import { IChallenge } from '../../store/ChallengesStore';
 import { IEntry } from '../../store/EntriesStore';
 import missingCoverArt from '../../assets/missing-cover.png';
 
-const PreviousEvents: FC = () => {
+const PreviousEvents: FC = (): JSX.Element => {
     const { challengesStore, previousEventsStore, entriesStore } = useRootStore();
 
     useEffect(() => {
@@ -50,7 +50,7 @@ const renderTitleAndSearchBar = (): JSX.Element => {
         searchStore.clearSearchValue();
     };
 
-    const sectionTitle = () => {
+    const sectionTitle = (): JSX.Element => {
         return (
             <Button
                 fullWidth
@@ -66,7 +66,7 @@ const renderTitleAndSearchBar = (): JSX.Element => {
         );
     };
 
-    const playAllButton = () => {
+    const playAllButton = (): JSX.Element => {
         return (
             <Button
                 startIcon={<PlayArrowOutlinedIcon />}

@@ -81,7 +81,7 @@ const AddFilesToChallengeModal: FC = () => {
         );
     };
 
-    const renderAddEntriesSection = () => {
+    const renderAddEntriesSection = (): JSX.Element | null => {
         if (!challengesStore.challenges.payload) {
             return null;
         }
@@ -250,9 +250,8 @@ const AddFilesToChallengeModal: FC = () => {
     });
 
     return (
-        <DialogComponent title="Create challenges and add files" onSubmit={dropzoneStore.handleFileUpload}>
+        <DialogComponent title="Add entries" onSubmit={dropzoneStore.handleFileUpload}>
             <div>
-                {/*{renderAddChallengeSection()}*/}
                 {renderAddEntriesSection()}
             </div>
         </DialogComponent>
