@@ -1,14 +1,11 @@
 import { RootStore } from './RootStore';
-import { action, makeObservable, observable } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 
 export class SecurityStore {
     securityToken = '';
 
     constructor(private rootStore: RootStore) {
-        makeObservable(this, {
-            securityToken: observable,
-            setSecurityToken: action,
-        });
+        makeAutoObservable(this);
     }
 
     setSecurityToken = (value: string) => {

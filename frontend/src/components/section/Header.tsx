@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Box, Button, Container, Grid, Tooltip, Typography } from '@material-ui/core';
+import { Box, Button, Container, Grid, IconButton, Tooltip, Typography } from '@material-ui/core';
 import logo from '../../assets/monke.png';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import { useRootStore } from './Wrapper';
@@ -31,16 +31,11 @@ const Header: FC = () => {
     const addFlipsButton = (): JSX.Element => {
         return (
             <Box pr={1} display="inline">
-                <Button
+                <IconButton
                     size="small"
                     color="default"
-                    type="button"
-                    variant="outlined"
                     onClick={modalStore.handleOpen}
-                    startIcon={<CloudUploadIcon />}
-                >
-                    Add flips
-                </Button>
+                ><CloudUploadIcon /></IconButton>
             </Box>
         );
     };
@@ -99,7 +94,7 @@ const Header: FC = () => {
                                 </Button>
                             </Grid>
                             <Grid item>
-                                {/*{addFlipsButton()}*/}
+                                {addFlipsButton()}
                                 {/*{addNewChallengeButton()}
                                 {authenticationButton()}*/}
                             </Grid>

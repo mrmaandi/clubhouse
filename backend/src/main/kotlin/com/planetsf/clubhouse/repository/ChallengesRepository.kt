@@ -13,7 +13,7 @@ class ChallengesRepository(val jdbcTemplate: JdbcTemplate) {
     fun getChallenges(): List<Challenge> {
         val sql = "SELECT * FROM challenges"
 
-        val challenges: List<Challenge> = jdbcTemplate.query(sql) { rs: ResultSet, _: Int ->
+        return jdbcTemplate.query(sql) { rs: ResultSet, _: Int ->
             Challenge(
                 id = rs.getInt("id").toLong(),
                 challengeNumber = rs.getInt("challenge_number").toLong(),
@@ -22,13 +22,12 @@ class ChallengesRepository(val jdbcTemplate: JdbcTemplate) {
                 endTime = rs.getTimestamp("end_time").toLocalDateTime(),
             )
         }
-        return challenges
     }
 
     fun addChallenge(request: AddChallengeRequest) {
         val sql = "INSERT INTO challenges(challenge_number, name, start_time, end_time) VALUES (?, ?, ?, ?)"
 
-        val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+        val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("YYYY-MM-DD HH:mm")
 
         jdbcTemplate.update(
             sql,

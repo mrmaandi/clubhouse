@@ -1,5 +1,5 @@
 package com.planetsf.clubhouse.enum
 
-enum class EntryTypeEnum {
+enum class EntryType {
     ART, MUSIC, ORIGINAL_SAMPLE
 }
