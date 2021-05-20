@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Box, Button, Container, Grid, IconButton, Tooltip, Typography } from '@material-ui/core';
+import { Box, Button, Container, Grid, IconButton, Link, Tooltip, Typography } from '@material-ui/core';
 import logo from '../../assets/monke.png';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import { useRootStore } from './Wrapper';
@@ -39,6 +39,17 @@ const Header: FC = () => {
             </Box>
         );
     };
+
+    const downloadAll = (): JSX.Element => {
+        return (
+            <Box pr={2} display="inline" fontWeight={800}>
+                <Link href="https://drive.google.com/drive/folders/1DVWqHa1sXWTYW2lv0c1-LZPmHJ2etf44?usp=sharing" color="inherit" variant="button">
+                    Link for offline listening
+                </Link>
+            </Box>
+        );
+    };
+
 
     const authenticationButton = (): JSX.Element => {
         return (
@@ -94,6 +105,7 @@ const Header: FC = () => {
                                 </Button>
                             </Grid>
                             <Grid item>
+                                {downloadAll()}
                                 {addFlipsButton()}
                                 {/*{addNewChallengeButton()}
                                 {authenticationButton()}*/}

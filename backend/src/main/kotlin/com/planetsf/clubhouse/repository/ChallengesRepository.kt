@@ -1,7 +1,7 @@
 package com.planetsf.clubhouse.repository
 
 import com.planetsf.clubhouse.model.AddChallengeRequest
-import com.planetsf.clubhouse.model.Challenge
+import com.planetsf.clubhouse.dto.ChallengeDto
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.stereotype.Repository
 import java.sql.ResultSet
@@ -10,11 +10,11 @@ import java.time.format.DateTimeFormatter
 
 @Repository
 class ChallengesRepository(val jdbcTemplate: JdbcTemplate) {
-    fun getChallenges(): List<Challenge> {
+    fun getChallenges(): List<ChallengeDto> {
         val sql = "SELECT * FROM challenges"
 
         return jdbcTemplate.query(sql) { rs: ResultSet, _: Int ->
-            Challenge(
+            ChallengeDto(
                 id = rs.getInt("id").toLong(),
                 challengeNumber = rs.getInt("challenge_number").toLong(),
                 name = rs.getString("name"),
