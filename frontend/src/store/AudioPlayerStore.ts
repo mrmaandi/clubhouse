@@ -1,6 +1,6 @@
 import { RootStore } from './RootStore';
 import { makeAutoObservable } from 'mobx';
-import { ReactJkMusicPlayerAudioListProps } from 'react-jinke-music-player';
+import { ReactJkMusicPlayerAudioListProps, ReactJkMusicPlayerPlayMode } from 'react-jinke-music-player';
 
 export interface AudioList {
     eventName: string;
@@ -33,5 +33,19 @@ export class AudioPlayerStore {
             cover: audioList.cover,
             singer: audioList.artistName,
         };
+    };
+
+    onPlayModeChange = (playerMode: ReactJkMusicPlayerPlayMode): void => {
+        window.localStorage.setItem('playerMode', playerMode);
+    };
+
+    playMode = (): ReactJkMusicPlayerPlayMode => {
+        const playerMode = window.localStorage.getItem('playerMode');
+        
+        if (!playerMode) {
+            window.localStorage.setItem('playerMode', 'shufflePlay');
+        }
+
+        return playerMode as ReactJkMusicPlayerPlayMode;
     };
 }

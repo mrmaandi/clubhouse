@@ -1,8 +1,8 @@
-package com.planetsf.clubhouse.model
+package com.planetsf.clubhouse.dto
 
 import java.time.LocalDateTime
 
-data class Challenge (
+data class ChallengeDto (
     val id: Long,
     val challengeNumber: Long,
     val name: String,

@@ -1,6 +1,6 @@
 package com.planetsf.clubhouse.repository
 
-import com.planetsf.clubhouse.model.User
+import com.planetsf.clubhouse.dto.UserDto
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.stereotype.Repository
 import java.sql.ResultSet
@@ -8,11 +8,11 @@ import java.sql.ResultSet
 
 @Repository
 class UsersRepository(val jdbcTemplate: JdbcTemplate) {
-    fun getUsers(): List<User> {
+    fun getUsers(): List<UserDto> {
         val sql = "SELECT * FROM users;"
 
         return jdbcTemplate.query(sql) { rs: ResultSet, _: Int ->
-            User(
+            UserDto(
                 id = rs.getInt("id").toLong(),
                 name = rs.getString("name")
             )

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { observer } from 'mobx-react';
 import { useRootStore } from './Wrapper';
-import { Box, Button, Container, Grid, Typography } from '@material-ui/core';
+import { Box, Button, Container, Typography } from '@material-ui/core';
 import { Bar } from 'react-chartjs-2';
 import { IEntriesByChallenge } from '../../store/EntriesStore';
 import AlbumIcon from '@material-ui/icons/Album';

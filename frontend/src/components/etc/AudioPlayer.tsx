@@ -22,11 +22,13 @@ const AudioPlayer: FC = () => {
                     showThemeSwitch={false}
                     showLyric={false}
                     defaultPlayMode="shufflePlay"
-                    showDownload={false}
+                    playMode={audioPlayerStore.playMode()}
+                    showDownload={true}
                     theme="auto"
                     showReload={false}
                     showDestroy={false}
                     defaultPlayIndex={getRndInteger(0, audioList.length)}
+                    onPlayModeChange={audioPlayerStore.onPlayModeChange}
                 />
             </div>
         </div>

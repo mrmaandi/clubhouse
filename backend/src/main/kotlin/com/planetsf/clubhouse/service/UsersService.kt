@@ -1,6 +1,6 @@
 package com.planetsf.clubhouse.service
 
-import com.planetsf.clubhouse.model.User
+import com.planetsf.clubhouse.dto.UserDto
 import com.planetsf.clubhouse.repository.UsersRepository
 import org.springframework.stereotype.Service
 
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
 class UsersService(
     val usersRepository: UsersRepository
 ) {
-    fun getUsers(): List<User> {
+    fun getUsers(): List<UserDto> {
         return usersRepository.getUsers()
     }
 
